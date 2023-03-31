@@ -2,7 +2,9 @@ MACHINEOVERRIDES =. "mtk:"
 
 # Kernel
 KERNEL_CLASSES = "kernel-fitimage"
-KERNEL_IMAGETYPE = "fitImage"
+KERNEL_IMAGETYPE = "${@bb.utils.contains('MACHINE_FEATURES', 'efi', 'Image.gz', 'fitImage', d)}"
+KERNEL_IMAGETYPES:append = "${@bb.utils.contains('MACHINE_FEATURES', 'efi', ' fitImage', '', d)}"
+
 KERNEL_COMPRESSION = "gzip"
 
 # U-Boot
