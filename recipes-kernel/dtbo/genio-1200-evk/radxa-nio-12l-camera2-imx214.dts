@@ -1,0 +1,153 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2023 Radxa Limited.
+ *
+ */
+
+#include <dt-bindings/clock/mt8195-clk.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mt8195-pinfunc.h>
+
+/dts-v1/;
+/plugin/;
+
+#include "isp70.dtsi"
+#include "mtk-camera.dtsi"
+
+/ {
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			cam_vcam_3v3_en: cam_vcam_3v3_en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam_vcam_3v3_en";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				gpio = <&pio 105 GPIO_ACTIVE_HIGH>;
+				enable-active-high;
+				regulator-always-on;
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <&pio>;
+		__overlay__ {
+			camera_pins_cam0_rst_0: cam0@rst_0 {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO135__FUNC_GPIO135>;
+					output-low;
+				};
+			};
+			camera_pins_cam0_rst_1: cam0@rst_1 {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO135__FUNC_GPIO135>;
+					output-high;
+				};
+			};
+			camera_pins_cam1_mclk_off: cam1@mclk_off {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO23__FUNC_GPIO23>;
+					drive-strength = <MTK_DRIVE_4mA>;
+				};
+			};
+			camera_pins_cam1_mclk_2ma: cam1@mclk_2ma {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO23__FUNC_CMMCLK1>;
+					drive-strength = <MTK_DRIVE_2mA>;
+				};
+			};
+			camera_pins_cam1_mclk_4ma: cam1@mclk_4ma {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO23__FUNC_CMMCLK1>;
+					drive-strength = <MTK_DRIVE_4mA>;
+				};
+			};
+			camera_pins_cam1_mclk_6ma: cam1@mclk_6ma {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO23__FUNC_CMMCLK1>;
+					drive-strength = <MTK_DRIVE_6mA>;
+				};
+			};
+			camera_pins_cam1_mclk_8ma: cam1@mclk_8ma {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO23__FUNC_CMMCLK1>;
+					drive-strength = <MTK_DRIVE_8mA>;
+				};
+			};
+		};
+	};
+
+	fragment@6 {
+		target = <&i2c1>;
+		__overlay__ {
+			status = "okay";
+			clock-frequency = <400000>;
+
+			sensor0@1a {
+				compatible = "mediatek,imgsensor";
+				sensor-names = "imx214_mipi_raw";
+				reg = <0x1a>;
+				status = "okay";
+
+				pinctrl-names = "mclk_off",
+						"mclk_2mA",
+						"mclk_4mA",
+						"mclk_6mA",
+						"mclk_8mA",
+						"rst_low",
+						"rst_high";
+				pinctrl-0 = <&camera_pins_cam1_mclk_off>;
+				pinctrl-1 = <&camera_pins_cam1_mclk_2ma>;
+				pinctrl-2 = <&camera_pins_cam1_mclk_4ma>;
+				pinctrl-3 = <&camera_pins_cam1_mclk_6ma>;
+				pinctrl-4 = <&camera_pins_cam1_mclk_8ma>;
+				pinctrl-5 = <&camera_pins_cam0_rst_0>;
+				pinctrl-6 = <&camera_pins_cam0_rst_1>;
+				dvdd-supply = <&cam_vcam_3v3_en>;
+
+				clocks = <&topckgen CLK_TOP_UNIVPLL_192M_D32>,
+					<&topckgen CLK_TOP_UNIVPLL_192M_D16>,
+					<&topckgen CLK_TOP_CLK26M_D2>,
+					<&topckgen CLK_TOP_UNIVPLL_192M_D8>,
+					<&topckgen CLK_TOP_UNIVPLL_D6_D16>,
+					<&topckgen CLK_TOP_UNIVPLL_192M_D4>,
+					<&topckgen CLK_TOP_UNIVPLL_D6_D8>,
+					<&topckgen CLK_TOP_CAMTG2>;
+				clock-names = "6", "12", "13", "24", "26", "48", "52", "mclk";
+
+				port {
+					sensor1_out: endpoint {
+						remote-endpoint = <&seninf_csi_port_0_in>;
+						data-lanes = <1 2 3 4>;
+						link-frequencies = /bits/ 64 <480000000>;
+					};
+				};
+
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <&seninf_top>;
+		__overlay__ {
+			status = "okay";
+			seninf_csi_port_0: seninf_csi_port_0 {
+				compatible = "mediatek,seninf";
+				csi-port = "1";
+				port {
+					seninf_csi_port_0_in: endpoint {
+						remote-endpoint = <&sensor1_out>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@8 {
+		target = <&mtkcam0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};
