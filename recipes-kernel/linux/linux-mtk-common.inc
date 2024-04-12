@@ -27,16 +27,19 @@ SRC_URI:append:mt8365-evk = " file://mt8365-evk.cfg "
 
 # SoC specific config fragments
 SRC_URI:append:mt8195 = " \
+	file://sof.cfg \
 	file://mt8195.cfg \
 	${@bb.utils.contains('MACHINE_FEATURES', 'tsn', 'file://tsn.cfg', '', d)} \
 "
 SRC_URI:append:mt8365 = " file://mt8365.cfg "
 SRC_URI:append:mt8188 = " \
+	file://sof.cfg \
 	file://mt8188.cfg \
 	${@bb.utils.contains('MACHINE_FEATURES', 'tsn', 'file://tsn.cfg', '', d)} \
 "
 
 SRC_URI:append:mt8370 = " \
+	file://sof.cfg \
 	file://mt8370.cfg \
 	${@bb.utils.contains('MACHINE_FEATURES', 'tsn', 'file://tsn.cfg', '', d)} \
 "
