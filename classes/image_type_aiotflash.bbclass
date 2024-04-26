@@ -18,19 +18,22 @@ DEPENDS += "dtc-native"
 
 check_bl31_size () {
 	BL31_LD_PATH="${DEPLOY_DIR_IMAGE}/bl31.ld"
-	DTB="${DEPLOY_DIR_IMAGE}/`basename ${KERNEL_DEVICETREE}`"
 
-	# Compute bl31 size
-	BL31_LENGTH=`grep -o -P '(?<=, LENGTH = ).*(?=$)' ${BL31_LD_PATH}`
-	BL31_LENGTH=`python3 -c "print(${BL31_LENGTH} + 0x1000)"`
+	for p in ${KERNEL_DEVICETREE}; do
+		DTB="${DEPLOY_DIR_IMAGE}/`basename $p`"
 
-	# Parse Kernel reserved size for bl31
-	KERNEL_BL31_RESERVED_SIZE=`fdtget ${DTB} /reserved-memory/secmon reg | awk '{print $4}'`
+		# Compute bl31 size
+		BL31_LENGTH=`grep -o -P '(?<=, LENGTH = ).*(?=$)' ${BL31_LD_PATH}`
+		BL31_LENGTH=`python3 -c "print(${BL31_LENGTH} + 0x1000)"`
 
-	if [ ${KERNEL_BL31_RESERVED_SIZE} -lt ${BL31_LENGTH} ]; then
-		bbfatal "Kernel does not reserve enough memory for bl31 (${KERNEL_BL31_RESERVED_SIZE} bytes < ${BL31_LENGTH} bytes)," \
-			"increase it in \"secmon\" Kernel's DT node!"
-	fi
+		# Parse Kernel reserved size for bl31
+		KERNEL_BL31_RESERVED_SIZE=`fdtget ${DTB} /reserved-memory/secmon reg | awk '{print $4}'`
+
+		if [ ${KERNEL_BL31_RESERVED_SIZE} -lt ${BL31_LENGTH} ]; then
+			bbfatal "Kernel does not reserve enough memory for bl31 (${KERNEL_BL31_RESERVED_SIZE} bytes < ${BL31_LENGTH} bytes)," \
+				"increase it in \"secmon\" Kernel's DT node!"
+		fi
+	done
 }
 
 IMAGE_CMD:aiotflash () {
