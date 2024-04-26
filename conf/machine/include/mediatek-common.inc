@@ -23,9 +23,16 @@ PREFERRED_VERSION_optee-test ?= "3.19"
 OPTEE_TZDRAM_START ?= "0x43200000"
 OPTEE_TZDRAM_SIZE  ?= "0x00a00000"
 
+def get_devicetree_basename(paths):
+    import os
+    tmp = []
+    for p in paths.split(" "):
+        tmp.append(os.path.basename(p))
+    return " ".join(tmp)
+
 IMAGE_BOOT_FILES = " \
 	${KERNEL_IMAGETYPE} \
-	${@bb.utils.contains('KERNEL_IMAGETYPE', 'fitImage', '', os.path.basename("${KERNEL_DEVICETREE}"), d)} \
+	${@bb.utils.contains('KERNEL_IMAGETYPE', 'fitImage', '', get_devicetree_basename("${KERNEL_DEVICETREE}"), d)} \
 "
 
 IMAGE_FSTYPES ?= "wic.img aiotflash.tar"
