@@ -13,6 +13,11 @@ FWUPDATE_TFA_ARGS = " \
 	--monotonic-count 1 --instance 0 --index 1 --guid ${FWUPDATE_TFA_ID} ${B}/bl2.img ${DEPLOYDIR}/${FWUPDATE_TFA} \
 "
 
+SIGN_EN_ARGS:mt8395 = "-s 0"
+SIGN_EN_ARGS:mt8390 = "-s 1"
+SIGN_EN_ARGS:mt8370 = "-s 1"
+SIGN_EN_ARGS:mt8365 = "-s 0"
+
 do_gen_bl2_img() {
 	media="emmc"
 	if [ "${@bb.utils.contains('MACHINE_FEATURES', 'ufs-boot', 'ufs-boot', '', d)}" = "ufs-boot" ]; then
@@ -28,10 +33,10 @@ do_gen_bl2_img() {
 		python3 -m sign-image_v2.pbp \
 				-i ${RECIPE_SYSROOT}/${sysconfdir}/secure/key.ini \
 				-g ${RECIPE_SYSROOT}/${sysconfdir}/secure/pl_gfh_config_pss.ini \
-				-func sign -o ${B}/bl2.img ${B}/bl2.img
+				-func sign -o ${B}/bl2.img ${B}/bl2.img ${SIGN_EN_ARGS}
 		python3 -m secure_chip_tools.dev-info-hdr-tool $media ${B}/bl2.img ${B}/bl2.img
 		python3 -m sign-image_v2.pbp \
-				-j ${RECIPE_SYSROOT}/${sysconfdir}/secure/sbc.pem -func keyhash_pss -o ${DEPLOYDIR}/secure/keyhash
+				-j ${RECIPE_SYSROOT}/${sysconfdir}/secure/sbc.pem -func keyhash_pss -o ${DEPLOYDIR}/secure/keyhash ${SIGN_EN_ARGS}
 	else
 		cp ${B}/${TFA_PLATFORM}/release/bl2.bin ${B}/bl2.img.tmp
 		truncate -s%4 ${B}/bl2.img.tmp
