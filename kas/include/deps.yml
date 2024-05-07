@@ -5,14 +5,14 @@ repos:
   meta-openembedded:
     url: https://git.openembedded.org/meta-openembedded
     path: layers/meta-openembedded
-    refspec: kirkstone
+    refspec: scarthgap
     layers:
       meta-oe:
       meta-python:
   meta-arm:
     url: https://git.yoctoproject.org/git/meta-arm
     path: layers/meta-arm
-    refspec: kirkstone
+    refspec: scarthgap
     layers:
       meta-arm:
       meta-arm-toolchain:

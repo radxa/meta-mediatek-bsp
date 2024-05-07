@@ -28,6 +28,6 @@ pages:
     - public
   only:
     refs:
-    - kirkstone
+    - scarthgap
     changes:
     - docs/**/*

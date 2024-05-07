@@ -10,7 +10,7 @@ repos:
   poky:
     url: https://git.yoctoproject.org/git/poky
     path: layers/poky
-    refspec: kirkstone
+    refspec: scarthgap
     layers:
       meta:
       meta-poky:
