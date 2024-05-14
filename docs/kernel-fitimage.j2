@@ -18,9 +18,10 @@
 			};
 		};
 
-		fdt-KERNEL_DEVICETREE_ESCAPED {
+		{% for dtb in devicetrees %}
+		fdt-{{ dtb|slashescape }} {
 			description = "Flattened Device Tree blob";
-			data = /incbin/("arch/arm64/boot/dts/KERNEL_DEVICETREE");
+			data = /incbin/("arch/arm64/boot/dts/{{ dtb }}");
 			type = "flat_dt";
 			arch = "arm64";
 			compression = "none";
@@ -29,19 +30,22 @@
 				algo = "sha1";
 			};
 		};
+		{% endfor %}
 	};
 
 	configurations {
-		default = "conf-KERNEL_DEVICETREE_ESCAPED";
+		default = "conf-{{ default_dtb|slashescape }}";
 
-		conf-KERNEL_DEVICETREE_ESCAPED {
+		{% for dtb in devicetrees %}
+		conf-{{ dtb|slashescape }} {
 			description = "1 Linux kernel, FDT blob";
 			kernel = "kernel-1";
-			fdt = "fdt-KERNEL_DEVICETREE_ESCAPED";
+			fdt = "fdt-{{ dtb|slashescape }}";
 			hash-1 {
 				algo = "sha1";
 			};
 		};
+		{% endfor %}
 	};
 };
 
