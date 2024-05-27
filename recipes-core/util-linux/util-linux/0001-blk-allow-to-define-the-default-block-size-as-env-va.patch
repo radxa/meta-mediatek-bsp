@@ -8,6 +8,8 @@ of 512 bytes block size is used. For UFS on the MTK board we need
 to support 4kB block size. Allow to set a different default value
 through the environment.
 
+Upstream-Status: Pending
+
 Signed-off-by: Fabien Parent <fparent@baylibre.com>
 ---
  include/blkdev.h |  5 ++++-
