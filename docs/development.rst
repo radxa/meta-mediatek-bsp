@@ -150,14 +150,17 @@ Generating the image-tree script
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 fitImage are created using image-tree scripts (its). A template exists
-under `docs/kernel-fitimage.its`.
+under `docs/kernel-fitimage.j2`.
 
 In order to generate the correct image-tree script for the MACHINE you are using,
 please run the following command:
 
 .. prompt:: bash $
 
-	$RITYDIR/src/meta-mediatek-bsp/scripts/generate_kernel_its.sh $RITYDIR $MACHINE $IMAGENAME
+	$RITYDIR/src/meta-mediatek-bsp/scripts/generate_kernel_its.py $RITYDIR $MACHINE $IMAGENAME
+
+Please note the Python script requires the module `Jinja2 <https://jinja.palletsprojects.com/en/3.1.x/>`_
+to be installed.
 
 Building the kernel fitImage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
