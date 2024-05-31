@@ -14,7 +14,7 @@
 			load = <0x40200000>;
 			entry = <0x40200000>;
 			hash-1 {
-				algo = "sha1";
+				algo = "sha256";
 			};
 		};
 
@@ -27,7 +27,7 @@
 			compression = "none";
 			load = <0x44000000>;
 			hash-1 {
-				algo = "sha1";
+				algo = "sha256";
 			};
 		};
 		{% endfor %}
@@ -42,7 +42,7 @@
 			kernel = "kernel-1";
 			fdt = "fdt-{{ dtb|slashescape }}";
 			hash-1 {
-				algo = "sha1";
+				algo = "sha256";
 			};
 		};
 		{% endfor %}
