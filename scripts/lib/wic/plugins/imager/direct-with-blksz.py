@@ -75,7 +75,7 @@ class DirectWithBlockSizePlugin(ImagerPlugin):
                 self.ks.bootloader.source = part.source
                 break
 
-        image_path = self._full_path(self.workdir, self.parts[0].disk, "direct")
+        image_path = self._full_path(self.workdir, self.parts[0].disk, "direct-with-blksz")
         self._image = PartitionedImage(image_path, self.ptable_format,
                                        self.parts, self.native_sysroot,
                                        options.extra_space)
