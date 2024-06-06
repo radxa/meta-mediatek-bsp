@@ -1,0 +1,38 @@
+From 03ee2862352e11bf52c9019e095ceffe2afd422c Mon Sep 17 00:00:00 2001
+From: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+Date: Fri, 25 Aug 2023 21:57:40 +0000
+Subject: [PATCH 2/5] pipeline: simple: Replace mbus sizes range by default
+ sensor resolution
+
+Modify SimpleCameraData::init() function to generate a list of supported
+pipeline configurations using the default sensor resolution instead of
+the sizes supported by the mbus code.
+
+The maximum supported resolution for a media bus code can exceed the
+resolution supported by the camsv pipeline. For example, for ap1302 driver,
+(AP1302_MAX_WIDTH x AP1302_MAX_HEIGHT); i.e. 4224x4092 is a part of the
+sizes() vector. However, for Genio 350, the maximum supported resolution by
+camsv is 5376x4032. This leads to undefined behavior after libcamera's
+routing and causes the camera streaming to fail.
+
+Change-Id: I9c9a6eaee1c4534a3ef90a02145650f250ba7447
+Signed-off-by: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+---
+ src/libcamera/pipeline/simple/simple.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/libcamera/pipeline/simple/simple.cpp b/src/libcamera/pipeline/simple/simple.cpp
+index db3575c3..0a29e256 100644
+--- a/src/libcamera/pipeline/simple/simple.cpp
++++ b/src/libcamera/pipeline/simple/simple.cpp
+@@ -572,6 +572,7 @@ int SimpleCameraData::init()
+ 	for (unsigned int code : sensor_->mbusCodes()) {
+ 		for (const Size &size : sensor_->sizes(code))
+ 			tryPipeline(code, size);
++		tryPipeline(code, sensor_->resolution());
+ 	}
+ 
+ 	if (configs_.empty()) {
+-- 
+2.45.2
+

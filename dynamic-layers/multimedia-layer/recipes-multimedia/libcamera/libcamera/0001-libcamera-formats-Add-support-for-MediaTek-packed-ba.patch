@@ -1,0 +1,360 @@
+From 287ba56421d0086aedb026a76bdd43f83cf54d55 Mon Sep 17 00:00:00 2001
+From: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+Date: Tue, 4 Jun 2024 16:50:33 -0700
+Subject: [PATCH 1/5] libcamera: formats: Add support for MediaTek packed bayer
+ format
+
+Define the packed bayer formats supported by MediaTek's ISP's P1 based
+on commit [1].
+
+These are the vendor specific MediaTek ISP bayer formats being added:
+8-bit packed bayer formats:
+1) V4L2_PIX_FMT_MTISP_SBGGR8
+2) V4L2_PIX_FMT_MTISP_SGBRG8
+3) V4L2_PIX_FMT_MTISP_SGRBG8
+4) V4L2_PIX_FMT_MTISP_SRGGB8
+
+10-bit packed bayer formats:
+1) V4L2_PIX_FMT_MTISP_SBGGR10
+2) V4L2_PIX_FMT_MTISP_SGBRG10
+3) V4L2_PIX_FMT_MTISP_SGRBG10
+4) V4L2_PIX_FMT_MTISP_SRGGB10
+
+12-bit packed bayer formats:
+1) V4L2_PIX_FMT_MTISP_SBGGR12
+2) V4L2_PIX_FMT_MTISP_SGBRG12
+3) V4L2_PIX_FMT_MTISP_SGRBG12
+4) V4L2_PIX_FMT_MTISP_SRGGB12
+
+14-bit packed bayer formats:
+1) V4L2_PIX_FMT_MTISP_SBGGR14
+2) V4L2_PIX_FMT_MTISP_SGBRG14
+3) V4L2_PIX_FMT_MTISP_SGRBG14
+4) V4L2_PIX_FMT_MTISP_SRGGB14
+
+[1]: https://gitlab.com/mediatek/aiot/bsp/linux/-/commit/0b0d7d0c2e33c7ff5c18ab3ba2486f8ccc7188ef
+
+Change-Id: If1bee1b306fdf72bf8c1853ad9e96223d2f33f93
+Signed-off-by: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+---
+ include/linux/drm_fourcc.h         |  10 +++
+ include/linux/videodev2.h          |  39 ++++++++++
+ src/libcamera/formats.cpp          | 120 +++++++++++++++++++++++++++++
+ src/libcamera/formats.yaml         |  37 +++++++++
+ src/libcamera/v4l2_pixelformat.cpp |  24 ++++++
+ 5 files changed, 230 insertions(+)
+
+diff --git a/include/linux/drm_fourcc.h b/include/linux/drm_fourcc.h
+index b4e1a092..bf4326fc 100644
+--- a/include/linux/drm_fourcc.h
++++ b/include/linux/drm_fourcc.h
+@@ -491,6 +491,7 @@ extern "C" {
+ #define DRM_FORMAT_MOD_VENDOR_AMLOGIC 0x0a
+ #define DRM_FORMAT_MOD_VENDOR_MIPI 0x0b
+ #define DRM_FORMAT_MOD_VENDOR_RPI 0x0c
++#define DRM_FORMAT_MOD_VENDOR_MEDIATEK 0x0d
+ 
+ /* add more to the end as needed */
+ 
+@@ -1674,6 +1675,15 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+ #define PISP_FORMAT_MOD_COMPRESS_MODE1 fourcc_mod_code(RPI, 1)
+ #define PISP_FORMAT_MOD_COMPRESS_MODE2 fourcc_mod_code(RPI, 2)
+ 
++/* MediaTek format modifiers
++ *
++ *
++ * Bayer packing
++ *
++ *
++ */
++#define MEDIATEK_FORMAT_MOD_BAYER_PACKED fourcc_mod_code(MEDIATEK, 1)
++
+ #if defined(__cplusplus)
+ }
+ #endif
+diff --git a/include/linux/videodev2.h b/include/linux/videodev2.h
+index 0b5482a0..1fc6060c 100644
+--- a/include/linux/videodev2.h
++++ b/include/linux/videodev2.h
+@@ -799,6 +799,40 @@ struct v4l2_pix_format {
+ #define V4L2_PIX_FMT_PISP_COMP2_BGGR	v4l2_fourcc('P', 'C', '2', 'B') /* PiSP 8-bit mode 2 compressed BGGR bayer */
+ #define V4L2_PIX_FMT_PISP_COMP2_MONO	v4l2_fourcc('P', 'C', '2', 'M') /* PiSP 8-bit mode 2 compressed monochrome */
+ 
++/* Vendor specific - Mediatek ISP bayer formats */
++#define V4L2_PIX_FMT_MTISP_SBGGR8   v4l2_fourcc('M', 'B', 'B', '8') /*  Packed  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG8   v4l2_fourcc('M', 'B', 'G', '8') /*  Packed  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG8   v4l2_fourcc('M', 'B', 'g', '8') /*  Packed  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB8   v4l2_fourcc('M', 'B', 'R', '8') /*  Packed  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SBGGR10  v4l2_fourcc('M', 'B', 'B', 'A') /*  Packed 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG10  v4l2_fourcc('M', 'B', 'G', 'A') /*  Packed 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG10  v4l2_fourcc('M', 'B', 'g', 'A') /*  Packed 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB10  v4l2_fourcc('M', 'B', 'R', 'A') /*  Packed 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SBGGR12  v4l2_fourcc('M', 'B', 'B', 'C') /*  Packed 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG12  v4l2_fourcc('M', 'B', 'G', 'C') /*  Packed 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG12  v4l2_fourcc('M', 'B', 'g', 'C') /*  Packed 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB12  v4l2_fourcc('M', 'B', 'R', 'C') /*  Packed 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SBGGR14  v4l2_fourcc('M', 'B', 'B', 'E') /*  Packed 14-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG14  v4l2_fourcc('M', 'B', 'G', 'E') /*  Packed 14-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG14  v4l2_fourcc('M', 'B', 'g', 'E') /*  Packed 14-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB14  v4l2_fourcc('M', 'B', 'R', 'E') /*  Packed 14-bit  */
++#define V4L2_PIX_FMT_MTISP_SBGGR8F  v4l2_fourcc('M', 'F', 'B', '8') /*  Full-G  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG8F  v4l2_fourcc('M', 'F', 'G', '8') /*  Full-G  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG8F  v4l2_fourcc('M', 'F', 'g', '8') /*  Full-G  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB8F  v4l2_fourcc('M', 'F', 'R', '8') /*  Full-G  8-bit  */
++#define V4L2_PIX_FMT_MTISP_SBGGR10F  v4l2_fourcc('M', 'F', 'B', 'A') /*  Full-G 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG10F  v4l2_fourcc('M', 'F', 'G', 'A') /*  Full-G 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG10F  v4l2_fourcc('M', 'F', 'g', 'A') /*  Full-G 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB10F  v4l2_fourcc('M', 'F', 'R', 'A') /*  Full-G 10-bit  */
++#define V4L2_PIX_FMT_MTISP_SBGGR12F  v4l2_fourcc('M', 'F', 'B', 'C') /*  Full-G 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG12F  v4l2_fourcc('M', 'F', 'G', 'C') /*  Full-G 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG12F  v4l2_fourcc('M', 'F', 'g', 'C') /*  Full-G 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB12F  v4l2_fourcc('M', 'F', 'R', 'C') /*  Full-G 12-bit  */
++#define V4L2_PIX_FMT_MTISP_SBGGR14F  v4l2_fourcc('M', 'F', 'B', 'E') /*  Full-G 14-bit  */
++#define V4L2_PIX_FMT_MTISP_SGBRG14F  v4l2_fourcc('M', 'F', 'G', 'E') /*  Full-G 14-bit  */
++#define V4L2_PIX_FMT_MTISP_SGRBG14F  v4l2_fourcc('M', 'F', 'g', 'E') /*  Full-G 14-bit  */
++#define V4L2_PIX_FMT_MTISP_SRGGB14F  v4l2_fourcc('M', 'F', 'R', 'E') /*  Full-G 14-bit  */
++
+ /* SDR formats - used only for Software Defined Radio devices */
+ #define V4L2_SDR_FMT_CU8          v4l2_fourcc('C', 'U', '0', '8') /* IQ u8 */
+ #define V4L2_SDR_FMT_CU16LE       v4l2_fourcc('C', 'U', '1', '6') /* IQ u16le */
+@@ -823,6 +857,11 @@ struct v4l2_pix_format {
+ #define V4L2_META_FMT_VIVID	  v4l2_fourcc('V', 'I', 'V', 'D') /* Vivid Metadata */
+ #define V4L2_META_FMT_SENSOR_DATA v4l2_fourcc('S', 'E', 'N', 'S') /* Sensor Ancillary metadata */
+ #define V4L2_META_FMT_BCM2835_ISP_STATS v4l2_fourcc('B', 'S', 'T', 'A') /* BCM2835 ISP image statistics output */
++#define V4L2_META_FMT_MTISP_3A    v4l2_fourcc('M', 'T', 'f', 'a') /* AE/AWB histogram */
++#define V4L2_META_FMT_MTISP_AF    v4l2_fourcc('M', 'T', 'f', 'f') /* AF histogram */
++#define V4L2_META_FMT_MTISP_LCS   v4l2_fourcc('M', 'T', 'f', 'c') /* Local contrast enhanced statistics */
++#define V4L2_META_FMT_MTISP_LMV   v4l2_fourcc('M', 'T', 'f', 'm') /* Local motion vector histogram */
++#define V4L2_META_FMT_MTISP_PARAMS v4l2_fourcc('M', 'T', 'f', 'p') /* ISP tuning parameters */
+ 
+ /* Vendor specific - used for RK_ISP1 camera sub-system */
+ #define V4L2_META_FMT_RK_ISP1_PARAMS	v4l2_fourcc('R', 'K', '1', 'P') /* Rockchip ISP1 3A Parameters */
+diff --git a/src/libcamera/formats.cpp b/src/libcamera/formats.cpp
+index cf41f2c2..feaa8329 100644
+--- a/src/libcamera/formats.cpp
++++ b/src/libcamera/formats.cpp
+@@ -557,6 +557,126 @@ const std::map<PixelFormat, PixelFormatInfo> pixelFormatInfo{
+ 		.pixelsPerGroup = 1,
+ 		.planes = {{ { 1, 1 }, { 0, 0 }, { 0, 0 } }},
+ 	} },
++	{ formats::SBGGR10_MTK, {
++		.name = "SBGGR10_MTK",
++		.format = formats::SBGGR10_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SBGGR10), },
++		.bitsPerPixel = 10,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 5, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SGBRG10_MTK, {
++		.name = "SGBRG10_MTK",
++		.format = formats::SGBRG10_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGBRG10), },
++		.bitsPerPixel = 10,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 5, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SGRBG10_MTK, {
++		.name = "SGRBG10_MTK",
++		.format = formats::SGRBG10_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGRBG10), },
++		.bitsPerPixel = 10,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 5, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SRGGB10_MTK, {
++		.name = "SRGGB10_MTK",
++		.format = formats::SRGGB10_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SRGGB10), },
++		.bitsPerPixel = 10,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 5, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SBGGR12_MTK, {
++		.name = "SBGGR12_MTK",
++		.format = formats::SBGGR12_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SBGGR12), },
++		.bitsPerPixel = 12,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 2,
++		.planes = {{ { 3, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SGBRG12_MTK, {
++		.name = "SGBRG12_MTK",
++		.format = formats::SGBRG12_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGBRG12), },
++		.bitsPerPixel = 12,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 2,
++		.planes = {{ { 3, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SGRBG12_MTK, {
++		.name = "SGRBG12_MTK",
++		.format = formats::SGRBG12_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGRBG12), },
++		.bitsPerPixel = 12,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 2,
++		.planes = {{ { 3, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SRGGB12_MTK, {
++		.name = "SRGGB12_MTK",
++		.format = formats::SRGGB12_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SRGGB12), },
++		.bitsPerPixel = 12,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 2,
++		.planes = {{ { 3, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SBGGR14_MTK, {
++		.name = "SBGGR14_MTK",
++		.format = formats::SBGGR14_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SBGGR14), },
++		.bitsPerPixel = 14,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 7, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SGBRG14_MTK, {
++		.name = "SGBRG14_MTK",
++		.format = formats::SGBRG14_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGBRG14), },
++		.bitsPerPixel = 14,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 7, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SGRBG14_MTK, {
++		.name = "SGRBG14_MTK",
++		.format = formats::SGRBG14_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGRBG14), },
++		.bitsPerPixel = 14,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 7, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
++	{ formats::SRGGB14_MTK, {
++		.name = "SRGGB14_MTK",
++		.format = formats::SRGGB14_MTK,
++		.v4l2Formats = { V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SRGGB14), },
++		.bitsPerPixel = 14,
++		.colourEncoding = PixelFormatInfo::ColourEncodingRAW,
++		.packed = true,
++		.pixelsPerGroup = 4,
++		.planes = {{ { 7, 1 }, { 0, 0 }, { 0, 0 } }},
++	} },
+ 
+ 	/* Bayer formats. */
+ 	{ formats::SBGGR8, {
+diff --git a/src/libcamera/formats.yaml b/src/libcamera/formats.yaml
+index fe027a7c..b214b5d3 100644
+--- a/src/libcamera/formats.yaml
++++ b/src/libcamera/formats.yaml
+@@ -206,4 +206,41 @@ formats:
+   - MONO_PISP_COMP1:
+       fourcc: DRM_FORMAT_R16
+       mod: PISP_FORMAT_MOD_COMPRESS_MODE1
++
++  - SRGGB10_MTK:
++      fourcc: DRM_FORMAT_SRGGB10
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SGRBG10_MTK:
++      fourcc: DRM_FORMAT_SGRBG10
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SGBRG10_MTK:
++      fourcc: DRM_FORMAT_SGBRG10
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SBGGR10_MTK:
++      fourcc: DRM_FORMAT_SBGGR10
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SRGGB12_MTK:
++      fourcc: DRM_FORMAT_SRGGB12
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SGRBG12_MTK:
++      fourcc: DRM_FORMAT_SGRBG12
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SGBRG12_MTK:
++      fourcc: DRM_FORMAT_SGBRG12
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SBGGR12_MTK:
++      fourcc: DRM_FORMAT_SBGGR12
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SRGGB14_MTK:
++      fourcc: DRM_FORMAT_SRGGB14
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SGRBG14_MTK:
++      fourcc: DRM_FORMAT_SGRBG14
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SGBRG14_MTK:
++      fourcc: DRM_FORMAT_SGBRG14
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
++  - SBGGR14_MTK:
++      fourcc: DRM_FORMAT_SBGGR14
++      mod: MEDIATEK_FORMAT_MOD_BAYER_PACKED
+ ...
+diff --git a/src/libcamera/v4l2_pixelformat.cpp b/src/libcamera/v4l2_pixelformat.cpp
+index 70568335..c25b6ba6 100644
+--- a/src/libcamera/v4l2_pixelformat.cpp
++++ b/src/libcamera/v4l2_pixelformat.cpp
+@@ -167,6 +167,14 @@ const std::map<V4L2PixelFormat, V4L2PixelFormat::Info> vpf2pf{
+ 		{ formats::SGRBG10_CSI2P, "10-bit Bayer GRGR/BGBG Packed" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SRGGB10P),
+ 		{ formats::SRGGB10_CSI2P, "10-bit Bayer RGRG/GBGB Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SBGGR10),
++		{ formats::SBGGR10_MTK, "10-bit Bayer BGGR MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGBRG10),
++		{ formats::SGBRG10_MTK, "10-bit Bayer GBRG MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGRBG10),
++		{ formats::SGRBG10_MTK, "10-bit Bayer GRBG MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SRGGB10),
++		{ formats::SRGGB10_MTK, "10-bit Bayer RGGB MTISP Packed" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SBGGR12),
+ 		{ formats::SBGGR12, "12-bit Bayer BGBG/GRGR" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SGBRG12),
+@@ -183,6 +191,14 @@ const std::map<V4L2PixelFormat, V4L2PixelFormat::Info> vpf2pf{
+ 		{ formats::SGRBG12_CSI2P, "12-bit Bayer GRGR/BGBG Packed" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SRGGB12P),
+ 		{ formats::SRGGB12_CSI2P, "12-bit Bayer RGRG/GBGB Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SBGGR12),
++		{ formats::SBGGR12_MTK, "12-bit Bayer BGGR MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGBRG12),
++		{ formats::SGBRG12_MTK, "12-bit Bayer GBRG MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGRBG12),
++		{ formats::SGRBG12_MTK, "12-bit Bayer GRBG MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SRGGB12),
++		{ formats::SRGGB12_MTK, "12-bit Bayer RGGB MTISP Packed" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SBGGR14),
+ 		{ formats::SBGGR14, "14-bit Bayer BGBG/GRGR" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SGBRG14),
+@@ -199,6 +215,14 @@ const std::map<V4L2PixelFormat, V4L2PixelFormat::Info> vpf2pf{
+ 		{ formats::SGRBG14_CSI2P, "14-bit Bayer GRGR/BGBG Packed" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SRGGB14P),
+ 		{ formats::SRGGB14_CSI2P, "14-bit Bayer RGRG/GBGB Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SBGGR14),
++		{ formats::SBGGR14_MTK, "14-bit Bayer BGGR MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGBRG14),
++		{ formats::SGBRG14_MTK, "14-bit Bayer GBRG MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SGRBG14),
++		{ formats::SGRBG14_MTK, "14-bit Bayer GRBG MTISP Packed" } },
++	{ V4L2PixelFormat(V4L2_PIX_FMT_MTISP_SRGGB14),
++		{ formats::SRGGB14_MTK, "14-bit Bayer RGGB MTISP Packed" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SBGGR16),
+ 		{ formats::SBGGR16, "16-bit Bayer BGBG/GRGR" } },
+ 	{ V4L2PixelFormat(V4L2_PIX_FMT_SGBRG16),
+-- 
+2.45.2
+

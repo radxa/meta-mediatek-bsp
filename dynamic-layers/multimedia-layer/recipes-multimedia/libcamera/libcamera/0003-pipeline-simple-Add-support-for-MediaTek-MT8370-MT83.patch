@@ -1,0 +1,52 @@
+From 1cf23859703ae10e52762763c4b9780c746706b6 Mon Sep 17 00:00:00 2001
+From: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+Date: Tue, 4 Jun 2024 17:01:14 -0700
+Subject: [PATCH 3/5] pipeline: simple: Add support for MediaTek
+ MT8370/MT8390/MT8395 platforms
+
+The camera pipeline for MT8370 (Genio 510), MT8390 (Genio 700) and
+MT8395 (Genio 1200) consists of the following:
+RAW sensor (+ external ISP) --> SENINF --> CAMSV --> DRAM
+
+SENINF (SENsor INterFace) is a CSI-2 receiver.
+CAMSV (CAMera Simple Version) is a DMA Engine which bypasses ISP7.x
+and writes directly to DRAM.
+Both SENINF and CAMSV are supported by OOT V4L2 drivers.
+
+MT8390/MT8395 platforms consist of a hardware converter called MDP3
+which supports up to 3 streams and is merged in mainline linux.
+
+Change-Id: Id4a5582e2a4906461c33f42bc7d8f04dd346725c
+Signed-off-by: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+---
+ src/libcamera/converter/converter_v4l2_m2m.cpp | 1 +
+ src/libcamera/pipeline/simple/simple.cpp       | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/src/libcamera/converter/converter_v4l2_m2m.cpp b/src/libcamera/converter/converter_v4l2_m2m.cpp
+index d8929fc5..f731fd5c 100644
+--- a/src/libcamera/converter/converter_v4l2_m2m.cpp
++++ b/src/libcamera/converter/converter_v4l2_m2m.cpp
+@@ -447,6 +447,7 @@ int V4L2M2MConverter::queueBuffers(FrameBuffer *input,
+ static std::initializer_list<std::string> compatibles = {
+ 	"mtk-mdp",
+ 	"pxp",
++	"mtk-mdp3",
+ };
+ 
+ REGISTER_CONVERTER("v4l2_m2m", V4L2M2MConverter, compatibles)
+diff --git a/src/libcamera/pipeline/simple/simple.cpp b/src/libcamera/pipeline/simple/simple.cpp
+index 0a29e256..c7b8c294 100644
+--- a/src/libcamera/pipeline/simple/simple.cpp
++++ b/src/libcamera/pipeline/simple/simple.cpp
+@@ -201,6 +201,7 @@ static const SimplePipelineInfo supportedDevices[] = {
+ 	{ "imx7-csi", { { "pxp", 1 } }, false },
+ 	{ "j721e-csi2rx", {}, false },
+ 	{ "mtk-seninf", { { "mtk-mdp", 3 } }, false },
++	{ "mtk-cam", { { "mtk-mdp3", 3} }, false },
+ 	{ "mxc-isi", {}, false },
+ 	{ "qcom-camss", {}, true },
+ 	{ "sun6i-csi", {}, false },
+-- 
+2.45.2
+

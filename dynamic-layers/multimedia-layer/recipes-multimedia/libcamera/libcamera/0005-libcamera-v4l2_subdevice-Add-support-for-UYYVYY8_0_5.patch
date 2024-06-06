@@ -1,0 +1,35 @@
+From 427999cd3da89d3034d9c8c8880fe7fa0fc3e79a Mon Sep 17 00:00:00 2001
+From: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+Date: Thu, 6 Jun 2024 14:57:01 -0700
+Subject: [PATCH 5/5] libcamera: v4l2_subdevice: Add support for UYYVYY8_0_5X24
+ format
+
+Add support for UYYVYY8_0_5X24 media bus format supported by ap1302.
+
+Change-Id: If2e81be29c251a2e1f0468c05ef0ebcada5adc7c
+Signed-off-by: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+---
+ src/libcamera/v4l2_subdevice.cpp | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/libcamera/v4l2_subdevice.cpp b/src/libcamera/v4l2_subdevice.cpp
+index 6da77775..d5d24f97 100644
+--- a/src/libcamera/v4l2_subdevice.cpp
++++ b/src/libcamera/v4l2_subdevice.cpp
+@@ -385,6 +385,13 @@ const std::map<uint32_t, MediaBusFormatInfo> mediaBusFormatInfo{
+ 		.bitsPerPixel = 24,
+ 		.colourEncoding = PixelFormatInfo::ColourEncodingYUV,
+ 	} },
++	{ MEDIA_BUS_FMT_UYYVYY8_0_5X24, {
++		.name = "UYYVYY8_0_5X24",
++		.code = MEDIA_BUS_FMT_UYYVYY8_0_5X24,
++		.type = MediaBusFormatInfo::Type::Image,
++		.bitsPerPixel = 24,
++		.colourEncoding = PixelFormatInfo::ColourEncodingYUV,
++	} },
+ 	{ MEDIA_BUS_FMT_YUV10_1X30, {
+ 		.name = "YUV10_1X30",
+ 		.code = MEDIA_BUS_FMT_YUV10_1X30,
+-- 
+2.45.2
+

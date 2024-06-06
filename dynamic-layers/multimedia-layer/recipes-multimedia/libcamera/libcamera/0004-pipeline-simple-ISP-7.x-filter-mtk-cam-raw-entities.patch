@@ -1,0 +1,35 @@
+From a99dd85def9782886834ca652252288d53e299b8 Mon Sep 17 00:00:00 2001
+From: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+Date: Tue, 4 Jun 2024 20:24:12 -0700
+Subject: [PATCH 4/5] pipeline: simple: ISP 7.x filter mtk-cam raw entities
+
+While finding the shortest path from the camera sensor to the video capture
+device, libcamera by default ends up using the mtk-cam raw* entities. Skip
+these entities as they are not required for the RAW/YUV sensor direct dump
+paths. Also, print out the entity names to make debugging easier.
+
+Change-Id: I88c9ee0e1c9d5a33257083da76f46e420ef9cefe
+Signed-off-by: Suhrid Subramaniam <suhrid.subramaniam@mediatek.com>
+---
+ src/libcamera/pipeline/simple/simple.cpp | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/libcamera/pipeline/simple/simple.cpp b/src/libcamera/pipeline/simple/simple.cpp
+index c7b8c294..e63c0554 100644
+--- a/src/libcamera/pipeline/simple/simple.cpp
++++ b/src/libcamera/pipeline/simple/simple.cpp
+@@ -413,6 +413,11 @@ SimpleCameraData::SimpleCameraData(SimplePipelineHandler *pipe,
+ 		std::tie(entity, sinkPad) = queue.front();
+ 		queue.pop();
+ 
++		/* Ignore mtk-cam raw device because they are not supported */
++		LOG(SimplePipeline, Debug) << "Entity name is: " << entity->name();
++		if (entity->name().find("mtk-cam raw") != std::string::npos)
++			continue;
++
+ 		/* Found the capture device. */
+ 		if (entity->function() == MEDIA_ENT_F_IO_V4L) {
+ 			LOG(SimplePipeline, Debug)
+-- 
+2.45.2
+
