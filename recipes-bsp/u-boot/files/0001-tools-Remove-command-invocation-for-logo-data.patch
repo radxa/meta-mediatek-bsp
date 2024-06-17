@@ -1,0 +1,39 @@
+From 076ede76ab00c745d3c7376e4cc2888190bc126f Mon Sep 17 00:00:00 2001
+From: Ramax Lo <ramax.lo@mediatek.com>
+Date: Mon, 17 Jun 2024 16:13:31 +0800
+Subject: [PATCH] tools: Remove command invocation for logo data
+
+When building u-boot-tools in target mode, the tool 'bmp_logo' is built
+with cross toolchain, which is different from the architecture of the
+build host. Running a binary which is built for target on the build host
+will cause execution failure.
+
+To fix the issue, we update the Makefile to remove the invocation.
+
+Signed-off-by: Ramax Lo <ramax.lo@mediatek.com>
+---
+ tools/Makefile | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/tools/Makefile b/tools/Makefile
+index 3626919633..c87585ae1e 100644
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -277,10 +277,10 @@ always := $(hostprogs-y)
+ # Generated LCD/video logo
+ LOGO_H = $(objtree)/include/bmp_logo.h
+ LOGO_DATA_H = $(objtree)/include/bmp_logo_data.h
+-LOGO-$(CONFIG_LCD_LOGO) += $(LOGO_H)
+-LOGO-$(CONFIG_LCD_LOGO) += $(LOGO_DATA_H)
+-LOGO-$(CONFIG_VIDEO_LOGO) += $(LOGO_H)
+-LOGO-$(CONFIG_VIDEO_LOGO) += $(LOGO_DATA_H)
++#LOGO-$(CONFIG_LCD_LOGO) += $(LOGO_H)
++#LOGO-$(CONFIG_LCD_LOGO) += $(LOGO_DATA_H)
++#LOGO-$(CONFIG_VIDEO_LOGO) += $(LOGO_H)
++#LOGO-$(CONFIG_VIDEO_LOGO) += $(LOGO_DATA_H)
+ 
+ # Generic logo
+ ifeq ($(LOGO_BMP),)
+-- 
+2.18.0
+
