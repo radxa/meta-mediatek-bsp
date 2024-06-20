@@ -1,4 +1,4 @@
-From 918c12dc823f258ca2fde6a7c36ab60f2a7ced99 Mon Sep 17 00:00:00 2001
+From 9cfed62fb1756b8016b46653373242bf51b1add0 Mon Sep 17 00:00:00 2001
 From: Macross Chen <macross.chen@mediatek.com>
 Date: Thu, 25 May 2023 11:39:57 +0800
 Subject: [PATCH] Do not show payload info if show_payload flag off
@@ -21,10 +21,10 @@ Signed-off-by: Macross Chen <macross.chen@mediatek.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/utils/v4l2-ctl/v4l2-ctl-common.cpp b/utils/v4l2-ctl/v4l2-ctl-common.cpp
-index 49c0f39..76f56c0 100644
+index 0370708b..214798a8 100644
 --- a/utils/v4l2-ctl/v4l2-ctl-common.cpp
 +++ b/utils/v4l2-ctl/v4l2-ctl-common.cpp
-@@ -495,6 +495,8 @@ static void print_value(int fd, const v4l2_query_ext_ctrl &qc, const v4l2_ext_co
+@@ -520,6 +520,8 @@ static void print_value(int fd, const v4l2_query_ext_ctrl &qc, const v4l2_ext_co
  	}
  
  	if (qc.flags & V4L2_CTRL_FLAG_HAS_PAYLOAD) {
@@ -33,14 +33,11 @@ index 49c0f39..76f56c0 100644
  		switch (qc.type) {
  		case V4L2_CTRL_TYPE_U8:
  			printf("%u", *ctrl.p_u8);
-@@ -1232,7 +1234,6 @@ void common_get(cv4l_fd &_fd)
+@@ -1312,7 +1314,6 @@ void common_get(cv4l_fd &_fd)
  						print_value(fd, qc, ctrl, true, true);
- 						return;
+ 						continue;
  					}
 -
  					printf("%s: ", name.c_str());
  					print_value(fd, qc, ctrl, true, false);
  					printf("\n");
--- 
-2.18.0
-
