@@ -25,6 +25,7 @@ MALI_VERSION ??= "43"
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
 	${@bb.utils.contains_any('DISTRO_FEATURES', 'opengl vulkan', 'libmali', '', d)} \
+	mali-gpu-driver \
 	linux-firmware-mt8195-scp \
 	${@bb.utils.contains("MACHINE_FEATURES", "optee-efuse", "optee-ewriter", "", d)} \
 "
