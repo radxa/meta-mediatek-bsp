@@ -21,7 +21,7 @@ DISTRO_FEATURES:remove = " x11 "
 
 # Mali
 MALI_SOC = "mt8188"
-MALI_VERSION ??= "43"
+MALI_VERSION ??= "48"
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
 	${@bb.utils.contains_any('DISTRO_FEATURES', 'opengl vulkan', 'libmali', '', d)} \
