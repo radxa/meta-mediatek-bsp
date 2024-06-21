@@ -1,0 +1,235 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2021 Baylibre, SAS
+ * Author: Florian Sylvestre <florian.sylvestre@baylibre.com>
+ */
+
+#include <dt-bindings/clock/mediatek,mt8365-clk.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mt8365-pinfunc.h>
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			cam0_pdn: cam0-pdn-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam0_pdn";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 105 GPIO_ACTIVE_HIGH>;
+				startup-delay-us = <18000>;
+				enable-active-high;
+			};
+
+			cam1_pdn: cam1-pdn-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam1_pdn";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 107 GPIO_ACTIVE_HIGH>;
+				startup-delay-us = <18000>;
+				enable-active-high;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&pio>;
+		__overlay__ {
+			i2c2_pins: i2c2-pins {
+				pins {
+					pinmux = <MT8365_PIN_61_SDA2__FUNC_SDA2_0>,
+					        <MT8365_PIN_62_SCL2__FUNC_SCL2_0>;
+					mediatek,pull-up-adv = <3>;
+					mediatek,drive-strength-adv = <00>;
+					bias-pull-up;
+				};
+			};
+
+			i2c3_pins: i2c3-pins {
+				pins {
+					pinmux = <MT8365_PIN_63_SDA3__FUNC_SDA3_0>,
+					         <MT8365_PIN_64_SCL3__FUNC_SCL3_0>;
+					mediatek,pull-up-adv = <3>;
+					mediatek,drive-strength-adv = <4>;
+					bias-pull-up;
+				};
+			};
+
+			cam0_pins_default: cam0_pins_default {
+				pins_clk_rst {
+					pinmux = <MT8365_PIN_65_CMMCLK0__FUNC_CMMCLK0>,
+						<MT8365_PIN_105_NCLE__FUNC_GPIO105>,
+						<MT8365_PIN_106_NCEB1__FUNC_GPIO106>;
+				};
+			};
+
+			cam1_pins_default: cam1_pins_default {
+				pins_clk_rst {
+					pinmux = <MT8365_PIN_66_CMMCLK1__FUNC_CMMCLK1>,
+						 <MT8365_PIN_107_NCEB0__FUNC_GPIO107>,
+						 <MT8365_PIN_108_NREB__FUNC_GPIO108>;
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&i2c2>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c2_pins>;
+			clock-frequency = <400000>;
+			status = "okay";
+
+			camera@3d {  /* Rear camera */
+				compatible = "onnn,ap1302";
+				reg = <0x3d>;
+				status = "okay";
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam0_pins_default>;
+
+				clocks = <&topckgen CLK_TOP_CAMTG_SEL>;
+				assigned-clocks = <&topckgen CLK_TOP_CAMTG_SEL>;
+				assigned-clock-parents = <&topckgen CLK_TOP_USB20_192M_D4>;
+
+				reset-gpios = <&pio 106 GPIO_ACTIVE_LOW>;
+
+				power-supply = <&cam0_pdn>;
+
+				orientation = <0>;
+				rotation = <0>;
+
+				port {
+					isp1_out: endpoint {
+						remote-endpoint = <&seninf_in1>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+
+				sensors {
+					#address-cells = <1>;
+					#size-cells = <0>;
+
+					onnn,model = "onnn,ar0430";
+
+					sensor@0 {
+						reg = <0>;
+						vdd-supply = <&mt6357_vcamd_reg>;
+						vaa-supply = <&mt6357_vcama_reg>;
+						vddio-supply = <&mt6357_vcamio_reg>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&i2c3>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c3_pins>;
+			clock-frequency = <400000>;
+			status = "okay";
+
+			camera@3d { /* Front camera */
+				compatible = "onnn,ap1302";
+				reg = <0x3d>;
+				status = "okay";
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam1_pins_default>;
+
+				clocks = <&topckgen CLK_TOP_CAMTG1_SEL>;
+				assigned-clocks = <&topckgen CLK_TOP_CAMTG1_SEL>;
+				assigned-clock-parents = <&topckgen CLK_TOP_USB20_192M_D4>;
+
+				reset-gpios = <&pio 108 GPIO_ACTIVE_LOW>;
+
+				power-supply = <&cam1_pdn>;
+
+				orientation = <0>;
+				rotation = <0>;
+
+				port {
+					isp2_out: endpoint {
+						remote-endpoint = <&seninf_in2>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+
+				sensors {
+					#address-cells = <1>;
+					#size-cells = <0>;
+
+					onnn,model = "onnn,ar0430";
+
+					sensor@0 {
+						reg = <0>;
+						vdd-supply = <&mt6357_vcamd_reg>;
+						vaa-supply = <&mt6357_vcama_reg>;
+						vddio-supply = <&mt6357_vcamio_reg>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&seninf>;
+		__overlay__ {
+			status = "okay";
+
+			ports {
+				port@0 {
+					seninf_in1: endpoint {
+						clock-lanes = <2>;
+						data-lanes = <1 3 0 4>;
+						remote-endpoint = <&isp1_out>;
+					};
+				};
+
+				port@1 {
+					seninf_in2: endpoint {
+						clock-lanes = <2>;
+						data-lanes = <1 3 0 4>;
+						remote-endpoint = <&isp2_out>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <&camsv1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@6 {
+		target = <&camsv2>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@7 {
+		target = <&mipi_csi0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@8 {
+		target = <&mipi_csi1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};

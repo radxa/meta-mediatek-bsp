@@ -44,7 +44,8 @@ do_image_wic[depends] += " \
 	virtual/kernel:do_deploy \
 "
 
-PREFERRED_PROVIDER_virtual/dtb = "${@'dtbo' if d.getVar('PREFERRED_VERSION_linux-mtk').startswith('5') else ''}"
+PREFERRED_PROVIDER_virtual/dtb = "dtbo"
+PREFERRED_VERSION_dtbo = "${@'6' if d.getVar('PREFERRED_VERSION_linux-mtk').startswith('6') else '5'}"
 
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-mtk"
 PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot"
