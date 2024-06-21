@@ -17,6 +17,7 @@ SRC_URI:append:mt8365-evk = " \
 	file://camera-ap1302-ar0430-dual.dtsi \
 	file://camera-ap1302-ar0430-single-csi0.dts \
 	file://camera-ap1302-ar0430-single-csi1.dts \
+	file://gpu-mali.dts \
 "
 
 DT_FILES_PATH = "${WORKDIR}"
