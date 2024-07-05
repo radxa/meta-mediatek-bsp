@@ -12,7 +12,7 @@ inherit allarch
 S = "${WORKDIR}/git"
 
 SRC_URI = "git://github.com/ONSemiconductor/ap1302_binaries.git;protocol=https;branch=main"
-SRCREV = "0c958451d22a02f5f69cf99d5072c9c6c2505ad4"
+SRCREV = "82798a2be367aae028036ca559fd34a1770828d0"
 
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
