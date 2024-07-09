@@ -10,4 +10,4 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = "${WORKDIR}/git"
 
 SRC_URI = "${AIOT_BSP_URI}/libbase-prebuilt.git;protocol=https;branch=main"
-SRCREV = "13582fd416cf13b25e24ca73007e36d05ebf4ff6"
+SRCREV = "331e57c2afef69fc52314df2562741a3dcb6be46"
