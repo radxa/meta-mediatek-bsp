@@ -39,10 +39,6 @@ EXTRA_OEMAKE:append:armv7a = ' \
 	VPUD_ARCH=aarch32 \
 '
 
-EXTRA_OEMAKE:append:mt8183 = ' \
-	VPUD_SOC=mt8183 \
-'
-
 EXTRA_OEMAKE:append:mt8365 = ' \
 	VPUD_SOC=mt8365 \
 '
