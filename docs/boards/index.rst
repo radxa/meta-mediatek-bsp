@@ -12,6 +12,4 @@ The following boards are supported:
    i350-evk
    i350-pumpkin
    i350-sb35
-   i500-evb
-   i500-pumpkin
    i1200-demo
