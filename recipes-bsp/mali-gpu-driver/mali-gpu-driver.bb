@@ -9,10 +9,6 @@ SRCREV = "456b673f370231034cadc74ad07495db96d03532"
 
 BRANCH = "r${MALI_VERSION}p0"
 
-# mt8183 is not official supported by IoT, keep kernel driver in version r32
-SRCREV:mt8183 = "4b2e33a50d049b51b84083b502ae3d3ad45c0cc1"
-BRANCH:mt8183 = "r32p0"
-
 SRC_URI += "${AIOT_BSP_URI}/mtk-mali-gpu-driver.git;protocol=https;branch=${BRANCH} \
 "
 
