@@ -66,7 +66,6 @@ REQUIRE_FIRMWARE:mt8188 = "1"
 REQUIRE_FIRMWARE:mt8370 = "1"
 REQUIRE_FIRMWARE:mt8195 = "0"
 REQUIRE_FIRMWARE:mt8365 = "0"
-REQUIRE_FIRMWARE:mt8183 = "0"
 
 # Additional install vulkan override layer: only support it since version r36
 REQUIRE_VKLAYER = "${@bb.utils.vercmp_string('${MALI_VERSION}', '35')}"
