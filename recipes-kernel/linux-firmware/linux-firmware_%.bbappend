@@ -14,7 +14,6 @@ do_install:append() {
 }
 
 # packages for image installation
-FILES:${PN}-mt8183-scp = "${nonarch_base_libdir}/firmware/mediatek/mt8183/scp.img"
 FILES:${PN}-mt8195-scp = "${nonarch_base_libdir}/firmware/mediatek/mt8195/scp.img"
 FILES:${PN}-mt8188-scp = "${nonarch_base_libdir}/firmware/mediatek/mt8188/scp.img"
 FILES:${PN}-mt7668 = "${nonarch_base_libdir}/firmware/mediatek/mt7668pr2h.bin"
@@ -30,7 +29,6 @@ FILES:${PN}-mt7961 = " \
 	${nonarch_base_libdir}/firmware/mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin \
 "
 
-PACKAGES =+ "${PN}-mt8183-scp"
 PACKAGES =+ "${PN}-mt8195-scp"
 PACKAGES =+ "${PN}-mt8188-scp"
 PACKAGES =+ "${PN}-mt7668"
