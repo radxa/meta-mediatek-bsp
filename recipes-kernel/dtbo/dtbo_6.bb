@@ -20,6 +20,7 @@ SRC_URI:append:mt8365-evk = " \
 	file://display-dsi.dts \
 	file://display-hdmi.dts \
 	file://gpu-mali.dts \
+	file://net-ethernet.dts \
 "
 
 DT_FILES_PATH = "${WORKDIR}"
