@@ -1,0 +1,45 @@
+From 8a41705d1bc6ee9cd7c9480e8fb6a29c3a2e09ee Mon Sep 17 00:00:00 2001
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Date: Fri, 3 Apr 2020 01:07:55 +0300
+Subject: [PATCH 2/5] include: drm_fourcc: Add MediaTek Bayer packing modifier
+
+Add a format modifier for the MediaTek-specific Bayer pixel packing.
+
+Upstream-Status: Pending
+
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+(cherry picked from commit 90d5086eaf11bc702cf2d084030d3c38b5ceea34)
+Signed-off-by: Vitor Sato Eschholz <vsatoes@baylibre.com>
+---
+ include/linux/drm_fourcc.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/include/linux/drm_fourcc.h b/include/linux/drm_fourcc.h
+index 1496e097..040733fe 100644
+--- a/include/linux/drm_fourcc.h
++++ b/include/linux/drm_fourcc.h
+@@ -448,6 +448,7 @@ extern "C" {
+ #define DRM_FORMAT_MOD_VENDOR_ALLWINNER 0x09
+ #define DRM_FORMAT_MOD_VENDOR_AMLOGIC 0x0a
+ #define DRM_FORMAT_MOD_VENDOR_MIPI 0x0b
++#define DRM_FORMAT_MOD_VENDOR_MEDIATEK 0x0c
+ 
+ /* add more to the end as needed */
+ 
+@@ -1554,6 +1555,13 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+  */
+ #define MIPI_FORMAT_MOD_CSI2_PACKED fourcc_mod_code(MIPI, 1)
+ 
++/* MediaTek format modifiers */
++
++/*
++ * Bayer packing
++ */
++#define MEDIATEK_FORMAT_MOD_BAYER_PACKED fourcc_mod_code(MEDIATEK, 1)
++
+ #if defined(__cplusplus)
+ }
+ #endif
+-- 
+2.25.1
+

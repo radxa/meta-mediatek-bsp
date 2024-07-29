@@ -1,0 +1,40 @@
+From 5786639ab69e4034f598e6defabc7b1045dabeb6 Mon Sep 17 00:00:00 2001
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Date: Wed, 21 Oct 2020 02:57:52 +0300
+Subject: [PATCH 4/5] libcamera: pipeline: simple: Add support for MediaTek
+ i500 platform
+
+The MediaTek i500 (MT8183 and MT8385) SoCs contains a camera pipeline
+made of a sensor interface with CSI-2 receivers (named SENINF), DMA
+engines (named CAMSV) and an ISP (named CAM). The SENINF and CAMSV are
+supported by V4L2 driver, while support for the ISP isn't available yet.
+This makes the platform a good candidate for the simple pipeline handler
+at this point.
+
+The i500 also has a converter device named MDP3, which can be used to
+generate up to three streams.
+
+Upstream-Status: Pending
+
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+(cherry picked from commit 94a3bd3f30af3528ad44362571bb103e3b6b72c9)
+Signed-off-by: Vitor Sato Eschholz <vsatoes@baylibre.com>
+---
+ src/libcamera/pipeline/simple/simple.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/libcamera/pipeline/simple/simple.cpp b/src/libcamera/pipeline/simple/simple.cpp
+index 911051b2..de9b2da7 100644
+--- a/src/libcamera/pipeline/simple/simple.cpp
++++ b/src/libcamera/pipeline/simple/simple.cpp
+@@ -194,6 +194,7 @@ static const SimplePipelineInfo supportedDevices[] = {
+ 	{ "imx7-csi", { { "pxp", 1 } } },
+ 	{ "j721e-csi2rx", {} },
+ 	{ "mxc-isi", {} },
++	{ "mtk-seninf", { { "mtk-mdp3", 3 } } },
+ 	{ "qcom-camss", {} },
+ 	{ "sun6i-csi", {} },
+ };
+-- 
+2.25.1
+
