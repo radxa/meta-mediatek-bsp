@@ -6,19 +6,16 @@ COMPATIBLE_MACHINE = "mt8395|mt8390|mt8370"
 
 inherit module
 
-SRCREV = "197dcccd3499b2a2447c6f0c25fefd69342a1611"
+SRCREV = "d2d274cb6559ecbfd6942896a7132c0cad23ac71"
 
-BRANCH = "master"
+BRANCH = "mtk-v6.6"
 
 SRC_URI += "${AIOT_BSP_URI}/mtk-camisp-driver.git;protocol=https;branch=${BRANCH} \
 "
 
 S = "${WORKDIR}/git"
 
-# The inherit of module.bbclass will automatically name module packages with
-# "kernel-module-" prefix as required by the oe-core build environment.
-
-RPROVIDES_${PN} += "kernel-module-mtk-camisp-driver"
+DEPENDS += "kernel-module-mtk-vcu-driver-mt8395"
 
 python() {
     plat = d.getVar('SOC_FAMILY', True)
@@ -37,3 +34,8 @@ do_install:append() {
 FILES:${PN} += " \
     ${nonarch_base_libdir}/firmware/remoteproc_scp \
 "
+
+# The inherit of module.bbclass will automatically name module packages with
+# "kernel-module-" prefix as required by the oe-core build environment.
+
+RPROVIDES:${PN} += "kernel-module-${BPN}"
