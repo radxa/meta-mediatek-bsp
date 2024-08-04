@@ -13,6 +13,10 @@ def get_git_revision(p):
 
 UBOOT_LOCALVERSION = "-g${@get_git_revision('${S}')}"
 
+SRCBRANCH ?= "mtk-v2022.10"
+SRC_URI = "git://git@github.com/radxa/u-boot.git;protocol=https;branch=${SRCBRANCH}"
+SRCREV = "${AUTOREV}"
+
 SRC_URI += " \
     file://0001-Revert-cmd-pxe_utils-Check-fdtcontroladdr-in-label_b.patch \
     file://fw_env-mmc-boot.config \
