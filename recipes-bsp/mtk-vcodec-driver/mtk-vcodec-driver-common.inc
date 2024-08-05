@@ -11,8 +11,12 @@ SRC_URI += "git://gitlab.com/mediatek/aiot/bsp/mtk-vcodec-driver.git;protocol=ht
 
 S = "${WORKDIR}/git"
 
-do_compile () {
-	oe_runmake \
-		TARGET_PLATFORM="${TAR_PLATFORM}" \
-		EXTRA_SYMBOLS_PATH="${REF_SYMBOLS_PATH}"
+# Copy the Module.symvers file from ${BPN}/ to kernel-module-${BPN}/.
+# The module.bbclass installs Module.symvers in ${BPN}/ but uses the
+# kernel-module-${BPN}/ path in KBUILD_EXTRA_SYMBOLS.
+do_install:append () {
+	if [ -e "${D}${includedir}/${BPN}/Module.symvers" ] ; then
+		install -Dm0644 ${D}${includedir}/${BPN}/Module.symvers \
+			${D}${includedir}/kernel-module-${BPN}/Module.symvers
+	fi
 }
