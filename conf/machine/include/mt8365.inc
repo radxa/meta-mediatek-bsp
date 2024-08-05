@@ -24,20 +24,18 @@ MALI_SOC = "mt8365"
 MALI_VERSION ??= "48"
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
-	${@bb.utils.contains_any('DISTRO_FEATURES', 'opengl vulkan', 'libmali', '', d)} \
-	mali-gpu-driver \
 	${@bb.utils.contains("MACHINE_FEATURES", "optee-efuse", "optee-ewriter", "", d)} \
 "
 
-PREFERRED_PROVIDER_virtual/egl ?= "libmali"
-PREFERRED_PROVIDER_virtual/libegl ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgbm ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgl ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgles1 ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgles2 ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgles3 ?= "libmali"
-PREFERRED_PROVIDER_virtual/mesa ?= "libmali"
-PREFERRED_PROVIDER_virtual/opencl ?= "libmali"
+PREFERRED_PROVIDER_virtual/egl ?= "mesa"
+PREFERRED_PROVIDER_virtual/libegl ?= "mesa"
+PREFERRED_PROVIDER_virtual/libgbm ?= "mesa"
+PREFERRED_PROVIDER_virtual/libgl ?= "mesa"
+PREFERRED_PROVIDER_virtual/libgles1 ?= "mesa"
+PREFERRED_PROVIDER_virtual/libgles2 ?= "mesa"
+PREFERRED_PROVIDER_virtual/libgles3 ?= "mesa"
+PREFERRED_PROVIDER_virtual/mesa ?= "mesa"
+PREFERRED_PROVIDER_virtual/opencl ?= "mesa"
 
 PREFERRED_RPROVIDER_virtual/mdpd ?= "${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "mtk-mdpd", "mdp-prebuilt", d)}"
 

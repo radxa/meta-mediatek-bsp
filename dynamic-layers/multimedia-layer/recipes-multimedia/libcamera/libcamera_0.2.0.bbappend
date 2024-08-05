@@ -1,11 +1,12 @@
-SRC_URI = "${AIOT_BSP_URI}/libcamera.git;protocol=https;branch=mtk-aiot-multi-stream"
-SRCREV = "5265f50e0b6ac08f12297059a95b980584db0e57"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-PV = "202111+git${SRCPV}"
+SRC_URI:append = " \
+	file://0001-include-linux-Add-MediaTek-pixel-formats.patch \
+	file://0002-include-drm_fourcc-Add-MediaTek-Bayer-packing-modifi.patch \
+	file://0003-libcamera-Add-support-for-MediaTek-packed-Bayer-form.patch \
+	file://0004-libcamera-pipeline-simple-Add-support-for-MediaTek-i.patch \
+	file://0005-libcamera-pipeline-simple-Add-support-for-Mediatek-i.patch \
+"
 
-FILES:${PN}-dev += " ${libdir}/libcamera*.so"
-
-PACKAGECONFIG[lc-compliance] = "-Dlc-compliance=enabled,-Dlc-compliance=disabled"
 PACKAGECONFIG:append = " gst"
-
-CXXFLAGS += "-Wno-error=deprecated-declarations"
+EXTRA_OEMESON:append = " -Dpipelines=simple,uvcvideo"
