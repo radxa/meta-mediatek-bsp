@@ -3,8 +3,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/mdpd:"
 RDEPENDS:${PN} += "libmdp-prot libmdppq"
 DEPENDS = "libmdp-prot libmdppq"
 
-RPROVIDES:${PN} = "virtual/mdpd"
-
 inherit systemd
 inherit update-rc.d
 

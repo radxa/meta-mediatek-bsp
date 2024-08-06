@@ -33,6 +33,6 @@ PREFERRED_PROVIDER_virtual/libgles2 ?= "imgtec-pvr"
 PREFERRED_PROVIDER_virtual/mesa ?= "imgtec-pvr"
 PREFERRED_PROVIDER_virtual/opencl ?= "imgtec-pvr"
 
-PREFERRED_RPROVIDER_virtual/mdpd ??= "${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "mtk-mdpd", "mdp-prebuilt", d)}"
+VIRTUAL-RUNTIME_mdpd ??= "${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "mtk-mdpd", "mdpd-prebuilt", d)}"
 
 MACHINEOVERRIDES =. "mt8362:mt8362a:i300:i300a:"

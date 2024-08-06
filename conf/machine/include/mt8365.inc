@@ -37,6 +37,6 @@ PREFERRED_PROVIDER_virtual/libgles3 ?= "mesa"
 PREFERRED_PROVIDER_virtual/mesa ?= "mesa"
 PREFERRED_PROVIDER_virtual/opencl ?= "mesa"
 
-PREFERRED_RPROVIDER_virtual/mdpd ?= "${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "mtk-mdpd", "mdp-prebuilt", d)}"
+VIRTUAL-RUNTIME_mdpd ?= "${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "mtk-mdpd", "mdpd-prebuilt", d)}"
 
 MACHINEOVERRIDES =. "i350:genio-350:"
