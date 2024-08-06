@@ -7,12 +7,26 @@ NO_GENERIC_LICENSE[Mali] = "LICENSE"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e1263579487ef4e8ea1fcf0d282a6531"
 LICENSE_FLAGS = "commercial"
 
+COMPATIBLE_HOST = "aarch64.*-linux"
+
 inherit features_check
 
 CONFLICT_DISTRO_FEATURES = "x11"
 
-DEPENDS += "libdrm wayland"
-DEPENDS += "${@bb.utils.contains("DISTRO_FEATURES", "vulkan", "vulkan-loader", "", d)}"
+# As a prebuilt, libmali does not require these libraries to built.
+# However, clients of libmali need to include these dependencies as well,
+# otherwise there will be undefined symbols when linking the client application.
+DEPENDS = " \
+	libdrm \
+	wayland \
+	${@bb.utils.contains("DISTRO_FEATURES", "vulkan", "vulkan-loader", "", d)} \
+"
+
+RDEPENDS:${PN} = " \
+	libdrm \
+	wayland \
+	${@bb.utils.contains("DISTRO_FEATURES", "vulkan", "vulkan-loader", "", d)} \
+"
 
 PROVIDES = " \
 	virtual/egl \
@@ -41,7 +55,9 @@ S = "${WORKDIR}/git"
 
 BRANCH = "${DISTRO_CODENAME}"
 SRC_URI = "${AIOT_RITY_URI}/libmali.git;protocol=https;branch=${BRANCH}"
-SRCREV = "ed897d33a3d4d6e84c2cea516d5d1fd39bd000f3"
+SRCREV = "a6987e9e94cc817e9e78e9dbe3ff5e84e54abdae"
+
+PKGV = "0.${MALI_VERSION}+git${SRCPV}"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
@@ -55,7 +71,6 @@ REQUIRE_FIRMWARE:mt8183 = "0"
 # Additional install vulkan override layer: only support it since version r36
 REQUIRE_VKLAYER = "${@bb.utils.vercmp_string('${MALI_VERSION}', '35')}"
 
-
 EXTRA_OEMAKE = ' \
 	SOC=${MALI_SOC} \
 	MALI_VERSION="r${MALI_VERSION}p0" \
@@ -63,9 +78,7 @@ EXTRA_OEMAKE = ' \
 	INSTALL_VKLAYER=${REQUIRE_VKLAYER} \
 '
 
-do_configure[noexec] = "1"
-do_buildclean[noexec] = "1"
-do_package_qa[noexec] = "1"
+CLEANBROKEN = "1"
 
 do_install() {
 	if [ ${REQUIRE_FIRMWARE} = 1 ]; then
@@ -92,6 +105,7 @@ FILES:${PN} = " \
 	${@bb.utils.contains('REQUIRE_VKLAYER',  '1', '${datadir}/vulkan/implicit_layer.d/libVkLayer_window_system_integration.so', '', d)} \
 	${@bb.utils.contains('REQUIRE_FIRMWARE', '1', '${nonarch_base_libdir}/firmware/*', '', d)} \
 "
+
 FILES:${PN}-dev = "${libdir}/pkgconfig/*.pc \
                    ${datadir}/pkgconfig/*.pc \
                    ${includedir}/EGL/* \
@@ -107,4 +121,12 @@ FILES:${PN}-dev = "${libdir}/pkgconfig/*.pc \
 INHIBIT_SYSROOT_STRIP = "1"
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 INHIBIT_PACKAGE_STRIP = "1"
-INSANE_SKIP:${PN} += "already-stripped"
+
+# Suppress the QA error:
+# QA Issue: non -dev/-dbg/nativesdk- package libmali contains symlink .so '/usr/lib/libEGL.so'
+# We do need these symlinks for EGL & OpenGL ES to work
+INSANE_SKIP:${PN} += " dev-so"
+
+# Suppress the false warning:
+# 'found library in wrong location: /usr/share/vulkan/implicit_layer.d/libVkLayer_window_system_integration.so'
+INSANE_SKIP:${PN} += " libdir"
