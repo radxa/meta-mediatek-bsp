@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2023 Radxa Limited
+ *
+ */
+
+#include <dt-bindings/pinctrl/mt8195-pinfunc.h>
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "mediatek,mt8195";
+
+	fragment@0 {
+		target = <&pio>;
+		__overlay__ {
+			uart1_pins: uart1-pins {
+				pins {
+					pinmux = <PINMUX_GPIO102__FUNC_UTXD1>,
+						 <PINMUX_GPIO103__FUNC_URXD1>;
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&uart1>;
+		__overlay__ {
+			pinctrl-0 = <&uart1_pins>;
+			pinctrl-names = "default";
+			status = "okay";
+		};
+	};
+};

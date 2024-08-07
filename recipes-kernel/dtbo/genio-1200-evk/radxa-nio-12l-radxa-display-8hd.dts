@@ -1,0 +1,178 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2023 Radxa Limited
+ *
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mt8195-pinfunc.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			dsi0_backlight: dsi0-backlight {
+				status = "okay";
+				compatible = "pwm-backlight";
+				pwms = <&disp_pwm0 0 500000>;
+				brightness-levels = <0 1023>;
+				num-interpolated-steps = <1023>;
+				default-brightness-level = <576>;
+				enable-gpios = <&pio 107 GPIO_ACTIVE_HIGH>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&pio>;
+		__overlay__ {
+			panel_pins_default: panel-pins-default {
+				panel_rst: panel-rst {
+					pinmux = <PINMUX_GPIO108__FUNC_GPIO108>;
+					bias-pull-up;
+				};
+			};
+
+			dsi0_backlight_pins: dsi0-backlight-pins {
+				dsi0_backlight_en: dsi0_backlight-en {
+					pinmux = <PINMUX_GPIO107__FUNC_GPIO107>;
+					output-high;
+				};
+			};
+
+			pwm0_gpio_def_cfg: pwm0-gpio-def-default {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO97__FUNC_DISP_PWM0>;
+				};
+			};
+
+			touch_pins: touch-pins {
+				touch_pin_irq: touch-pin-irq {
+					pinmux = <PINMUX_GPIO132__FUNC_GPIO132>;
+					input-enable;
+					bias-disable;
+				};
+
+				touch_pin_reset: touch-pin-reset {
+					pinmux = <PINMUX_GPIO133__FUNC_GPIO133>;
+					output-high;
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&mipi_tx0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&dsi0>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			poweron-in-hs-mode = <0>;
+
+			dsi_panel@0 {
+				compatible = "radxa,display-8hd-ad002", "jadard,jd9365da-h3";
+				status = "okay";
+				reg = <0>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&panel_pins_default>;
+
+				vdd-supply = <&mt6359_vcn33_2_bt_ldo_reg>;
+				vccio-supply = <&mt6360_ldo2>;
+				reset-gpios = <&pio 108 GPIO_ACTIVE_HIGH>;
+
+				backlight = <&dsi0_backlight>;
+
+				port {
+					dsi_panel_in: endpoint {
+						remote-endpoint = <&dsi_out>;
+					};
+				};
+			};
+
+			ports {
+				port {
+					dsi_out: endpoint {
+						remote-endpoint = <&dsi_panel_in>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&disp_pwm0>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&pwm0_gpio_def_cfg>;
+			status = "okay";
+		};
+	};
+
+	fragment@5 {
+		target = <&dp_intf1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@6 {
+		target = <&dp_tx>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@7 {
+		target = <&disp_dpi1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@8 {
+		target = <&hdmi0>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@9 {
+		target = <&ovl1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@10 {
+		target = <&i2c4>;
+		__overlay__ {
+			status = "okay";
+			clock-frequency = <400000>;
+			pinctrl-0 = <&i2c4_pins>;
+			pinctrl-names = "default";
+
+			radxa_display_8hd_touch: radxa-display-8hd-touch@14 {
+				compatible = "goodix,gt911";
+				reg = <0x14>;
+				interrupt-parent = <&pio>;
+				interrupts = <132 IRQ_TYPE_EDGE_RISING>;
+				irq-gpios = <&pio 132 GPIO_ACTIVE_HIGH>;
+				reset-gpios = <&pio 133 GPIO_ACTIVE_HIGH>;
+				VDDIO-supply = <&mt6359_vcn33_2_bt_ldo_reg>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&touch_pins>;
+			};
+		};
+	};
+};

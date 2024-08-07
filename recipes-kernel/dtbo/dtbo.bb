@@ -244,6 +244,18 @@ SRC_URI:append:genio-1200-evk = " \
 	file://camera-lt6911uxe-csi0-std.dts \
 	file://camera-ag190c-max9286-csi0-std.dts \
 	file://audio-sof.dts \
+	file://ddr-4g.dts \
+	file://ddr-8g.dts \
+	file://ddr-16g.dts \
+	file://gpio104-pwm.dts \
+	file://i2c3.dts \
+	file://i2c4.dts \
+	file://uart1.dts \
+	file://spi1-spidev.dts \
+	file://spi2-spidev.dts \
+	file://radxa-nio-12l-camera1-imx214.dts \
+	file://radxa-nio-12l-camera2-imx214.dts \
+	file://radxa-nio-12l-radxa-display-8hd.dts \
 "
 
 SRC_URI:append:genio-1200-evk-p1v1 = " \
