@@ -55,6 +55,14 @@ FILES:${PN}-mt8195-sof = " \
 	${nonarch_base_libdir}/firmware/mediatek/sof/sof-mt8195.ldc \
 	${nonarch_base_libdir}/firmware/mediatek/sof-tplg/sof-mt8195.tplg \
 "
+
+FILES:${PN}-rtl8852be = " \
+	${nonarch_base_libdir}/firmware/rtw89/rtw8852b_fw-1.bin \
+	${nonarch_base_libdir}/firmware/rtw89/rtw8852b_fw.bin \
+	${nonarch_base_libdir}/firmware/rtl_bt/rtl8852bu_config.bin \
+	${nonarch_base_libdir}/firmware/rtl_bt/rtl8852bu_fw.bin \
+"
+
 PACKAGES =+ "${PN}-mt8183-scp"
 PACKAGES =+ "${PN}-mt8195-scp"
 PACKAGES =+ "${PN}-mt8188-scp"
@@ -63,3 +71,4 @@ PACKAGES =+ "${PN}-mt7663"
 PACKAGES =+ "${PN}-mt7961"
 PACKAGES =+ "${PN}-mt8188-sof"
 PACKAGES =+ "${PN}-mt8195-sof"
+PACKAGES =+ "${PN}-rtl8852be"
