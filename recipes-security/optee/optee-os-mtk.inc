@@ -28,4 +28,4 @@ EXTRA_OEMAKE += " \
 "
 
 EXTRA_OEMAKE += "${@oe.utils.conditional("DEBUG", "1", "DEBUG=1 CFG_TEE_CORE_LOG_LEVEL=3 CFG_UART_ENABLE=y", \
-                                                       "DEBUG=0 CFG_TEE_CORE_LOG_LEVEL=0 CFG_UART_ENABLE=n", d)}"
+                                                       "DEBUG=0 CFG_TEE_CORE_LOG_LEVEL=0 CFG_UART_ENABLE=n CFG_DEBUG_INFO=n", d)}"
