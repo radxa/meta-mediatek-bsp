@@ -22,7 +22,7 @@ do_package_qa[noexec] = "1"
 do_license_rename() {
 	cp "${S}/AP1302 Software License Agreement.pdf" ${S}/LICENSE.pdf
 }
-addtask do_license_rename after do_unpack before do_populate_lic
+addtask do_license_rename after do_unpack before do_create_spdx
 
 do_install() {
 	install -d ${D}${nonarch_base_libdir}/firmware
