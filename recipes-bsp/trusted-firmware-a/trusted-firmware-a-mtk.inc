@@ -28,6 +28,7 @@ EXTRA_OEMAKE += "LIBBASE=${STAGING_DIR_TARGET}/${libdir}/libbase.a"
 
 EXTRA_OEMAKE:append = " \
 	${@bb.utils.contains("MACHINE_FEATURES", "ufs-boot", "STORAGE_UFS=1", "", d)} \
+	${@bb.utils.contains("MACHINE_FEATURES", "nor-boot", "STORAGE_NOR=1", "", d)} \
 	${@bb.utils.contains("AB_FWUPDATE_ENABLE", "1", "PLAT_AB_BOOT_ENABLE=1", "", d)} \
 "
 EXTRA_OEMAKE:append:mt8370 = " PLAT_HW_CRYPTO=1"
