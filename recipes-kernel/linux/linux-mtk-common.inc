@@ -70,7 +70,8 @@ KBUILD_DEFCONFIG = "defconfig"
 export DTC_FLAGS = '-@'
 
 SRC_URI = "${AIOT_BSP_URI}/linux.git;protocol=https;branch=${SRCBRANCH}"
-PV = "${LINUX_VERSION}+git${SRCPV}"
+PKGV = "${LINUX_VERSION}+git"
+PV = "${LINUX_VERSION}"
 
 uboot_prep_kimage() {
 	linux_comp="gzip"
