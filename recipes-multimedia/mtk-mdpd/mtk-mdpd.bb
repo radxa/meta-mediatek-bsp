@@ -17,10 +17,6 @@ INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 
 EXTRA_OEMAKE = " mdpd "
 
-EXTRA_OEMAKE:append:mt8167 = ' \
-	libmdp.mt8167.so \
-'
-
 EXTRA_OEMAKE:append:mt8365 = ' \
 	libmdp.mt8365.so \
 	V4l2MDPD_CFLAGS=-DMDP_KERNEL_IPI_COMPATIBLE \
