@@ -3,9 +3,6 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-3-Clause;md5=550794465ba0ec
 
 inherit deploy
 
-COMPATIBLE_MACHINE_mt8516 = "mt8516"
-COMPATIBLE_MACHINE_mt8167 = "mt8516"
-
 PROVIDES = "virtual/bl2"
 SRC_URI = "file://bl2.img"
 
