@@ -26,22 +26,13 @@ SRC_URI:append:mt8195-demo = " file://mt8195-demo.cfg "
 SRC_URI:append:mt8365-evk = " file://mt8365-evk.cfg "
 SRC_URI:append:mt8365-sb35 = " file://mt8365-sb35.cfg "
 SRC_URI:append:mt8365-pumpkin = " file://mt8365-pumpkin.cfg "
-SRC_URI:append:mt8167-pumpkin = " file://mt8167-pumpkin.cfg "
-SRC_URI:append:mt8167-sb30 = " file://mt8167-sb30.cfg "
-SRC_URI:append:mt8167-coral = " file://mt8167-coral.cfg "
-SRC_URI:append:i300-pumpkin = " \
-	file://i300-pumpkin.cfg \
-	${@bb.utils.contains('MACHINE_FEATURES', 'vesper-hat', 'file://vesper.cfg', '', d)} \
-"
 
 # SoC specific config fragments
-SRC_URI:append:mt8167 = " file://mt8167.cfg file://mt8516.cfg "
 SRC_URI:append:mt8195 = " \
 	file://mt8195.cfg \
 	${@bb.utils.contains('MACHINE_FEATURES', 'tsn', 'file://tsn.cfg', '', d)} \
 "
 SRC_URI:append:mt8365 = " file://mt8365.cfg "
-SRC_URI:append:mt8516 = " file://mt8516.cfg "
 SRC_URI:append:mt8188 = " \
 	file://mt8188.cfg \
 	${@bb.utils.contains('MACHINE_FEATURES', 'tsn', 'file://tsn.cfg', '', d)} \
