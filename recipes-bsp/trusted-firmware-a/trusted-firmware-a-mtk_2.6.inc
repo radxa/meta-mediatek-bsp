@@ -1,9 +1,5 @@
 require trusted-firmware-a-mtk.inc
 
-EXTRA_OEMAKE:append:i350-pumpkin = " \
-	CFLAGS+=-DBOARD_i350_pumpkin \
-"
-
 SRC_URI = "${AIOT_BSP_URI}/trusted-firmware-a.git;name=tfa;branch=mtk-v2.6;protocol=https"
 SRCREV_tfa = "8f34d053e0b59a4f7619e2e4e776be3d1440c4f1"
 
