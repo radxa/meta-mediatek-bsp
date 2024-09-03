@@ -98,7 +98,7 @@ the kernel.
 
 .. prompt:: bash $
 
-	MACHINE=i500-pumpkin
+	MACHINE=genio-1200-evk
 	RITYDIR=/path/to/rity
 	IMAGENAME=core-image-weston
 	export ARCH=arm64
@@ -134,10 +134,10 @@ To install the generated yocto defconfig you can run the following commands:
 
 	$ cd linux
 	$ $RITYDIR/src/meta-mediatek-bsp/scripts/copy_kernel_config.sh $RITYDIR $MACHINE $IMAGENAME
-	Copying kernel config to i500-pumpkin-config...
-	$ mv i500-pumpkin-config .config
+	Copying kernel config to genio-1200-evk-config...
+	$ mv genio-1200-evk-config .config
 
-The commands above will retrieve the `.config` from the existing i500-pumpkin
+The commands above will retrieve the `.config` from the existing genio-1200-evk
 build and copy it at the root of your linux repository.
 
 .. note::
