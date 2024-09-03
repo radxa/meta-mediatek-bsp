@@ -26,18 +26,7 @@ addtask do_license_rename after do_unpack before do_create_spdx
 
 do_install() {
 	install -d ${D}${nonarch_base_libdir}/firmware
-	if [ "${ONSEMI_BOARD_NAME}" = "OLogic_Pumpkin_i500" ]; then
-		install "${S}/${ONSEMI_BOARD_NAME}/ap1302_ar0330_single_fw.bin" \
-			${D}${nonarch_base_libdir}/firmware
-		install "${S}/${ONSEMI_BOARD_NAME}/ap1302_ar0144_single_fw.bin" \
-			${D}${nonarch_base_libdir}/firmware
-		install "${S}/${ONSEMI_BOARD_NAME}/ap1302_ar0144_dual_fw.bin" \
-			${D}${nonarch_base_libdir}/firmware
-                install "${S}/${ONSEMI_BOARD_NAME}/ap1302_ar0430_single_fw.bin" \
-                        ${D}${nonarch_base_libdir}/firmware
-                install "${S}/${ONSEMI_BOARD_NAME}/ap1302_ar1335_single_fw.bin" \
-                        ${D}${nonarch_base_libdir}/firmware
-	elif [ "${ONSEMI_BOARD_NAME}" = "MediaTek_Genio" ]; then
+	if [ "${ONSEMI_BOARD_NAME}" = "MediaTek_Genio" ]; then
 		install "${S}/${ONSEMI_BOARD_NAME}/ap1302_ar0430_single_fw.bin" \
 			${D}${nonarch_base_libdir}/firmware
 		install "${S}/${ONSEMI_BOARD_NAME}/ap1302_ar0830_single_fw.bin" \
@@ -45,17 +34,9 @@ do_install() {
 	fi
 }
 
-PACKAGES =+ "${PN}-ap1302-ar0330"
-PACKAGES =+ "${PN}-ap1302-ar0144"
-PACKAGES =+ "${PN}-ap1302-ar0144-dual"
 PACKAGES =+ "${PN}-ap1302-ar0430"
 PACKAGES =+ "${PN}-ap1302-ar0830"
-PACKAGES =+ "${PN}-ap1302-ar1335"
 ALLOW_EMPTY:${PN} = "1"
-FILES:${PN}-ap1302-ar0330 = "${nonarch_base_libdir}/firmware/ap1302_ar0330_single_fw.bin"
-FILES:${PN}-ap1302-ar0144 = "${nonarch_base_libdir}/firmware/ap1302_ar0144_single_fw.bin"
-FILES:${PN}-ap1302-ar0144-dual = "${nonarch_base_libdir}/firmware/ap1302_ar0144_dual_fw.bin"
 FILES:${PN}-ap1302-ar0430 = "${nonarch_base_libdir}/firmware/ap1302_ar0430_single_fw.bin"
 FILES:${PN}-ap1302-ar0830 = "${nonarch_base_libdir}/firmware/ap1302_ar0830_single_fw.bin"
-FILES:${PN}-ap1302-ar1335 = "${nonarch_base_libdir}/firmware/ap1302_ar1335_single_fw.bin"
 
