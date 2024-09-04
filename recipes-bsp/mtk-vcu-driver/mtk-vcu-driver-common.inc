@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=16de935ebcebe2420535844d4f6faefc"
 
 inherit module
 
-SRC_URI = "git://gitlab.com/mediatek/aiot/bsp/mtk-vcu-driver.git;protocol=https;branch=${BRANCH} \
+SRC_URI = "${AIOT_BSP_URI}/mtk-vcu-driver.git;protocol=https;branch=${BRANCH} \
 "
 
 S = "${WORKDIR}/git"

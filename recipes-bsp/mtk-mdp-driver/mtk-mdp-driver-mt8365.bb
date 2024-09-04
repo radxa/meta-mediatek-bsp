@@ -10,7 +10,7 @@ BRANCH = "mtk-v6.6-mt8167"
 DEPENDS += "kernel-module-mtk-vcu-driver-mt8365"
 EXTRA_OEMAKE += "TARGET_PLATFORM=mt8365"
 
-SRC_URI += "git://gitlab.com/mediatek/aiot/bsp/mtk-mdp-driver.git;protocol=https;branch=${BRANCH} \
+SRC_URI += "${AIOT_BSP_URI}/mtk-mdp-driver.git;protocol=https;branch=${BRANCH} \
 "
 
 S = "${WORKDIR}/git"
