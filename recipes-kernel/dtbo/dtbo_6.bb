@@ -13,6 +13,10 @@ KERNEL_INCLUDE:append = " \
 	${STAGING_KERNEL_BUILDDIR}/include/generated \
 "
 
+SRC_URI:append:mt8365 = " \
+	file://video.dts \
+"
+
 SRC_URI:append:mt8365-evk = " \
 	file://camera-ap1302-ar0430-dual.dtsi \
 	file://camera-ap1302-ar0430-single-csi0.dts \
