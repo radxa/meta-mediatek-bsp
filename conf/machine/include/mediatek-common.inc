@@ -62,7 +62,6 @@ EXTRA_IMAGEDEPENDS = " \
 
 MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "kernel-image"
 
-#FIXME: Removed packagegroup-mtk
 MACHINE_EXTRA_RRECOMMENDS += " \
 	kernel-modules \
 "
