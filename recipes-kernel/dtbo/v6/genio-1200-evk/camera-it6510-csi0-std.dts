@@ -1,0 +1,158 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2023 MediaTek Inc.
+ *
+ */
+
+#include <dt-bindings/clock/mt8195-clk.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mt8195-pinfunc.h>
+
+/dts-v1/;
+/plugin/;
+
+#include "isp70.dtsi"
+
+/ {
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			cam0_avdd_en: cam0-avdd-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam0_avdd_en";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 56 0>;
+				startup-delay-us = <18000>;
+				enable-active-high;
+				regulator-always-on;
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam0_avdd_en_pins>;
+			};
+
+			cam1_dvdd_en: cam1-dvdd-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam1_dvdd_en";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 58 0>;
+				startup-delay-us = <18000>;
+				enable-active-high;
+				regulator-always-on;
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam1_dvdd_en_pins>;
+			};
+
+			cam_vcam_3v3_en: cam-vcam-3v3-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam_vcam_3v3_en";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				vin-supply = <&mt6359_vcamio_ldo_reg>;
+				enable-active-high;
+				regulator-always-on;
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <&pio>;
+		__overlay__ {
+			cam0_pins_default: cam0_pins_default {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO54__FUNC_GPIO54>,
+						 <PINMUX_GPIO55__FUNC_GPIO55>;
+				};
+			};
+
+			cam0_avdd_en_pins: cam0-avdd-en-pins {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO56__FUNC_GPIO56>;
+				};
+			};
+
+			cam1_dvdd_en_pins: cam1-dvdd-en-pins {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO58__FUNC_GPIO58>;
+				};
+			};
+		};
+	};
+
+	fragment@6 {
+		target = <&i2c0>;
+		__overlay__ {
+			clock-frequency = <400000>;
+
+			ite_bridge: it6510@58 {
+				compatible = "ite,it6510";
+
+				reg = <0x58>;
+				status = "okay";
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam0_pins_default>;
+
+				interrupt-parent = <&pio>;
+				interrupts = <54 IRQ_TYPE_LEVEL_LOW>;
+
+				dp-lanes = /bits/ 8 <4>;
+				dp-bitrate = /bits/ 8 <0x14>;
+
+				port {
+					sensor0_out: endpoint {
+						remote-endpoint = <&seninf_csi_port_0_in>;
+						data-lanes = <1 2 3 4>;
+						link-frequencies = /bits/ 64 <480000000>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <&seninf_top>;
+		__overlay__ {
+			seninf_csi_port_0: seninf_csi_port_0 {
+				compatible = "mediatek,seninf";
+				csi-port = "0";
+				hs_trail_parameter = <0x0>;
+
+				port {
+					seninf_csi_port_0_in: endpoint {
+						remote-endpoint = <&sensor0_out>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@8 {
+		target = <&imgsys_fw>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@9 {
+		target = <&hcp>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@10 {
+		target-path = "/soc/imgsys_larb";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@11 {
+		target = <&ipesys_me>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
