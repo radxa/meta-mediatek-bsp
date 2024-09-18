@@ -20,13 +20,10 @@ do_install:append() {
 	install -m 644 ${B}/libmdp.mt*.so ${D}${libdir}
 
 
-	if [ "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}" = "systemd" ]; then
-		install -d ${D}${systemd_unitdir}/system
-		install -m 0644 ${WORKDIR}/mdpd.service ${D}${systemd_unitdir}/system/
-	else
-		install -d ${D}${sysconfdir}/init.d
-		install -m 0755 ${WORKDIR}/mdpd.sh ${D}${sysconfdir}/init.d/mdpd
-	fi
+	install -d ${D}${systemd_unitdir}/system
+	install -m 0644 ${WORKDIR}/mdpd.service ${D}${systemd_unitdir}/system/
+	install -d ${D}${sysconfdir}/init.d
+	install -m 0755 ${WORKDIR}/mdpd.sh ${D}${sysconfdir}/init.d/mdpd
 }
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${PN}', '', d)}"
