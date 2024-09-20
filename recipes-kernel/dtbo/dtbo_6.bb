@@ -29,6 +29,7 @@ SRC_URI:append:mt8365-evk = " \
 "
 
 SRC_URI:append:genio-1200-evk = " \
+	file://audio-sof.dts \
 "
 
 DT_FILES_PATH = "${WORKDIR}"
