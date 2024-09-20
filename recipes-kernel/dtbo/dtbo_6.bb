@@ -6,6 +6,7 @@ inherit devicetree
 
 FILESEXTRAPATHS:prepend:mt8365-evk := "${THISDIR}/v6/mt8365-evk:"
 FILESEXTRAPATHS:prepend:mt8365:= "${THISDIR}/v6/mt8365:"
+FILESEXTRAPATHS:prepend:genio-1200-evk:= "${THISDIR}/v6/genio-1200-evk:"
 
 do_compile[depends] += "virtual/kernel:do_shared_workdir"
 KERNEL_INCLUDE:append = " \
@@ -25,6 +26,9 @@ SRC_URI:append:mt8365-evk = " \
 	file://display-hdmi.dts \
 	file://gpu-mali.dts \
 	file://net-ethernet.dts \
+"
+
+SRC_URI:append:genio-1200-evk = " \
 "
 
 DT_FILES_PATH = "${WORKDIR}"
