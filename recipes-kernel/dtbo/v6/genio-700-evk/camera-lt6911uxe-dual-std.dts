@@ -1,0 +1,242 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2024 MediaTek Inc.
+ *
+ */
+
+#include <dt-bindings/clock/mediatek,mt8188-clk.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mediatek,mt8188-pinfunc.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/dts-v1/;
+/plugin/;
+
+#include "isp71.dtsi"
+
+/ {
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			cam0_dvdd_en: cam0-dvdd-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam0_dvdd_en";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 79 0>;
+				startup-delay-us = <18000>;
+				enable-active-high;
+				regulator-always-on;
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam0_dvdd_en_pins>;
+			};
+
+			cam0_avdd_en: cam0-avdd-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam0_avdd_en";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 80 0>;
+				startup-delay-us = <18000>;
+				enable-active-high;
+				regulator-always-on;
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam0_avdd_en_pins>;
+			};
+
+			cam_vcam_3v3_en: cam-vcam-3v3-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam_vcam_3v3_en";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				gpio = <&pio 91 GPIO_ACTIVE_HIGH>;
+				enable-active-high;
+				regulator-always-on;
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam_vcam_3v3_en_pins>;
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <&spi2>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@6 {
+		target = <&pio>;
+		__overlay__ {
+			cam0_pins_default: cam0_pins_default {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO18__FUNC_B_GPIO18>,
+						 <PINMUX_GPIO19__FUNC_B_GPIO19>;
+				};
+			};
+
+			cam1_pins_default: cam1_pins_default {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO20__FUNC_B_GPIO20>,
+						 <PINMUX_GPIO21__FUNC_B_GPIO21>;
+				};
+			};
+
+			cam0_dvdd_en_pins: cam0-dvdd-en-pins {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO79__FUNC_B_GPIO79>;
+				};
+			};
+
+			cam0_avdd_en_pins: cam0-avdd-en-pins {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO80__FUNC_B_GPIO80>;
+				};
+			};
+
+			cam_vcam_3v3_en_pins: cam-vcam-3v3-en-pins {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO91__FUNC_B_GPIO91>;
+				};
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <&i2c5>;
+		__overlay__ {
+			clock-frequency = <400000>;
+
+			lt6911uxe@2b {
+				compatible = "lontium,lt6911uxe";
+				reg = <0x2b>;
+				status = "okay";
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam0_pins_default>;
+
+				interrupt-parent = <&pio>;
+				interrupts = <18 IRQ_TYPE_LEVEL_HIGH>;
+
+				reset-gpio = <&pio 19 GPIO_ACTIVE_HIGH>;
+
+				port {
+					sensor0_out: endpoint {
+						remote-endpoint = <&seninf_csi_port_0_in>;
+						data-lanes = <1 2 3 4>;
+						link-frequencies = /bits/ 64 <480000000>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@8 {
+		target = <&i2c3>;
+		__overlay__ {
+			clock-frequency = <400000>;
+
+			lt6911uxe@2b {
+				compatible = "lontium,lt6911uxe";
+				reg = <0x2b>;
+				status = "okay";
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam1_pins_default>;
+
+				interrupt-parent = <&pio>;
+				interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
+
+				reset-gpio = <&pio 21 GPIO_ACTIVE_HIGH>;
+
+				port {
+					sensor1_out: endpoint {
+						remote-endpoint = <&seninf_csi_port_1_in>;
+						data-lanes = <1 2 3 4>;
+						link-frequencies = /bits/ 64 <480000000>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@9 {
+		target = <&seninf_top>;
+		__overlay__ {
+			seninf_csi_port_0: seninf_csi_port_0 {
+				compatible = "mediatek,seninf";
+				csi-port = "0";
+				hs_trail_parameter = <0x0>;
+
+				port {
+					seninf_csi_port_0_in: endpoint {
+						remote-endpoint = <&sensor0_out>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+			};
+
+			seninf_csi_port_1: seninf_csi_port_1 {
+				compatible = "mediatek,seninf";
+				csi-port = "1";
+				hs_trail_parameter = <0x0>;
+
+				port {
+					seninf_csi_port_1_in: endpoint {
+						remote-endpoint = <&sensor1_out>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@10 {
+		target = <&hcp>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@11 {
+		target-path = "/soc/hcp_l15";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@12 {
+		target-path = "/soc/imgsys_l10";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@13 {
+		target-path = "/soc/imgsys_l11A";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@14 {
+		target-path = "/soc/imgsys_l11C";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@15 {
+		target = <&imgsys_fw>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@16 {
+		target = <&ipesys_me>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};

@@ -6,6 +6,8 @@ inherit devicetree
 
 FILESEXTRAPATHS:prepend:mt8365-evk := "${THISDIR}/v6/mt8365-evk:"
 FILESEXTRAPATHS:prepend:mt8365:= "${THISDIR}/v6/mt8365:"
+FILESEXTRAPATHS:prepend:genio-700-evk:= "${THISDIR}/v6/genio-700-evk:"
+FILESEXTRAPATHS:prepend:mt8390:= "${THISDIR}/v6/mt8390:"
 FILESEXTRAPATHS:prepend:genio-1200-evk:= "${THISDIR}/v6/genio-1200-evk:"
 FILESEXTRAPATHS:prepend:mt8395:= "${THISDIR}/v6/mt8395:"
 
@@ -27,6 +29,36 @@ SRC_URI:append:mt8365-evk = " \
 	file://display-hdmi.dts \
 	file://gpu-mali.dts \
 	file://net-ethernet.dts \
+"
+
+SRC_URI:append:genio-700-evk = " \
+	file://isp71.dtsi \
+	file://mtk-camera.dtsi \
+	file://camera-common.dtsi \
+	file://camera-imx214-csi0.dts \
+	file://camera-imx214-csi1.dts \
+	file://camera-imx214-2lanes-csi0.dts \
+	file://camera-ar0430-ap1302-csi0.dts \
+	file://camera-ar0430-ap1302-csi1.dts \
+	file://camera-ar0830-ap1302-csi0.dts \
+	file://camera-ar0830-ap1302-csi1.dts \
+	file://camera-ar0830-ap1302-2lanes-csi0.dts \
+	file://camera-imx214-csi0-imx214-csi1.dts \
+	file://camera-imx214-csi0-ar0830-ap1302-csi1.dts \
+	file://camera-ar0830-ap1302-csi0-imx214-csi1.dts \
+	file://camera-ar0830-ap1302-csi0-ar0830-ap1302-csi1.dts \
+	file://camera-ar0430-ap1302-csi0-std.dts \
+	file://camera-ar0830-ap1302-csi0-std.dts \
+	file://camera-it6510-csi0-std.dts \
+	file://camera-ar0830-ap1302-dual-std.dts \
+	file://camera-it6510-dual-std.dts \
+	file://camera-ar0830-ap1302-csi0-it6510-csi1-std.dts \
+	file://camera-lt6911uxe-csi0-std.dts \
+	file://camera-lt6911uxe-dual-std.dts \
+	file://camera-ag190c-max9286-csi0-std.dts \
+	file://camera-ag190c-max9286-dual-std.dts \
+	file://camera-imx214-csi0-std.dts \
+	file://camera-imx214-csi1-std.dts \
 "
 
 SRC_URI:append:genio-1200-evk = " \

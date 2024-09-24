@@ -1,0 +1,244 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2024 MediaTek Inc.
+ *
+ */
+
+#include <dt-bindings/clock/mediatek,mt8188-clk.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mediatek,mt8188-pinfunc.h>
+
+/dts-v1/;
+/plugin/;
+
+#include "isp71.dtsi"
+
+/ {
+	fragment@3 {
+		target-path = "/";
+		__overlay__ {
+			/* This dummy regulator is used for max9286 driver to probe */
+			cam_vcam_poc_requlator: cam-vcam-poc-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam_vcam_poc_requlator";
+				regulator-min-microvolt = <12000000>;
+				regulator-max-microvolt = <12000000>;
+				regulator-always-on;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&spi2>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@5 {
+		target = <&i2c5>;
+		__overlay__ {
+			clock-frequency = <400000>;
+			gmsl-deserializer@2c {
+				compatible = "maxim,max9286";
+				reg = <0x48>;
+				poc-supply = <&cam_vcam_poc_requlator>;
+				enable-gpios = <&pio 18 GPIO_ACTIVE_HIGH>;
+
+				gpio-controller;
+				#gpio-cells = <2>;
+
+				maxim,reverse-channel-microvolt = <200000>;
+
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+
+					port@0 {
+						reg = <0>;
+
+						max9286_in_0_0: endpoint {
+							remote-endpoint = <&rdacm21_out_0_0>;
+						};
+					};
+
+					port@1 {
+						reg = <1>;
+
+						max9286_in_0_1: endpoint {
+							remote-endpoint = <&rdacm21_out_0_1>;
+						};
+					};
+
+					port@2 {
+						reg = <2>;
+
+						max9286_in_0_2: endpoint {
+							remote-endpoint = <&rdacm21_out_0_2>;
+						};
+					};
+
+					port@3 {
+						reg = <3>;
+
+						max9286_in_0_3: endpoint {
+							remote-endpoint = <&rdacm21_out_0_3>;
+						};
+					};
+
+					port@4 {
+						reg = <4>;
+
+						max9286_out: endpoint {
+							data-lanes = <1 2 3 4>;
+							remote-endpoint = <&seninf_csi_port_0_in>;
+						};
+					};
+				};
+
+				i2c-mux {
+					#address-cells = <1>;
+					#size-cells = <0>;
+
+					i2c@0 {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						reg = <0>;
+
+						camera@51 {
+							compatible = "abeo,ag190c";
+							reg = <0x51>, <0x61>;
+
+							port {
+								rdacm21_out_0_0: endpoint {
+									remote-endpoint = <&max9286_in_0_0>;
+								};
+							};
+
+						};
+					};
+
+					i2c@1 {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						reg = <1>;
+
+						camera@52 {
+							compatible = "abeo,ag190c";
+							reg = <0x52>, <0x62>;
+
+							port {
+								rdacm21_out_0_1: endpoint {
+									remote-endpoint = <&max9286_in_0_1>;
+								};
+							};
+						};
+					};
+
+					i2c@2 {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						reg = <2>;
+
+						camera@53 {
+							compatible = "abeo,ag190c";
+							reg = <0x53>, <0x63>;
+
+							port {
+								rdacm21_out_0_2: endpoint {
+									remote-endpoint = <&max9286_in_0_2>;
+								};
+							};
+						};
+					};
+
+					i2c@3 {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						reg = <3>;
+
+						camera@54 {
+							compatible = "abeo,ag190c";
+							reg = <0x54>, <0x64>;
+
+							port {
+								rdacm21_out_0_3: endpoint {
+									remote-endpoint = <&max9286_in_0_3>;
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+
+	fragment@6 {
+		target = <&seninf_top>;
+		__overlay__ {
+			seninf_csi_port_0: seninf_csi_port_0 {
+				compatible = "mediatek,seninf";
+				csi-port = "0";
+				settle_delay_ck = <0x00>;
+				dphy_settle_delay_dt = <0x10>;
+				hs_trail_parameter = <0x08>;
+
+				port {
+					seninf_csi_port_0_in: endpoint {
+						remote-endpoint = <&max9286_out>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <&hcp>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@8 {
+		target-path = "/soc/hcp_l15";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@9 {
+		target-path = "/soc/imgsys_l10";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@10 {
+		target-path = "/soc/imgsys_l11A";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@11 {
+		target-path = "/soc/imgsys_l11C";
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@12 {
+		target = <&imgsys_fw>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@13 {
+		target = <&ipesys_me>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};

@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2023 MediaTek Inc.
+ *
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "camera-common.dtsi"
+
+/ {
+	fragment@10 {
+		target = <&i2c5>;
+		__overlay__ {
+			sensor0 {
+				sensor-names = "imx214_mipi_raw";
+				reg = <0x1a>;
+				status = "okay";
+			};
+		};
+	};
+
+	fragment@11 {
+		target = <&i2c3>;
+		__overlay__ {
+			sensor1 {
+				status = "disabled";
+			};
+		};
+	};
+
+	fragment@12 {
+		target = <&mtkcam0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};
