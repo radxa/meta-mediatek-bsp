@@ -19,6 +19,18 @@ KERNEL_INCLUDE:append = " \
 	${STAGING_KERNEL_BUILDDIR}/include/generated \
 "
 
+SRC_URI:append:mt8395 = " \
+	file://video.dts \
+"
+
+SRC_URI:append:mt8390 = " \
+	file://video.dts \
+"
+
+SRC_URI:append:mt8370 = " \
+	file://video.dts \
+"
+
 SRC_URI:append:mt8365 = " \
 	file://video.dts \
 "
