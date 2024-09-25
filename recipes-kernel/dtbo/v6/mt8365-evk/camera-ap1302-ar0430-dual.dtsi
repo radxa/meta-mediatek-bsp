@@ -40,26 +40,6 @@
 	fragment@1 {
 		target = <&pio>;
 		__overlay__ {
-			i2c2_pins: i2c2-pins {
-				pins {
-					pinmux = <MT8365_PIN_61_SDA2__FUNC_SDA2_0>,
-					        <MT8365_PIN_62_SCL2__FUNC_SCL2_0>;
-					mediatek,pull-up-adv = <3>;
-					mediatek,drive-strength-adv = <00>;
-					bias-pull-up;
-				};
-			};
-
-			i2c3_pins: i2c3-pins {
-				pins {
-					pinmux = <MT8365_PIN_63_SDA3__FUNC_SDA3_0>,
-					         <MT8365_PIN_64_SCL3__FUNC_SCL3_0>;
-					mediatek,pull-up-adv = <3>;
-					mediatek,drive-strength-adv = <4>;
-					bias-pull-up;
-				};
-			};
-
 			cam0_pins_default: cam0_pins_default {
 				pins_clk_rst {
 					pinmux = <MT8365_PIN_65_CMMCLK0__FUNC_CMMCLK0>,
@@ -81,10 +61,7 @@
 	fragment@2 {
 		target = <&i2c2>;
 		__overlay__ {
-			pinctrl-names = "default";
-			pinctrl-0 = <&i2c2_pins>;
 			clock-frequency = <400000>;
-			status = "okay";
 
 			camera@3d {  /* Rear camera */
 				compatible = "onnn,ap1302";
@@ -132,10 +109,7 @@
 	fragment@3 {
 		target = <&i2c3>;
 		__overlay__ {
-			pinctrl-names = "default";
-			pinctrl-0 = <&i2c3_pins>;
 			clock-frequency = <400000>;
-			status = "okay";
 
 			camera@3d { /* Front camera */
 				compatible = "onnn,ap1302";
