@@ -100,3 +100,6 @@ MTK_EXTRA_LICENSE_FLAGS_ACCEPTED ?= "commercial"
 
 # Packages requiring extra licenses
 LICENSE_FLAGS_ACCEPTED:append:pn-libmali = " ${MTK_EXTRA_LICENSE_FLAGS_ACCEPTED}"
+
+# Set this for MediaTek camera ISP dependencies
+PREFERRED_VERSION_glog ?= "0.5.0"

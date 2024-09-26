@@ -10,7 +10,7 @@ REQUIRED_DISTRO_FEATURES = "nda-mtk"
 COMPATIBLE_MACHINE = "mt8395|mt8390|mt8370"
 
 SRCREV = "6abb700a350c1e2a167451f63b3037c2e45dc95d"
-BRANCH = "${DISTRO_CODENAME}"
+BRANCH = "kirkstone"
 
 SRC_URI += "${AIOT_NDA_URI}/mtk-camisp-prebuilts.git;protocol=ssh;branch=${BRANCH} \
 "
