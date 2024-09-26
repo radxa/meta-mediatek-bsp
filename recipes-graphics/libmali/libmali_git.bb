@@ -26,6 +26,7 @@ RDEPENDS:${PN} = " \
 	libdrm \
 	wayland \
 	${@bb.utils.contains("DISTRO_FEATURES", "vulkan", "vulkan-loader", "", d)} \
+	mali-gpu-driver \
 "
 
 PROVIDES = " \
@@ -129,3 +130,7 @@ INSANE_SKIP:${PN} += " dev-so"
 # Suppress the false warning:
 # 'found library in wrong location: /usr/share/vulkan/implicit_layer.d/libVkLayer_window_system_integration.so'
 INSANE_SKIP:${PN} += " libdir"
+
+# Suppress the false warning:
+# QA Issue: libmali rdepends on kernel-module-gpu, but it isn't a build dependency? [build-deps] 
+INSANE_SKIP:${PN} += " build-deps"
