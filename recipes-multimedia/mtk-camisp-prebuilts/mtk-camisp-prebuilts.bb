@@ -4,7 +4,6 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c25f59288708e3fd9961c9e6142aafee"
 
 inherit features_check
 inherit systemd
-inherit update-rc.d
 
 REQUIRED_DISTRO_FEATURES = "nda-mtk"
 COMPATIBLE_MACHINE = "mt8395|mt8390|mt8370"
@@ -42,8 +41,6 @@ do_install() {
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${PN}', '', d)}"
 SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'camd.service', '', d)}"
-
-INITSCRIPT_NAME = "camd"
 
 FILES:${PN} += " ${bindir} ${datadir} ${libdir}/*.so "
 FILES:${PN} += " ${systemd_unitdir}/system/camd.service "
