@@ -22,7 +22,6 @@ SRC_URI:append:mt8370-evk = " file://mt8370-evk.cfg "
 SRC_URI:append:mt8390-evk = " file://mt8390-evk.cfg "
 SRC_URI:append:mt8395-evk = " file://mt8395-evk.cfg "
 SRC_URI:append:mt8395-evk-p1v1 = " file://mt8395-evk-p1v1.cfg "
-SRC_URI:append:mt8195-demo = " file://mt8195-demo.cfg "
 SRC_URI:append:mt8365-evk = " file://mt8365-evk.cfg "
 
 # SoC specific config fragments
