@@ -1,6 +1,5 @@
 FILESEXTRAPATHS:prepend:mt8365-evk := "${THISDIR}/mt8365-evk:"
 FILESEXTRAPATHS:prepend:genio-700-evk := "${THISDIR}/mt8390-evk:"
-FILESEXTRAPATHS:prepend:mt8195-demo := "${THISDIR}/mt8195-demo:"
 FILESEXTRAPATHS:prepend:genio-1200-evk := "${THISDIR}/mt8395-evk:"
 FILESEXTRAPATHS:prepend:genio-1200-evk-p1v1 := "${THISDIR}/mt8395-evk-p1v1:"
 FILESEXTRAPATHS:prepend:genio-510-evk := "${THISDIR}/mt8370-evk:"
