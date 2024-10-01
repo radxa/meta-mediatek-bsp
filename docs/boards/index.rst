@@ -7,4 +7,3 @@ The following boards are supported:
    :maxdepth: 1
 
    i350-evk
-   i1200-demo
