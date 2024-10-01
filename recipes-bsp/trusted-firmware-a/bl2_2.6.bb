@@ -47,10 +47,6 @@ do_deploy() {
 	fi
 
 	if [ "${@bb.utils.contains("DISTRO_FEATURES", "fwupdate", "1", "0", d)}" = "1" ]; then
-		if [ "${@oe.utils.conditional("MACHINE", "i1200-demo", "1", "", d)}" = "1" ]; then
-			FWUPDATE_TFA_ID="ac11d376-fdd4-419f-8897-8493dd1b6460"
-		fi
-
 		if [ "${@oe.utils.conditional("MACHINE", "genio-1200-evk", "1", "", d)}" = "1" ]; then
 			FWUPDATE_TFA_ID="a4a60c91-ffa3-4cb8-9b2a-4ff813620d22"
 		fi

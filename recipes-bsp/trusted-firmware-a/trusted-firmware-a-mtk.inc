@@ -116,10 +116,6 @@ do_deploy:append:bl31() {
 	cp ${B}/${TFA_PLATFORM}/release/bl31/bl31.ld ${DEPLOY_DIR_IMAGE}/
 
 	if [ "${@bb.utils.contains("DISTRO_FEATURES", "fwupdate", "1", "0", d)}" = "1" ]; then
-		if [ "${@oe.utils.conditional("MACHINE", "i1200-demo", "1", "", d)}" = "1" ]; then
-			FWUPDATE_FIP_ID="f65ec70e-45ab-40fb-9952-e5bc3070da5c"
-		fi
-
 		if [ "${@oe.utils.conditional("MACHINE", "genio-1200-evk", "1", "", d)}" = "1" ]; then
 			FWUPDATE_FIP_ID="39961e72-5a8e-445a-90fe-ed68330744ec"
 		fi
