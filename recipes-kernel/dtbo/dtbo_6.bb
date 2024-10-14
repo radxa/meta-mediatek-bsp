@@ -21,6 +21,7 @@ KERNEL_INCLUDE:append = " \
 
 SRC_URI:append:mt8395 = " \
 	file://video.dts \
+	file://apusys.dts \
 "
 
 SRC_URI:append:mt8390 = " \
