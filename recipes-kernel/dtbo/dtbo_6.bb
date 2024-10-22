@@ -42,6 +42,9 @@ SRC_URI:append:mt8365-evk = " \
 	file://camera-ap1302-ar0430-dual.dtsi \
 	file://camera-ap1302-ar0430-single-csi0.dts \
 	file://camera-ap1302-ar0430-single-csi1.dts \
+	file://camera-ar0430-dual.dtsi \
+	file://camera-ar0430-single-csi0.dts \
+	file://camera-ar0430-single-csi1.dts \
 	file://display-dsi.dts \
 	file://display-hdmi.dts \
 	file://gpu-mali.dts \
