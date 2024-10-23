@@ -31,6 +31,7 @@ SRC_URI:append:mt8390 = " \
 
 SRC_URI:append:mt8370 = " \
 	file://video.dts \
+	file://apusys.dts \
 "
 
 SRC_URI:append:mt8365 = " \
