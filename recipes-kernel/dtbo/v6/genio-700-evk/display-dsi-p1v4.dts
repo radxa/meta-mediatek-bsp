@@ -1,0 +1,62 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/pinctrl/mediatek,mt8188-pinfunc.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&dsi0>;
+		__overlay__ {
+			panel@0 {
+				compatible = "startek,kd070fhfid078";
+				backlight = <&backlight_lcd1>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target-path = "/";
+		__overlay__ {
+			backlight_lcd1: backlight-lcd1 {
+				compatible = "pwm-backlight";
+				pwms = <&disp_pwm1 0 500000>;
+				brightness-levels = <0 1023>;
+				num-interpolated-steps = <1023>;
+				default-brightness-level = <576>;
+			};
+
+			lcm1_tp_avdd: lcm1-tp-avdd {
+				pinctrl-names = "default";
+				pinctrl-0 = <&lcm1_tp_avdd_pin>;
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&disp_pwm1>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&disp_pwm1_pin_default>;
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&pio>;
+		__overlay__ {
+			disp_pwm1_pin_default: disp-pwm1-pin-default {
+				pins1 {
+					pinmux = <PINMUX_GPIO30__FUNC_O_DISP_PWM1>;
+				};
+			};
+
+			lcm1_tp_avdd_pin: lcm1-tp-avdd-pin {
+				lcm1_tp_en: lcm1-tp-en{
+					pinmux = <PINMUX_GPIO120__FUNC_B_GPIO120>;
+					output-high;
+				};
+			};
+		};
+	};
+};

@@ -106,6 +106,7 @@ SRC_URI:append:genio-700-evk = " \
 	file://camera-ag190c-max9286-dual-std.dts \
 	file://camera-imx214-csi0-std.dts \
 	file://camera-imx214-csi1-std.dts \
+	file://display-dsi-p1v4.dts \
 	file://display-dsi.dts \
 "
 
