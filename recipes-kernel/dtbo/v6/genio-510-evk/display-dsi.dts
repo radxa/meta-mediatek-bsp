@@ -1,0 +1,28 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&mipi_tx0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@1 {
+		target = <&dsi0>;
+		__overlay__ {
+			status = "okay";
+			panel@0 {
+				status = "okay";
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&disp_pwm1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};
