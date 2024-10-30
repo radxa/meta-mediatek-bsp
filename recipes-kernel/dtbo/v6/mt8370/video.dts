@@ -92,7 +92,7 @@
 					 "CORE_MT_CG_VDEC";
 
 				assigned-clocks = <&topckgen CLK_TOP_VDEC>;
-				assigned-clock-parents = <&topckgen CLK_TOP_TVDPLL2>;
+				assigned-clock-parents = <&apmixedsys CLK_APMIXED_TVDPLL2>;
 				mediatek,vcu = <&vcu>;
 			};
 
