@@ -110,6 +110,24 @@
 				assigned-clocks = <&topckgen CLK_TOP_VENC>;
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D4>;
 				mediatek,vcu = <&vcu>;
+			port-arg-num = <3>;
+			port-def = <0 M4U_PORT_L19_VENC_RCPU 0>,
+				<0 M4U_PORT_L19_VENC_REC 0>,
+				<0 M4U_PORT_L19_VENC_BSDMA 0>,
+				<0 M4U_PORT_L19_VENC_SV_COMV 0>,
+				<0 M4U_PORT_L19_VENC_RD_COMV 0>,
+				<0 M4U_PORT_L19_VENC_NBM_RDMA 1>,
+				<0 M4U_PORT_L19_VENC_NBM_RDMA_LITE 1>,
+				<0 M4U_PORT_L19_VENC_SUB_W_LUMA 0>,
+				<0 M4U_PORT_L19_VENC_FCS_NBM_RDMA 1>,
+				<0 M4U_PORT_L19_VENC_NBM_WDMA 1>,
+				<0 M4U_PORT_L19_VENC_NBM_WDMA_LITE 1>,
+				<0 M4U_PORT_L19_VENC_FCS_NBM_WDMA 1>,
+				<0 M4U_PORT_L19_VENC_CUR_LUMA 0>,
+				<0 M4U_PORT_L19_VENC_CUR_CHROMA 0>,
+				<0 M4U_PORT_L19_VENC_REF_LUMA 0>,
+				<0 M4U_PORT_L19_VENC_REF_CHROMA 0>,
+				<0 M4U_PORT_L19_VENC_SUB_R_LUMA 0>;
 			};
 
 			venc_l19 {
