@@ -15,25 +15,51 @@ UBOOT_LOCALVERSION = "-g${@get_git_revision('${S}')}"
 
 SRC_URI += " \
     file://0001-Revert-cmd-pxe_utils-Check-fdtcontroladdr-in-label_b.patch \
-    file://fw_env-mmc-system.config \
-    file://fw_env-ufs-system.config \
+    file://fw_env-mmc-system.config.in \
+    file://fw_env-ufs-system.config.in \
 "
 
-python() {
-    # Different boot devices require separate fw_env.config settings
+python do_parse_env_size () {
+    # After U-boot do_configure,
+    # parse the 'CONFIG_ENV_SIZE' size to
+    # generate fw_env.config in rootfs, so tools such as
+    # `fw_getenv` could parse the env data correctly.
+
+    import re
+    cfg_path = os.path.join(d.getVar('B'), ".config")
+    # Default (legacy) size is 0x1000 (4KB).
+    env_size = 0x1000
+    pattern = r'CONFIG_ENV_SIZE=(0x[0-9A-Fa-f]+)'
+    with open(cfg_path, 'r') as cfg:
+        for line in cfg.readlines():
+            matches = re.findall(pattern, line)
+            if matches:
+                env_size = matches[0]
+                bb.note(f"Parsed CONFIG_ENV_SIZE={env_size}")
+    bb.note(f"Result env_size: {env_size}")
+
+    # Different boot devices template require separate fw_env.config settings
     features = d.getVar('MACHINE_FEATURES', True)
     if features and 'ufs-system' in features:
-        d.setVar('UBOOT_FW_ENV_FILE', 'fw_env-ufs-system.config')
+        fw_env_template = 'fw_env-ufs-system.config.in'
     else:
-        d.setVar('UBOOT_FW_ENV_FILE', 'fw_env-mmc-system.config')
-    bb.note(f"UBOOT_FW_ENV_FILE set to {d.getVar('UBOOT_FW_ENV_FILE')}")
+        fw_env_template = 'fw_env-mmc-system.config.in'
+    bb.note(f"fw_env.cfg template: {fw_env_template}")
+
+    # Now open template file and update {%UBOOT_ENV_SIZE%}
+    # and write to ${WORKDIR}/fw_env.config
+    template_path = os.path.join(d.getVar('WORKDIR'), fw_env_template)
+    config_path = os.path.join(d.getVar('WORKDIR'), "fw_env.config")
+    with open(template_path, "r") as template:
+        with open(config_path, "w") as fw_env:
+            for line in template.readlines():
+                line = line.replace("{%UBOOT_ENV_SIZE%}", env_size)
+                fw_env.write(line)
+            bb.note(f"Generated fw_env.cfg in {config_path}")
 }
 
-do_configure:append () {
-    if [ -e ${WORKDIR}/${UBOOT_FW_ENV_FILE} ]
-    then
-        ln -sf ${WORKDIR}/${UBOOT_FW_ENV_FILE} ${WORKDIR}/fw_env.config
-    else
-        bberror "Missing ${UBOOT_FW_ENV_FILE}"
-    fi
-}
+addtask parse_env_size after do_configure before do_compile
+# Parse the env size every time
+do_parse_env_size[nostamp] = "1"
+# u-boot.cfg is generated during U-Boot do_configure
+do_parse_env_size[depends] = "u-boot:do_configure"
