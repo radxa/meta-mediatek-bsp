@@ -1,0 +1,84 @@
+From bae26fb44d37a93608b2de09a464f51ceb8ea679 Mon Sep 17 00:00:00 2001
+From: "Wanli.Zhang" <wanli.zhang@mediatek.com>
+Date: Mon, 9 Jan 2023 18:06:36 +0800
+Subject: [PATCH] video-format: Add YM16 support for MJPEG decode
+
+Add YM16(YUV422M) support on video playback.
+
+Upstream-Status: Pending
+
+Signed-off-by: Macross Chen <macross.chen@mediatek.com>
+Signed-off-by: Wanli Zhang  <wanli.zhang@mediatek.com>
+---
+ gst-libs/gst/video/video-format.c |  5 +++++
+ gst-libs/gst/video/video-format.h |  1 +
+ gst-libs/gst/video/video-info.c   | 11 +++++++++++
+ 3 files changed, 17 insertions(+)
+
+diff --git a/gst-libs/gst/video/video-format.c b/gst-libs/gst/video/video-format.c
+index d869f9a..cb8525c 100644
+--- a/gst-libs/gst/video/video-format.c
++++ b/gst-libs/gst/video/video-format.c
+@@ -6984,6 +6984,7 @@ typedef struct
+ #define TILE_16x32s(mode) GST_VIDEO_TILE_MODE_ ##mode, 4, 5, { {16, 32, 16, 512}, {16, 16, 16, 256}, }
+ #define TILE_32x32(mode) GST_VIDEO_TILE_MODE_ ##mode, 5, 5, { {32, 32, 32, 1024}, {32, 32, 32, 1024}, }
+ #define TILE_64x32(mode) GST_VIDEO_TILE_MODE_ ##mode, 6, 5, { {64, 32, 64, 2048}, {64, 32, 64, 2048}, }
++#define TILE_64x64(mode) GST_VIDEO_TILE_MODE_ ##mode, 6, 6, { {64, 64, 64, 2048}, {64, 64, 64, 2048}, }
+ #define TILE_8x128(mode) GST_VIDEO_TILE_MODE_ ##mode, 3, 7, { {8, 128, 8, 1024}, {8, 128, 8, 1024}, }
+ #define TILE_10bit_8x128(mode) GST_VIDEO_TILE_MODE_ ##mode, 3, 7, { {0, 128, 8, 1024}, {0, 128, 8, 1024}, }
+ 
+@@ -7214,6 +7215,8 @@ static const VideoFormat formats[] = {
+       PSTR222, PLANE012, OFFS0, SUB444, PACK_Y444_12BE),
+   MAKE_YUV_LE_FORMAT (Y444_12LE, "raw video", 0x00000000, DPTH12_12_12,
+       PSTR222, PLANE012, OFFS0, SUB444, PACK_Y444_12LE),
++  MAKE_YUV_FORMAT (I422, "raw video", GST_MAKE_FOURCC ('Y', 'M', '1', '6'),
++      DPTH888, PSTR111, PLANE012, OFFS0, SUB422, PACK_420),
+   MAKE_GRAY_C_LE_FORMAT (GRAY10_LE32, "raw video", DPTH10, PSTR0, PLANE0, OFFS0,
+       SUB4, PACK_GRAY10_LE32),
+   MAKE_YUV_C_LE_FORMAT (NV12_10LE32, "raw video",
+@@ -7539,6 +7542,8 @@ gst_video_format_from_fourcc (guint32 fourcc)
+       return GST_VIDEO_FORMAT_IYU1;
+     case GST_MAKE_FOURCC ('A', 'Y', '6', '4'):
+       return GST_VIDEO_FORMAT_AYUV64;
++    case GST_MAKE_FOURCC ('Y', 'M', '1', '6'):
++      return GST_VIDEO_FORMAT_I422;
+     case GST_MAKE_FOURCC ('X', 'V', '1', '0'):
+       return GST_VIDEO_FORMAT_GRAY10_LE32;
+     case GST_MAKE_FOURCC ('X', 'V', '1', '5'):
+diff --git a/gst-libs/gst/video/video-format.h b/gst-libs/gst/video/video-format.h
+index 7a645cc..598647b 100644
+--- a/gst-libs/gst/video/video-format.h
++++ b/gst-libs/gst/video/video-format.h
+@@ -230,6 +230,7 @@ typedef enum {
+   GST_VIDEO_FORMAT_I422_12LE,
+   GST_VIDEO_FORMAT_Y444_12BE,
+   GST_VIDEO_FORMAT_Y444_12LE,
++  GST_VIDEO_FORMAT_I422,
+   GST_VIDEO_FORMAT_GRAY10_LE32,
+   GST_VIDEO_FORMAT_NV12_10LE32,
+   GST_VIDEO_FORMAT_NV16_10LE32,
+diff --git a/gst-libs/gst/video/video-info.c b/gst-libs/gst/video/video-info.c
+index eaca27a..1002285 100644
+--- a/gst-libs/gst/video/video-info.c
++++ b/gst-libs/gst/video/video-info.c
+@@ -916,6 +916,17 @@ fill_planes (GstVideoInfo * info, gsize plane_size[GST_VIDEO_MAX_PLANES])
+       info->offset[2] = info->offset[1] + info->stride[1] * cr_h;
+       info->size = info->offset[2] + info->stride[2] * cr_h;
+       break;
++    case GST_VIDEO_FORMAT_I422:
++      info->stride[0] = GST_ROUND_UP_4 (width);
++      info->stride[1] = GST_ROUND_UP_4 (GST_ROUND_UP_2 (width) / 2);
++      info->stride[2] = info->stride[1];
++
++      info->offset[0] = 0;
++      info->offset[1] = GST_ROUND_UP_128 (info->stride[0] * GST_ROUND_UP_2 (height));
++      info->offset[2] = info->offset[1] + GST_ROUND_UP_128 (info->stride[1] * GST_ROUND_UP_2 (height));
++
++      info->size = info->stride[0] * GST_ROUND_UP_2 (height) * 2;
++      break;
+     case GST_VIDEO_FORMAT_Y41B:
+       info->stride[0] = GST_ROUND_UP_4 (width);
+       info->stride[1] = GST_ROUND_UP_16 (width) / 4;
+-- 
+2.45.2
+
