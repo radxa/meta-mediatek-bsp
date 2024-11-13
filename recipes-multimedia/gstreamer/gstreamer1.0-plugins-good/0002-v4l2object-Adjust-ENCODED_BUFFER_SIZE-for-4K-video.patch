@@ -1,0 +1,32 @@
+From 817afdb9cbbe7d82020c7e239c3f63043391c452 Mon Sep 17 00:00:00 2001
+From: Macross Chen <macross.chen@mediatek.com>
+Date: Wed, 8 Mar 2023 12:58:36 +0800
+Subject: [PATCH 2/2] v4l2object: Adjust ENCODED_BUFFER_SIZE for 4K video
+
+Increase ENCODED_BUFFER_SIZE to 4 MB for 4K video.
+
+Upstream-Status: Pending
+
+Signed-off-by: Macross Chen <macross.chen@mediatek.com>
+
+%% original patch: 0005-v4l2object-Adjust-ENCODED_BUFFER_SIZE-for-4K-video.patch
+---
+ sys/v4l2/gstv4l2object.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sys/v4l2/gstv4l2object.c b/sys/v4l2/gstv4l2object.c
+index c3b9ebe..68a7db2 100644
+--- a/sys/v4l2/gstv4l2object.c
++++ b/sys/v4l2/gstv4l2object.c
+@@ -53,7 +53,7 @@ GST_DEBUG_CATEGORY_EXTERN (v4l2_debug);
+ #define DEFAULT_PROP_TV_NORM            0
+ #define DEFAULT_PROP_IO_MODE            GST_V4L2_IO_AUTO
+ 
+-#define ENCODED_BUFFER_SIZE             (2 * 1024 * 1024)
++#define ENCODED_BUFFER_SIZE             (4 * 1024 * 1024)
+ #define GST_V4L2_DEFAULT_WIDTH          320
+ #define GST_V4L2_DEFAULT_HEIGHT         240
+ 
+-- 
+2.45.2
+
