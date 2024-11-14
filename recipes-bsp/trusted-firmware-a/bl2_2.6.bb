@@ -60,12 +60,24 @@ do_deploy() {
 			FWUPDATE_TFA_ID="dcae4ff5-53f2-4664-b059-83eb33abf06d"
 		fi
 
+		if [ "${@oe.utils.conditional("MACHINE", "genio-1200-evk-norboot-ufs", "1", "", d)}" = "1" ]; then
+			FWUPDATE_TFA_ID="d5b2cad8-7517-4146-b6ed-aacd73841eab"
+		fi
+
 		if [ "${@oe.utils.conditional("MACHINE", "genio-700-evk", "1", "", d)}" = "1" ]; then
 			FWUPDATE_TFA_ID="a2c34f52-9452-4f6b-83db-fde21853e2a5"
 		fi
 
+		if [ "${@oe.utils.conditional("MACHINE", "genio-700-evk-norboot", "1", "", d)}" = "1" ]; then
+			FWUPDATE_TFA_ID="6acd6552-f05d-4d47-bde2-b84c60129ad0"
+		fi
+
 		if [ "${@oe.utils.conditional("MACHINE", "genio-510-evk", "1", "", d)}" = "1" ]; then
 			FWUPDATE_TFA_ID="546af9d8-91e7-4de0-a8a3-351bf1569d64"
+		fi
+
+		if [ "${@oe.utils.conditional("MACHINE", "genio-510-evk-norboot", "1", "", d)}" = "1" ]; then
+			FWUPDATE_TFA_ID="4889d6c8-7986-469f-bdcb-e6d303b56cbd"
 		fi
 
 		if [ "${@oe.utils.conditional("MACHINE", "genio-350-evk", "1", "", d)}" = "1" ]; then
