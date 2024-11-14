@@ -24,7 +24,7 @@
         };
 
         fragment@11 {
-                target = <&mipi_csi1>;
+                target = <&mipi_csi0>;
                 __overlay__ {
                         status = "disabled";
                 };
