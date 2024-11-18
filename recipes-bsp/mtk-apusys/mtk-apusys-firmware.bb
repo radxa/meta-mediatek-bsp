@@ -17,14 +17,15 @@ SRC_URI += "${AIOT_BSP_URI}/mtk-apusys-firmware.git;protocol=https;branch=${BRAN
 
 S = "${WORKDIR}/git"
 
-# Match the "firmware-name" path of 
-# apusys.sig.img and cam_vpu1.img 
+# Match the "firmware-name" path of
+# apusys.sig.img and cam_vpu1.img
 # in apusys.dts
 FIRMWARE_NAME:mt8395 = "mt8395"
 FIRMWARE_NAME:mt8390 = "mt8390"
 FIRMWARE_NAME:mt8370 = "mt8370"
 
 do_install() {
+	# Install per-Soc firmware
 	FIRMWARE_DIR=${D}/${nonarch_base_libdir}/firmware/mediatek/${FIRMWARE_NAME}
 	install -d ${FIRMWARE_DIR}
 	install -m 0644 ${S}/apusys.sig.img ${FIRMWARE_DIR}
@@ -32,8 +33,16 @@ do_install() {
 	install -m 0644 ${S}/cam_vpu2.img ${FIRMWARE_DIR}
 	install -m 0644 ${S}/cam_vpu3.img ${FIRMWARE_DIR}
 
-	install -d ${D}/${sysconfdir}
-	install -m 0644 ${S}/nhw ${D}/${sysconfdir}/nhw
+	# Match the path search rule in libneuron of NeuroPilot SDK
+	NHW_DIR="${sysconfdir}/apusys/${BRANCH}"
+
+	# Install per-SoC nhw file
+	install -d ${D}/${NHW_DIR}
+	install -m 0644 ${S}/nhw ${D}/${NHW_DIR}/nhw
+
+	# Previously, libneuron loads a fixed path
+	# '/etc/nhw', so we add a fallback symbolic link
+	ln -sfr ${D}/${NHW_DIR}/nhw ${D}/${sysconfdir}/nhw
 }
 
 FILES:${PN} += "\
