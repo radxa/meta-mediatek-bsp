@@ -50,7 +50,7 @@
 			};
 
 			vdec: vdec@18000000 {
-				compatible = "mediatek,mt8195-vcodec-dec";
+				compatible = "mediatek,mt8395-vcodec-dec";
 				mediatek,platform = "platform:mt8195";
 				mediatek,ipm = <2>;
 				reg =   <0 0x18000000 0 0x800>,/* VDEC_BASE */
@@ -106,7 +106,7 @@
 			};
 
 			venc@1a020000 {
-				compatible = "mediatek,mt8195-vcodec-enc";
+				compatible = "mediatek,mt8395-vcodec-enc";
 				mediatek,platform = "platform:mt8195";
 				mediatek,ipm = <2>;
 				reg = <0 0x1a020000 0 0x10000>,/* VENC_C0 */
