@@ -1,0 +1,10 @@
+## Warning
+The keys stored in this directory are intended for development and testing
+purposes only and must not be used in production environments. Using these
+keys for mass production can introduce significant security vulnerabilities.
+
+## Test Keys Replacement Required
+Please be aware that all keys within this directory serve as templates or
+examples only. It is imperative that you replace them with your own secure
+keys before deploying any application to a production environment. Failure
+to do so may compromise the security of your application.
