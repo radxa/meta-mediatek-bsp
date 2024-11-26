@@ -414,6 +414,20 @@
 		};
 	};
 
+	fragment@4 {
+		target = <&mt6359_vmodem_buck_reg>;
+		__overlay__ {
+			regulator-always-on;
+		};
+	};
+
+	fragment@5 {
+		target = <&mt6359_vsram_md_ldo_reg>;
+		__overlay__ {
+			regulator-always-on;
+		};
+	};
+
 	/* FIXME: This thermal setting should be enabled after
 	   Thermal configurations are ready in mt8188.dtsi
 	fragment@4 {
