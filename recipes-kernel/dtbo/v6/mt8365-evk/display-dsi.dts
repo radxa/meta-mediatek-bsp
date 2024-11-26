@@ -13,4 +13,11 @@
 			};
 		};
 	};
+
+	fragment@1 {
+		target = <&touch>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
 };
