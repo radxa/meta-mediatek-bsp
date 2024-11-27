@@ -5,16 +5,16 @@ require mediatek-common.inc
 SOC_FAMILY = "mt8391"
 
 # Trusted Firmware-A
-TFA_PLATFORM = "mt8188"
+TFA_PLATFORM = "mt8391"
 
 # OP-TEE
 OPTEE_TARGET = "mediatek-mt8188"
 OPTEE_DRAM_SIZE = "0x80000000"
 
 # LK
-LK_PROJECT = "mt8390-evk"
+LK_PROJECT = "mt8391-evk"
 
-MACHINE_FEATURES:append = " optee"
+#MACHINE_FEATURES:append = " optee"
 MACHINE_FEATURES:append = " ${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "optee-efuse", "", d)}"
 
 DISTRO_FEATURES:remove = " x11 "
