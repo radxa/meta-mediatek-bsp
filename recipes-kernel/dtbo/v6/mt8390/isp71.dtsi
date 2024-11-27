@@ -1154,7 +1154,7 @@
 				operating-points-v2 = <&opp_table_img>, <&opp_table_ipe>;
 				dvfsrc-vmm-supply = <&vmm_proxy_label>;
 				assigned-clocks = <&topckgen CLK_TOP_IMG>;
-				assigned-clock-parents = <&topckgen CLK_APMIXED_IMGPLL>;
+				assigned-clock-parents = <&apmixedsys CLK_APMIXED_IMGPLL>;
 
 				interconnect-names =
 					"l9_imgi_t1_a",
