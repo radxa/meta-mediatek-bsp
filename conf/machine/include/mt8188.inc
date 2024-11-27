@@ -3,6 +3,7 @@ require conf/machine/include/soc-family.inc
 require mediatek-common.inc
 
 SOC_FAMILY = "mt8188"
+SOC_SRAM_ADDR = "0x201000"
 
 # Trusted Firmware-A
 TFA_PLATFORM = "mt8188"

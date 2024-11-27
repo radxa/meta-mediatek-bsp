@@ -40,7 +40,7 @@ do_gen_bl2_img() {
 	else
 		cp ${B}/${TFA_PLATFORM}/release/bl2.bin ${B}/bl2.img.tmp
 		truncate -s%4 ${B}/bl2.img.tmp
-		uboot-mkimage -T mtk_image -a 0x201000 -e 0x201000 -n "media=$media;arm64=1" \
+		uboot-mkimage -T mtk_image -a ${SOC_SRAM_ADDR} -e ${SOC_SRAM_ADDR} -n "media=$media;arm64=1" \
 				-d ${B}/bl2.img.tmp ${B}/bl2.img
 	fi
 }
