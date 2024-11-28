@@ -25,11 +25,6 @@
 				num-interpolated-steps = <1023>;
 				default-brightness-level = <576>;
 			};
-
-			lcm1_tp_avdd: lcm1-tp-avdd {
-				pinctrl-names = "default";
-				pinctrl-0 = <&lcm1_tp_avdd_pin>;
-			};
 		};
 	};
 
@@ -48,13 +43,6 @@
 			disp_pwm1_pin_default: disp-pwm1-pin-default {
 				pins1 {
 					pinmux = <PINMUX_GPIO30__FUNC_O_DISP_PWM1>;
-				};
-			};
-
-			lcm1_tp_avdd_pin: lcm1-tp-avdd-pin {
-				lcm1_tp_en: lcm1-tp-en{
-					pinmux = <PINMUX_GPIO120__FUNC_B_GPIO120>;
-					output-high;
 				};
 			};
 		};
