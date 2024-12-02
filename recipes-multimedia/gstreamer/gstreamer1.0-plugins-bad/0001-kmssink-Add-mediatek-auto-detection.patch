@@ -1,0 +1,30 @@
+From 9173dba9582745718eaa9cb6937b97f49767c9d2 Mon Sep 17 00:00:00 2001
+From: Pablo Sun <pablo.sun@mediatek.com>
+Date: Mon, 2 Dec 2024 18:43:45 +0800
+Subject: [PATCH] kmssink: Add mediatek auto-detection
+
+Add MediaTek display controller into list of
+auto-detected modules.
+
+Part-of: <https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8027>
+Upstream-Status: Backport [4507f92b0d515c4e095f8a181564bdbfe2ed7bd8]
+
+---
+ sys/kms/gstkmssink.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sys/kms/gstkmssink.c b/sys/kms/gstkmssink.c
+index c1e9f64ae3fa..04d235091afc 100644
+--- a/sys/kms/gstkmssink.c
++++ b/sys/kms/gstkmssink.c
+@@ -484,6 +484,7 @@ kms_open (gchar ** driver)
+     "exynos", "amdgpu", "imx-drm", "imx-lcdif", "rockchip", "atmel-hlcdc",
+     "msm", "xlnx", "vc4", "meson", "stm", "sun4i-drm", "mxsfb-drm", "tegra",
+     "tidss", "xilinx_drm",      /* DEPRECATED. Replaced by xlnx */
++    "mediatek",
+   };
+   int i, fd = -1;
+ 
+-- 
+2.45.2
+
