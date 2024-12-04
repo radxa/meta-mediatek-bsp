@@ -1,12 +1,12 @@
 DESCRIPTION = "Mediatek CAMISP-MT8395 Out-of-tree kernel driver"
 LICENSE = "GPL-2.0-only"
-LIC_FILES_CHKSUM = "file://COPYING;md5=16de935ebcebe2420535844d4f6faefc"
+LIC_FILES_CHKSUM = "file://COPYING;md5=6760c75814a7f07fc569c7ca1fd5c35b"
 
 COMPATIBLE_MACHINE = "mt8395|mt8390|mt8370"
 
 inherit module
 
-SRCREV = "c4617696f902e79a60566461292378cdf4189ccf"
+SRCREV = "7adee35515079d6fa27821fb7d58d157e1ccd9fc"
 
 BRANCH = "mtk-v6.6"
 
