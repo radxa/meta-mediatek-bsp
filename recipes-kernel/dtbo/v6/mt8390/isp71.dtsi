@@ -288,7 +288,7 @@
 						 <&iommu_vdo M4U_PORT_L17B_TNCSO_R1>;
 			};
 
-			camsv1@16110000 {
+			camsv1: camsv1@16110000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16110000 0 0x1000>,
 					  <0 0x16118000 0 0x1000>;
@@ -326,7 +326,7 @@
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D5>;
 			};
 
-			camsv2@16111000 {
+			camsv2: camsv2@16111000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16111000 0 0x1000>,
 					  <0 0x16119000 0 0x1000>;
@@ -334,6 +334,7 @@
 				mediatek,camsv-id = <1>;
 				mediatek,camsv-hwcap = <0x210051>;
 				mediatek,cammux-id = <3>;
+				mediatek,camsv-top = <&camsv1>;
 				interrupts = <GIC_SPI 318 IRQ_TYPE_LEVEL_HIGH 0>;
 				power-domains = <&spm MT8188_POWER_DOMAIN_CAM_MAIN>;
 				clocks = <&camsys CLK_CAM_MAIN_CAM2MM0_GALS>,
@@ -364,7 +365,7 @@
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D5>;
 			};
 
-			camsv3@16112000 {
+			camsv3: camsv3@16112000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16112000 0 0x1000>,
 					  <0 0x1611a000 0 0x1000>;
@@ -402,7 +403,7 @@
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D5>;
 			};
 
-			camsv4@16113000 {
+			camsv4: camsv4@16113000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16113000 0 0x1000>,
 					  <0 0x1611b000 0 0x1000>;
@@ -410,6 +411,7 @@
 				mediatek,camsv-id = <3>;
 				mediatek,camsv-hwcap = <0x220051>;
 				mediatek,cammux-id = <5>;
+				mediatek,camsv-top = <&camsv3>;
 				interrupts = <GIC_SPI 320 IRQ_TYPE_LEVEL_HIGH 0>;
 				power-domains = <&spm MT8188_POWER_DOMAIN_CAM_MAIN>;
 				clocks = <&camsys CLK_CAM_MAIN_CAM2MM0_GALS>,
@@ -440,7 +442,7 @@
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D5>;
 			};
 
-			camsv5@16184000 {
+			camsv5: camsv5@16184000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16184000 0 0x1000>,
 					  <0 0x1618c000 0 0x1000>;
@@ -476,7 +478,7 @@
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D5>;
 			};
 
-			camsv6@16185000 {
+			camsv6: camsv6@16185000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16185000 0 0x1000>,
 					  <0 0x1618d000 0 0x1000>;
@@ -484,6 +486,7 @@
 				mediatek,camsv-id = <5>;
 				mediatek,camsv-hwcap = <0x1>;
 				mediatek,cammux-id = <7>;
+				mediatek,camsv-top = <&camsv5>;
 				interrupts = <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH 0>;
 				power-domains = <&spm MT8188_POWER_DOMAIN_CAM_MAIN>;
 				clocks = <&camsys CLK_CAM_MAIN_CAM2MM0_GALS>,
@@ -512,7 +515,7 @@
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D5>;
 			};
 
-			camsv7@16186000 {
+			camsv7: camsv7@16186000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16186000 0 0x1000>,
 					  <0 0x1618e000 0 0x1000>;
@@ -548,7 +551,7 @@
 				assigned-clock-parents = <&topckgen CLK_TOP_UNIVPLL_D5>;
 			};
 
-			camsv8@16187000 {
+			camsv8: camsv8@16187000 {
 				compatible = "mediatek,camsv";
 				reg = <0 0x16187000 0 0x1000>,
 					  <0 0x1618f000 0 0x1000>;
@@ -556,6 +559,7 @@
 				mediatek,camsv-id = <7>;
 				mediatek,camsv-hwcap = <0x1>;
 				mediatek,cammux-id = <9>;
+				mediatek,camsv-top = <&camsv7>;
 				interrupts = <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH 0>;
 				power-domains = <&spm MT8188_POWER_DOMAIN_CAM_MAIN>;
 				clocks = <&camsys CLK_CAM_MAIN_CAM2MM0_GALS>,
