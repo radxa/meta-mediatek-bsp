@@ -1,6 +1,8 @@
 require u-boot-common_${PV}.inc
 require recipes-bsp/u-boot/u-boot.inc
 
+CONFIGURE_FILES = "${UBOOT_MACHINE}"
+
 # UBOOT_LOCALVERSION can be set to add a tag to the end of the
 # U-boot version string.  such as the commit id
 def get_git_revision(p):
@@ -59,7 +61,3 @@ python do_parse_env_size () {
 }
 
 addtask parse_env_size after do_configure before do_compile
-# Parse the env size every time
-do_parse_env_size[nostamp] = "1"
-# u-boot.cfg is generated during U-Boot do_configure
-do_parse_env_size[depends] = "u-boot:do_configure"
