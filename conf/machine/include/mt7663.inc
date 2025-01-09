@@ -14,8 +14,7 @@ BT_OSS_PKGS = "kernel-module-btmtksdio linux-firmware-mt7663"
 BT_NDA_PKGS = "kernel-module-mt7663-tk-bt mtk-bluetooth boots picus bt-vendor"
 BT_PKGS = "${@bb.utils.contains('MT7663_BT_USE_UPSTREAM_DRV', '1', '${BT_OSS_PKGS}', '${BT_NDA_PKGS}', d)}"
 
-#FIXME: Temporarily remove wifi/bt packages
-#MACHINE_EXTRA_RRECOMMENDS:append = " \
-#	${@bb.utils.contains('DISTRO_FEATURES', 'wifi', '${WIFI_PKGS}', '', d)} \
-#	${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', '${BT_PKGS}', '', d)} \
-#"
+MACHINE_EXTRA_RRECOMMENDS:append = " \
+	${@bb.utils.contains('DISTRO_FEATURES', 'wifi', '${WIFI_PKGS}', '', d)} \
+	${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', '${BT_PKGS}', '', d)} \
+"

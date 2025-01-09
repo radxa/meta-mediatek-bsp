@@ -7,7 +7,7 @@ LICENSE = "CLOSED"
 inherit module
 
 SRC_URI = "${AIOT_NDA_URI}/neptune/bt_driver/turnkey_sdio;protocol=ssh;branch=main"
-SRCREV = "f0c004ce49d2cbb33aebfc3fea63951a95c19195"
+SRCREV = "303fbabf3eb4d442b518ef8101754b7a224fbc2f"
 
 S = "${WORKDIR}/git"
 
@@ -17,7 +17,7 @@ EXTRA_OEMAKE+=" \
 	MTK_PLATFORM= \
 	WLAN_CHIP_ID=${MTK_WIRELESS_CHIP}\
 	WLAN_RESET_KO_INCLUDE+="-I${STAGING_INCDIR}" \
-	WLAN_RESET_KO_SYMBOL+="-I${STAGING_INCDIR}/mt76xx-tk-wifi-drv/Module.symvers" \
+	WLAN_RESET_KO_SYMBOL+="${STAGING_INCDIR}/mt76xx-tk-wifi-drv/Module.symvers" \
 "
 
 do_install:append() {
