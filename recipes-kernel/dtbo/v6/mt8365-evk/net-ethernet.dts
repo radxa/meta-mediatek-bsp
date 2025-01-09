@@ -10,23 +10,16 @@
 	};
 
 	fragment@1 {
-		target = <&dpi0>;
+		target = <&mt6357_vibr_reg>;
 		__overlay__ {
-			pinctrl-names = "";
+			regulator-always-on;
 		};
 	};
 
 	fragment@2 {
-		target = <&dpi_default_pins>;
+		target = <&mt6357_vsim2_reg>;
 		__overlay__ {
-			status = "disabled";
-		};
-	};
-
-	fragment@3 {
-		target = <&dpi_idle_pins>;
-		__overlay__ {
-			status = "disabled";
+			regulator-always-on;
 		};
 	};
 };

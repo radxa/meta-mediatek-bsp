@@ -5,7 +5,12 @@
 	fragment@0 {
 		target = <&dsi0>;
 		__overlay__ {
-			status = "okay";
+			panel@0 {
+				status = "okay";
+			};
+			port {
+				status = "okay";
+			};
 		};
 	};
 };

@@ -49,6 +49,7 @@ SRC_URI:append:mt8365-evk = " \
 	file://display-hdmi.dts \
 	file://gpu-mali.dts \
 	file://net-ethernet.dts \
+	file://spi-test.dts \
 "
 
 SRC_URI:append:genio-510-evk = " \
