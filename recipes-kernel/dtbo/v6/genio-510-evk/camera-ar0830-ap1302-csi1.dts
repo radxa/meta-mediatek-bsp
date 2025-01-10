@@ -14,15 +14,6 @@
 #include "camera-common.dtsi"
 
 / {
-	fragment@10 {
-		target = <&i2c5>;
-		__overlay__ {
-			sensor0 {
-				status = "disabled";
-			};
-		};
-	};
-
 	fragment@11 {
 		target = <&i2c3>;
 		__overlay__ {
@@ -35,6 +26,13 @@
 	};
 
 	fragment@12 {
+		target = <&seninf_csi_port_1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@13 {
 		target = <&mtkcam0>;
 		__overlay__ {
 			status = "okay";

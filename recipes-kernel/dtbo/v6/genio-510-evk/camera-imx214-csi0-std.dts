@@ -14,7 +14,7 @@
 #include "isp71.dtsi"
 
 / {
-	fragment@4 {
+	fragment@3 {
 		target-path = "/";
 		__overlay__ {
 			cam0_dvdd_en: cam0-dvdd-en-regulator {
@@ -67,14 +67,14 @@
 		};
 	};
 
-	fragment@5 {
+	fragment@4 {
 		target = <&spi2>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@6 {
+	fragment@5 {
 		target = <&pio>;
 		__overlay__ {
 			cam0_pins_default: cam0_pins_default {
@@ -110,7 +110,7 @@
 		};
 	};
 
-	fragment@7 {
+	fragment@6 {
 		target = <&i2c5>;
 		__overlay__ {
 			clock-frequency = <400000>;
@@ -145,66 +145,62 @@
 		};
 	};
 
-	fragment@8 {
-		target = <&seninf_top>;
+	fragment@7 {
+		target = <&seninf_csi_port_0>;
 		__overlay__ {
-			seninf_csi_port_0: seninf_csi_port_0 {
-				compatible = "mediatek,seninf";
-				csi-port = "0";
-
-				port {
-					seninf_csi_port_0_in: endpoint {
-						remote-endpoint = <&sensor0_out>;
-						data-lanes = <1 2 3 4>;
-					};
+			status = "okay";
+			port {
+				seninf_csi_port_0_in: endpoint {
+					data-lanes = <1 2 3 4>;
+					remote-endpoint = <&sensor0_out>;
 				};
 			};
 		};
 	};
 
-	fragment@9 {
+	fragment@8 {
 		target = <&hcp>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@10 {
+	fragment@9 {
 		target-path = "/soc/hcp_l15";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@11 {
+	fragment@10 {
 		target-path = "/soc/imgsys_l10";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@12 {
+	fragment@11 {
 		target-path = "/soc/imgsys_l11A";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@13 {
+	fragment@12 {
 		target-path = "/soc/imgsys_l11C";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@14 {
+	fragment@13 {
 		target = <&imgsys_fw>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@15 {
+	fragment@14 {
 		target = <&ipesys_me>;
 		__overlay__ {
 			status = "disabled";
