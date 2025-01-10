@@ -195,6 +195,24 @@
 					      "clk_top_seninf2",
 					      "clk_top_seninf3",
 					      "clk_top_camtm";
+
+				seninf_csi_port_0: seninf_csi_port_0 {
+					compatible = "mediatek,seninf";
+					csi-port = "0";
+					status = "disabled";
+				};
+
+				seninf_csi_port_1: seninf_csi_port_1 {
+					compatible = "mediatek,seninf";
+					csi-port = "1";
+					status = "disabled";
+				};
+
+				seninf_csi_port_2: seninf_csi_port_2 {
+					compatible = "mediatek,seninf";
+					csi-port = "2";
+					status = "disabled";
+				};
 			};
 
 			cam_raw_a@16030000 {
