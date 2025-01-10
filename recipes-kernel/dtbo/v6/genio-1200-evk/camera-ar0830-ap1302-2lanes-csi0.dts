@@ -10,18 +10,30 @@
 #include "camera-ar0830-ap1302-csi0.dts"
 
 / {
-	fragment@12 {
+	fragment@14 {
 		target = <&i2c0>;
 		__overlay__ {
 			sensor0 {
 				sensor-names = "ar0830ap1302d2l_mipi_yuv";
-
+				status = "okay";
 				port {
 					endpoint {
 						data-lanes = <1 2>;
 					};
 				};
 
+			};
+		};
+	};
+
+	fragment@15 {
+		target = <&seninf_csi_port_0>;
+		__overlay__ {
+			status = "okay";
+			port {
+				endpoint {
+					data-lanes = <1 2>;
+				};
 			};
 		};
 	};

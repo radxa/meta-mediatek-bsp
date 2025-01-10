@@ -131,17 +131,13 @@
 	};
 
 	fragment@6 {
-		target = <&seninf_top>;
+		target = <&seninf_csi_port_2>;
 		__overlay__ {
-			seninf_csi_port_2: seninf_csi_port_2 {
-				compatible = "mediatek,seninf";
-				csi-port = "2";
-
-				port {
-					seninf_csi_port_2_in: endpoint {
-						remote-endpoint = <&sensor2_out>;
-						data-lanes = <1 2 3 4>;
-					};
+			status = "okay";
+			port {
+				seninf_csi_port_2_in: endpoint {
+					data-lanes = <1 2 3 4>;
+					remote-endpoint = <&sensor2_out>;
 				};
 			};
 		};

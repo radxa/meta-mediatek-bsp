@@ -17,7 +17,7 @@
 #include "isp70.dtsi"
 
 / {
-	fragment@4 {
+	fragment@3 {
 		target-path = "/";
 		__overlay__ {
 			cam0_avdd_en: cam0-avdd-en-regulator {
@@ -58,7 +58,7 @@
 		};
 	};
 
-	fragment@5 {
+	fragment@4 {
 		target = <&pio>;
 		__overlay__ {
 			cam0_pins_default: cam0_pins_default {
@@ -82,7 +82,7 @@
 		};
 	};
 
-	fragment@6 {
+	fragment@5 {
 		target = <&i2c0>;
 		__overlay__ {
 			clock-frequency = <400000>;
@@ -111,46 +111,42 @@
 		};
 	};
 
-	fragment@7 {
-		target = <&seninf_top>;
+	fragment@6 {
+		target = <&seninf_csi_port_0>;
 		__overlay__ {
-			seninf_csi_port_0: seninf_csi_port_0 {
-				compatible = "mediatek,seninf";
-				csi-port = "0";
-				hs_trail_parameter = <0x0>;
-
-				port {
-					seninf_csi_port_0_in: endpoint {
-						remote-endpoint = <&sensor0_out>;
-						data-lanes = <1 2 3 4>;
-					};
+			status = "okay";
+			hs_trail_parameter = <0x0>;
+			port {
+				seninf_csi_port_0_in: endpoint {
+					data-lanes = <1 2 3 4>;
+					remote-endpoint = <&sensor0_out>;
 				};
 			};
 		};
 	};
 
-	fragment@8 {
+	fragment@7 {
 		target = <&imgsys_fw>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@9 {
+	fragment@8 {
 		target = <&hcp>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@10 {
+	fragment@9 {
 		target-path = "/soc/imgsys_larb";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@11 {
+	fragment@10 {
 		target = <&ipesys_me>;
 		__overlay__ {
 			status = "disabled";

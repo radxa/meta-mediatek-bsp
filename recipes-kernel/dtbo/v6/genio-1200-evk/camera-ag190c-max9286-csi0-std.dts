@@ -14,7 +14,7 @@
 #include "isp70.dtsi"
 
 / {
-	fragment@4 {
+	fragment@3 {
 		target-path = "/";
 		__overlay__ {
 			/* This dummy regulator is used for max9286 driver to probe */
@@ -28,7 +28,7 @@
 		};
 	};
 
-	fragment@5 {
+	fragment@4 {
 		target = <&i2c0>;
 		__overlay__ {
 			clock-frequency = <400000>;
@@ -82,7 +82,7 @@
 					port@4 {
 						reg = <4>;
 
-						max9286_out: endpoint {
+						sensor0_out: endpoint {
 							data-lanes = <1 2 3 4>;
 							remote-endpoint = <&seninf_csi_port_0_in>;
 						};
@@ -166,48 +166,44 @@
 		};
 	};
 
-	fragment@6 {
-		target = <&seninf_top>;
+	fragment@5 {
+		target = <&seninf_csi_port_0>;
 		__overlay__ {
-			seninf_csi_port_0: seninf_csi_port_0 {
-				compatible = "mediatek,seninf";
-				csi-port = "0";
-				settle_delay_ck = <0x00>;
-				dphy_settle_delay_dt = <0x10>;
-				hs_trail_parameter = <0x08>;
-
-				port {
-					seninf_csi_port_0_in: endpoint {
-						remote-endpoint = <&max9286_out>;
-						data-lanes = <1 2 3 4>;
-					};
+			status = "okay";
+			settle_delay_ck = <0x00>;
+			dphy_settle_delay_dt = <0x10>;
+			hs_trail_parameter = <0x08>;
+			port {
+				seninf_csi_port_0_in: endpoint {
+					data-lanes = <1 2 3 4>;
+					remote-endpoint = <&sensor0_out>;
 				};
 			};
 		};
 	};
 
-	fragment@7 {
+	fragment@6 {
 		target = <&imgsys_fw>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@8 {
+	fragment@7 {
 		target = <&hcp>;
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@9 {
+	fragment@8 {
 		target-path = "/soc/imgsys_larb";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@10 {
+	fragment@9 {
 		target = <&ipesys_me>;
 		__overlay__ {
 			status = "disabled";

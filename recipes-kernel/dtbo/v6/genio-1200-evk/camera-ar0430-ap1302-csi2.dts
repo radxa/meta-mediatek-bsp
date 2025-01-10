@@ -15,7 +15,7 @@
 #include "mtk-camera.dtsi"
 
 / {
-	fragment@4 {
+	fragment@11 {
 		target-path = "/";
 		__overlay__ {
 			cam_vcam_3v3_en: cam_vcam_3v3_en-regulator {
@@ -30,7 +30,7 @@
 		};
 	};
 
-	fragment@5 {
+	fragment@12 {
 		target = <&pio>;
 		__overlay__ {
 			camera_pins_cam0_rst_0: cam0@rst_0 {
@@ -138,7 +138,7 @@
 		};
 	};
 
-	fragment@6 {
+	fragment@13 {
 		target = <&i2c1>;
 		__overlay__ {
 			clock-frequency = <400000>;
@@ -197,7 +197,7 @@
 
 				port {
 					sensor2_out: endpoint {
-						remote-endpoint = <&seninf_csi_port_0_in>;
+						remote-endpoint = <&seninf_csi_port_2_in>;
 						data-lanes = <1 2 3 4>;
 						link-frequencies = /bits/ 64 <480000000>;
 					};
@@ -207,22 +207,20 @@
 		};
 	};
 
-	fragment@7 {
-		target = <&seninf_top>;
+	fragment@14 {
+		target = <&seninf_csi_port_2>;
 		__overlay__ {
-			seninf_csi_port_0: seninf_csi_port_0 {
-				compatible = "mediatek,seninf";
-				csi-port = "2";
-				port {
-					seninf_csi_port_0_in: endpoint {
-						remote-endpoint = <&sensor2_out>;
-					};
+			status = "okay";
+			port {
+				seninf_csi_port_2_in: endpoint {
+					data-lanes = <1 2 3 4>;
+					remote-endpoint = <&sensor2_out>;
 				};
 			};
 		};
 	};
 
-	fragment@8 {
+	fragment@15 {
 		target = <&mtkcam0>;
 		__overlay__ {
 			status = "okay";

@@ -10,7 +10,7 @@
 #include "camera-common.dtsi"
 
 / {
-	fragment@9 {
+	fragment@11 {
 		target = <&i2c0>;
 		__overlay__ {
 			sensor0 {
@@ -26,7 +26,7 @@
 		};
 	};
 
-	fragment@10 {
+	fragment@12 {
 		target = <&i2c1>;
 		__overlay__ {
 			sensor2 {
@@ -37,14 +37,35 @@
 		};
 	};
 
-	fragment@11 {
+	fragment@13 {
+		target = <&seninf_csi_port_0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@14 {
+		target = <&seninf_csi_port_1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@15 {
+		target = <&seninf_csi_port_2>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@16 {
 		target = <&mtkcam0>;
 		__overlay__ {
 			status = "okay";
 		};
 	};
 
-	fragment@12 {
+	fragment@17 {
 		target = <&mtkcam1>;
 		__overlay__ {
 			status = "okay";
@@ -52,7 +73,7 @@
 		};
 	};
 
-	fragment@13 {
+	fragment@18 {
 		target = <&mtkcam2>;
 		__overlay__ {
 			status = "okay";
