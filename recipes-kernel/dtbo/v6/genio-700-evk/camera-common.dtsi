@@ -186,6 +186,32 @@
 	};
 
 	fragment@7 {
+		target = <&seninf_csi_port_0>;
+		__overlay__ {
+			status = "disabled";
+			port {
+				seninf_csi_port_0_in: endpoint {
+					data-lanes = <1 2 3 4>;
+					remote-endpoint = <&sensor0_out>;
+				};
+			};
+		};
+	};
+
+	fragment@8 {
+		target = <&seninf_csi_port_1>;
+		__overlay__ {
+			status = "disabled";
+			port {
+				seninf_csi_port_1_in: endpoint {
+					data-lanes = <1 2 3 4>;
+					remote-endpoint = <&sensor1_out>;
+				};
+			};
+		};
+	};
+
+	fragment@9 {
 		target = <&i2c5>;
 		__overlay__ {
 			clock-frequency = <400000>;
@@ -193,7 +219,7 @@
 			sensor0 {
 				compatible = "mediatek,imgsensor";
 				reg = <0x1a>;
-				status = "okay";
+				status = "disabled";
 
 				pinctrl-names = "mclk_off",
 						"mclk_2mA",
@@ -239,7 +265,7 @@
 		};
 	};
 
-	fragment@8 {
+	fragment@10 {
 		target = <&i2c3>;
 		__overlay__ {
 			clock-frequency = <400000>;
@@ -247,7 +273,7 @@
 			sensor1 {
 				compatible = "mediatek,imgsensor";
 				reg = <0x3c>;
-				status = "okay";
+				status = "disabled";
 
 				pinctrl-names = "mclk_off",
 						"mclk_2mA",
@@ -287,30 +313,6 @@
 						remote-endpoint = <&seninf_csi_port_1_in>;
 						data-lanes = <1 2 3 4>;
 						link-frequencies = /bits/ 64 <480000000>;
-					};
-				};
-			};
-		};
-	};
-
-	fragment@9 {
-		target = <&seninf_top>;
-		__overlay__ {
-			seninf_csi_port_0: seninf_csi_port_0 {
-				compatible = "mediatek,seninf";
-				csi-port = "0";
-				port {
-					seninf_csi_port_0_in: endpoint {
-						remote-endpoint = <&sensor0_out>;
-					};
-				};
-			};
-			seninf_csi_port_1: seninf_csi_port_1 {
-				compatible = "mediatek,seninf";
-				csi-port = "1";
-				port {
-					seninf_csi_port_1_in: endpoint {
-						remote-endpoint = <&sensor1_out>;
 					};
 				};
 			};
