@@ -10,6 +10,9 @@ SRC_URI += " \
 	file://sof/sof-mt8195.ri \
 	file://sof/sof-mt8195.ldc \
 	file://sof-tplg/sof-mt8195.tplg \
+	file://sof/sof-mt8365.ri \
+	file://sof/sof-mt8365.ldc \
+	file://sof-tplg/sof-mt8365.tplg \
 "
 
 do_install:append() {
@@ -25,6 +28,9 @@ do_install:append() {
 	install -m 0644 ${WORKDIR}/sof/sof-mt8195.ri ${D}/${nonarch_base_libdir}/firmware/mediatek/sof
 	install -m 0644 ${WORKDIR}/sof/sof-mt8195.ldc ${D}/${nonarch_base_libdir}/firmware/mediatek/sof
 	install -m 0644 ${WORKDIR}/sof-tplg/sof-mt8195.tplg ${D}/${nonarch_base_libdir}/firmware/mediatek/sof-tplg
+	install -m 0644 ${WORKDIR}/sof/sof-mt8365.ri ${D}/${nonarch_base_libdir}/firmware/mediatek/sof
+	install -m 0644 ${WORKDIR}/sof/sof-mt8365.ldc ${D}/${nonarch_base_libdir}/firmware/mediatek/sof
+	install -m 0644 ${WORKDIR}/sof-tplg/sof-mt8365.tplg ${D}/${nonarch_base_libdir}/firmware/mediatek/sof-tplg
 }
 
 # packages for image installation
@@ -54,6 +60,13 @@ FILES:${PN}-mt8195-sof = " \
 	${nonarch_base_libdir}/firmware/mediatek/sof/sof-mt8195.ldc \
 	${nonarch_base_libdir}/firmware/mediatek/sof-tplg/sof-mt8195.tplg \
 "
+
+FILES:${PN}-mt8365-sof = " \
+	${nonarch_base_libdir}/firmware/mediatek/sof/sof-mt8365.ri \
+	${nonarch_base_libdir}/firmware/mediatek/sof/sof-mt8365.ldc \
+	${nonarch_base_libdir}/firmware/mediatek/sof-tplg/sof-mt8365.tplg \
+"
+
 PACKAGES =+ "${PN}-mt8183-scp"
 PACKAGES =+ "${PN}-mt8195-scp"
 PACKAGES =+ "${PN}-mt8188-scp"
@@ -62,3 +75,4 @@ PACKAGES =+ "${PN}-mt7663"
 PACKAGES =+ "${PN}-mt7961"
 PACKAGES =+ "${PN}-mt8188-sof"
 PACKAGES =+ "${PN}-mt8195-sof"
+PACKAGES =+ "${PN}-mt8365-sof"
