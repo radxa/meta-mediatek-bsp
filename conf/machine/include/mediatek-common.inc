@@ -112,3 +112,6 @@ LICENSE_FLAGS_ACCEPTED:append:pn-libmali = " ${MTK_EXTRA_LICENSE_FLAGS_ACCEPTED}
 
 # Set this for MediaTek camera ISP dependencies
 PREFERRED_VERSION_glog ?= "0.5.0"
+
+# Set this for Libcamera
+PREFERRED_VERSION_libcamera ?= "0.3.0"
