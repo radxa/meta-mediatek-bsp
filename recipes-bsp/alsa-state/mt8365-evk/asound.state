@@ -1,7 +1,7 @@
 state.mt8365evk {
 	control.1 {
 		iface MIXER
-		name 'O00 I05 Switch'
+		name 'DMIC IIR Switch'
 		value false
 		comment {
 			access 'read write'
@@ -11,17 +11,23 @@ state.mt8365evk {
 	}
 	control.2 {
 		iface MIXER
-		name 'O00 I07 Switch'
-		value true
+		name 'DMIC IIR Mode'
+		value 'SW custom'
 		comment {
 			access 'read write'
-			type BOOLEAN
+			type ENUMERATED
 			count 1
+			item.0 'SW custom'
+			item.1 '5Hz'
+			item.2 '10Hz'
+			item.3 '25Hz'
+			item.4 '50Hz'
+			item.5 '65Hz'
 		}
 	}
 	control.3 {
 		iface MIXER
-		name 'O01 I06 Switch'
+		name 'O00 I05 Switch'
 		value false
 		comment {
 			access 'read write'
@@ -31,7 +37,7 @@ state.mt8365evk {
 	}
 	control.4 {
 		iface MIXER
-		name 'O01 I08 Switch'
+		name 'O00 I07 Switch'
 		value true
 		comment {
 			access 'read write'
@@ -41,6 +47,26 @@ state.mt8365evk {
 	}
 	control.5 {
 		iface MIXER
+		name 'O01 I06 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.6 {
+		iface MIXER
+		name 'O01 I08 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.7 {
+		iface MIXER
 		name 'O03 I05 Switch'
 		value true
 		comment {
@@ -49,7 +75,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.6 {
+	control.8 {
 		iface MIXER
 		name 'O03 I07 Switch'
 		value false
@@ -59,7 +85,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.7 {
+	control.9 {
 		iface MIXER
 		name 'O03 I10 Switch'
 		value false
@@ -69,7 +95,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.8 {
+	control.10 {
 		iface MIXER
 		name 'O04 I06 Switch'
 		value true
@@ -79,7 +105,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.9 {
+	control.11 {
 		iface MIXER
 		name 'O04 I08 Switch'
 		value false
@@ -89,7 +115,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.10 {
+	control.12 {
 		iface MIXER
 		name 'O04 I11 Switch'
 		value false
@@ -99,7 +125,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.11 {
+	control.13 {
 		iface MIXER
 		name 'O05 I00 Switch'
 		value false
@@ -109,7 +135,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.12 {
+	control.14 {
 		iface MIXER
 		name 'O05 I03 Switch'
 		value true
@@ -119,7 +145,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.13 {
+	control.15 {
 		iface MIXER
 		name 'O05 I05 Switch'
 		value false
@@ -129,7 +155,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.14 {
+	control.16 {
 		iface MIXER
 		name 'O05 I07 Switch'
 		value false
@@ -139,7 +165,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.15 {
+	control.17 {
 		iface MIXER
 		name 'O05 I09 Switch'
 		value false
@@ -149,7 +175,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.16 {
+	control.18 {
 		iface MIXER
 		name 'O05 I14 Switch'
 		value false
@@ -159,7 +185,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.17 {
+	control.19 {
 		iface MIXER
 		name 'O05 I16 Switch'
 		value false
@@ -169,7 +195,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.18 {
+	control.20 {
 		iface MIXER
 		name 'O05 I18 Switch'
 		value false
@@ -179,7 +205,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.19 {
+	control.21 {
 		iface MIXER
 		name 'O05 I20 Switch'
 		value false
@@ -189,7 +215,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.20 {
+	control.22 {
 		iface MIXER
 		name 'O05 I23 Switch'
 		value false
@@ -199,7 +225,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.21 {
+	control.23 {
 		iface MIXER
 		name 'O06 I01 Switch'
 		value false
@@ -209,7 +235,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.22 {
+	control.24 {
 		iface MIXER
 		name 'O06 I04 Switch'
 		value true
@@ -219,7 +245,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.23 {
+	control.25 {
 		iface MIXER
 		name 'O06 I06 Switch'
 		value false
@@ -229,7 +255,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.24 {
+	control.26 {
 		iface MIXER
 		name 'O06 I08 Switch'
 		value false
@@ -239,7 +265,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.25 {
+	control.27 {
 		iface MIXER
 		name 'O06 I22 Switch'
 		value false
@@ -249,7 +275,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.26 {
+	control.28 {
 		iface MIXER
 		name 'O06 I15 Switch'
 		value false
@@ -259,7 +285,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.27 {
+	control.29 {
 		iface MIXER
 		name 'O06 I17 Switch'
 		value false
@@ -269,7 +295,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.28 {
+	control.30 {
 		iface MIXER
 		name 'O06 I19 Switch'
 		value false
@@ -279,7 +305,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.29 {
+	control.31 {
 		iface MIXER
 		name 'O06 I21 Switch'
 		value false
@@ -289,7 +315,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.30 {
+	control.32 {
 		iface MIXER
 		name 'O06 I24 Switch'
 		value false
@@ -299,7 +325,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.31 {
+	control.33 {
 		iface MIXER
 		name 'O07 I05 Switch'
 		value false
@@ -309,7 +335,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.32 {
+	control.34 {
 		iface MIXER
 		name 'O07 I07 Switch'
 		value false
@@ -319,7 +345,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.33 {
+	control.35 {
 		iface MIXER
 		name 'O08 I06 Switch'
 		value false
@@ -329,7 +355,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.34 {
+	control.36 {
 		iface MIXER
 		name 'O08 I08 Switch'
 		value false
@@ -339,7 +365,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.35 {
+	control.37 {
 		iface MIXER
 		name 'O09 I00 Switch'
 		value false
@@ -349,7 +375,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.36 {
+	control.38 {
 		iface MIXER
 		name 'O09 I03 Switch'
 		value false
@@ -359,7 +385,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.37 {
+	control.39 {
 		iface MIXER
 		name 'O09 I09 Switch'
 		value false
@@ -369,7 +395,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.38 {
+	control.40 {
 		iface MIXER
 		name 'O09 I14 Switch'
 		value true
@@ -379,7 +405,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.39 {
+	control.41 {
 		iface MIXER
 		name 'O09 I16 Switch'
 		value false
@@ -389,7 +415,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.40 {
+	control.42 {
 		iface MIXER
 		name 'O09 I18 Switch'
 		value false
@@ -399,7 +425,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.41 {
+	control.43 {
 		iface MIXER
 		name 'O09 I20 Switch'
 		value false
@@ -409,7 +435,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.42 {
+	control.44 {
 		iface MIXER
 		name 'O10 I01 Switch'
 		value false
@@ -419,7 +445,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.43 {
+	control.45 {
 		iface MIXER
 		name 'O10 I04 Switch'
 		value false
@@ -429,7 +455,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.44 {
+	control.46 {
 		iface MIXER
 		name 'O10 I22 Switch'
 		value false
@@ -439,7 +465,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.45 {
+	control.47 {
 		iface MIXER
 		name 'O10 I15 Switch'
 		value true
@@ -449,7 +475,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.46 {
+	control.48 {
 		iface MIXER
 		name 'O10 I17 Switch'
 		value false
@@ -459,7 +485,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.47 {
+	control.49 {
 		iface MIXER
 		name 'O10 I19 Switch'
 		value false
@@ -469,7 +495,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.48 {
+	control.50 {
 		iface MIXER
 		name 'O10 I21 Switch'
 		value false
@@ -479,7 +505,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.49 {
+	control.51 {
 		iface MIXER
 		name 'O11 I00 Switch'
 		value false
@@ -489,7 +515,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.50 {
+	control.52 {
 		iface MIXER
 		name 'O11 I03 Switch'
 		value false
@@ -499,7 +525,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.51 {
+	control.53 {
 		iface MIXER
 		name 'O11 I09 Switch'
 		value false
@@ -509,7 +535,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.52 {
+	control.54 {
 		iface MIXER
 		name 'O11 I14 Switch'
 		value false
@@ -519,7 +545,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.53 {
+	control.55 {
 		iface MIXER
 		name 'O11 I16 Switch'
 		value false
@@ -529,7 +555,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.54 {
+	control.56 {
 		iface MIXER
 		name 'O11 I18 Switch'
 		value false
@@ -539,7 +565,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.55 {
+	control.57 {
 		iface MIXER
 		name 'O11 I20 Switch'
 		value false
@@ -549,7 +575,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.56 {
+	control.58 {
 		iface MIXER
 		name 'O12 I01 Switch'
 		value false
@@ -559,7 +585,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.57 {
+	control.59 {
 		iface MIXER
 		name 'O12 I04 Switch'
 		value false
@@ -569,7 +595,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.58 {
+	control.60 {
 		iface MIXER
 		name 'O12 I22 Switch'
 		value false
@@ -579,7 +605,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.59 {
+	control.61 {
 		iface MIXER
 		name 'O12 I15 Switch'
 		value false
@@ -589,7 +615,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.60 {
+	control.62 {
 		iface MIXER
 		name 'O12 I17 Switch'
 		value false
@@ -599,7 +625,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.61 {
+	control.63 {
 		iface MIXER
 		name 'O12 I19 Switch'
 		value false
@@ -609,7 +635,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.62 {
+	control.64 {
 		iface MIXER
 		name 'O12 I21 Switch'
 		value false
@@ -619,7 +645,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.63 {
+	control.65 {
 		iface MIXER
 		name 'O13 I00 Switch'
 		value false
@@ -629,7 +655,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.64 {
+	control.66 {
 		iface MIXER
 		name 'O14 I01 Switch'
 		value false
@@ -639,7 +665,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.65 {
+	control.67 {
 		iface MIXER
 		name 'O17 I03 Switch'
 		value false
@@ -649,7 +675,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.66 {
+	control.68 {
 		iface MIXER
 		name 'O17 I14 Switch'
 		value false
@@ -659,7 +685,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.67 {
+	control.69 {
 		iface MIXER
 		name 'O18 I04 Switch'
 		value false
@@ -669,7 +695,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.68 {
+	control.70 {
 		iface MIXER
 		name 'O18 I15 Switch'
 		value false
@@ -679,7 +705,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.69 {
+	control.71 {
 		iface MIXER
 		name 'O18 I23 Switch'
 		value false
@@ -689,7 +715,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.70 {
+	control.72 {
 		iface MIXER
 		name 'O18 I25 Switch'
 		value false
@@ -699,7 +725,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.71 {
+	control.73 {
 		iface MIXER
 		name 'O19 I04 Switch'
 		value false
@@ -709,7 +735,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.72 {
+	control.74 {
 		iface MIXER
 		name 'O19 I16 Switch'
 		value false
@@ -719,7 +745,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.73 {
+	control.75 {
 		iface MIXER
 		name 'O19 I23 Switch'
 		value false
@@ -729,7 +755,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.74 {
+	control.76 {
 		iface MIXER
 		name 'O19 I24 Switch'
 		value false
@@ -739,7 +765,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.75 {
+	control.77 {
 		iface MIXER
 		name 'O19 I25 Switch'
 		value false
@@ -749,7 +775,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.76 {
+	control.78 {
 		iface MIXER
 		name 'O19 I26 Switch'
 		value false
@@ -759,7 +785,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.77 {
+	control.79 {
 		iface MIXER
 		name 'O20 I17 Switch'
 		value false
@@ -769,7 +795,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.78 {
+	control.80 {
 		iface MIXER
 		name 'O20 I24 Switch'
 		value false
@@ -779,7 +805,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.79 {
+	control.81 {
 		iface MIXER
 		name 'O20 I26 Switch'
 		value false
@@ -789,7 +815,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.80 {
+	control.82 {
 		iface MIXER
 		name 'O21 I18 Switch'
 		value false
@@ -799,7 +825,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.81 {
+	control.83 {
 		iface MIXER
 		name 'O21 I23 Switch'
 		value false
@@ -809,7 +835,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.82 {
+	control.84 {
 		iface MIXER
 		name 'O21 I25 Switch'
 		value false
@@ -819,7 +845,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.83 {
+	control.85 {
 		iface MIXER
 		name 'O22 I19 Switch'
 		value false
@@ -829,7 +855,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.84 {
+	control.86 {
 		iface MIXER
 		name 'O22 I24 Switch'
 		value false
@@ -839,7 +865,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.85 {
+	control.87 {
 		iface MIXER
 		name 'O22 I26 Switch'
 		value false
@@ -849,7 +875,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.86 {
+	control.88 {
 		iface MIXER
 		name 'O23 I20 Switch'
 		value false
@@ -859,7 +885,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.87 {
+	control.89 {
 		iface MIXER
 		name 'O23 I23 Switch'
 		value false
@@ -869,7 +895,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.88 {
+	control.90 {
 		iface MIXER
 		name 'O23 I25 Switch'
 		value false
@@ -879,7 +905,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.89 {
+	control.91 {
 		iface MIXER
 		name 'O24 I21 Switch'
 		value false
@@ -889,7 +915,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.90 {
+	control.92 {
 		iface MIXER
 		name 'O24 I24 Switch'
 		value false
@@ -899,7 +925,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.91 {
+	control.93 {
 		iface MIXER
 		name 'O24 I26 Switch'
 		value false
@@ -909,7 +935,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.92 {
+	control.94 {
 		iface MIXER
 		name 'O24 I23 Switch'
 		value false
@@ -919,7 +945,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.93 {
+	control.95 {
 		iface MIXER
 		name 'O24 I25 Switch'
 		value false
@@ -929,17 +955,7 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.94 {
-		iface MIXER
-		name 'O25 I27 Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.95 {
+	control.96 {
 		iface MIXER
 		name 'O25 I23 Switch'
 		value false
@@ -949,19 +965,9 @@ state.mt8365evk {
 			count 1
 		}
 	}
-	control.96 {
-		iface MIXER
-		name 'O25 I25 Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
 	control.97 {
 		iface MIXER
-		name 'O26 I28 Switch'
+		name 'O25 I25 Switch'
 		value false
 		comment {
 			access 'read write'
@@ -1031,7 +1037,7 @@ state.mt8365evk {
 	}
 	control.104 {
 		iface MIXER
-		name 'O31 I29 Switch'
+		name 'HW_GAIN1_IN_CH1 CONNSYS_I2S_CH1 Switch'
 		value false
 		comment {
 			access 'read write'
@@ -1041,7 +1047,7 @@ state.mt8365evk {
 	}
 	control.105 {
 		iface MIXER
-		name 'O32 I30 Switch'
+		name 'HW_GAIN1_IN_CH2 CONNSYS_I2S_CH2 Switch'
 		value false
 		comment {
 			access 'read write'
@@ -1050,116 +1056,6 @@ state.mt8365evk {
 		}
 	}
 	control.106 {
-		iface MIXER
-		name 'O33 I31 Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.107 {
-		iface MIXER
-		name 'O34 I32 Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.108 {
-		iface MIXER
-		name 'O35 I33 Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.109 {
-		iface MIXER
-		name 'O36 I34 Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.110 {
-		iface MIXER
-		name 'I2S O03_O04 Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.111 {
-		iface MIXER
-		name 'INT ADDA O03_O04 Switch'
-		value true
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.112 {
-		iface MIXER
-		name 'TDM_OUT Virtual Capture Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.113 {
-		iface MIXER
-		name 'HW_GAIN1_IN_CH1 CONNSYS_I2S_CH1'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.114 {
-		iface MIXER
-		name 'HW_GAIN1_IN_CH2 CONNSYS_I2S_CH2'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.115 {
-		iface MIXER
-		name 'ADDA_DL_CH1 GAIN1_OUT_CH1'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.116 {
-		iface MIXER
-		name 'ADDA_DL_CH2 GAIN1_OUT_CH2'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.117 {
 		iface MIXER
 		name 'CM2_Mux_IO Input Mux'
 		value OPEN
@@ -1173,7 +1069,7 @@ state.mt8365evk {
 			item.3 FROM_TDM_ASRC_OUT
 		}
 	}
-	control.118 {
+	control.107 {
 		iface MIXER
 		name 'AIN Mux'
 		value 'INT ADC'
@@ -1185,19 +1081,7 @@ state.mt8365evk {
 			item.1 'EXT ADC'
 		}
 	}
-	control.119 {
-		iface MIXER
-		name 'TDM_IN Input Mux'
-		value TDM_IN_FROM_IO
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 TDM_IN_FROM_IO
-			item.1 TDM_IN_FROM_CM2
-		}
-	}
-	control.120 {
+	control.108 {
 		iface MIXER
 		name 'VUL2 Input Mux'
 		value VUL2_IN_FROM_O17O18
@@ -1209,58 +1093,7 @@ state.mt8365evk {
 			item.1 VUL2_IN_FROM_CM1
 		}
 	}
-	control.121 {
-		iface MIXER
-		name 'GASRC1 Output Mux'
-		value OPEN
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 OPEN
-			item.1 CM1_GASRC1
-			item.2 CM2_GASRC1
-		}
-	}
-	control.122 {
-		iface MIXER
-		name 'GASRC2 Output Mux'
-		value OPEN
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 OPEN
-			item.1 CM1_GASRC2
-			item.2 CM2_GASRC2
-		}
-	}
-	control.123 {
-		iface MIXER
-		name 'TDM_ASRC Output Mux'
-		value OPEN
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 OPEN
-			item.1 CM1_TDM_ASRC
-			item.2 CM2_TDM_ASRC
-		}
-	}
-	control.124 {
-		iface MIXER
-		name 'FM 2ND I2S Mux'
-		value OPEN
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 OPEN
-			item.1 FM_2ND_I2S_IN
-		}
-	}
-	control.125 {
+	control.109 {
 		iface MIXER
 		name 'FM HW Gain Mux'
 		value OPEN
@@ -1272,829 +1105,1561 @@ state.mt8365evk {
 			item.1 FM_HW_GAIN_IO
 		}
 	}
-	control.126 {
+	control.110 {
 		iface MIXER
-		name Audio_Amp_R_Switch
-		value On
+		name 'INT ADDA O03_O04 Switch'
+		value true
 		comment {
 			access 'read write'
-			type ENUMERATED
+			type BOOLEAN
 			count 1
-			item.0 Off
-			item.1 On
 		}
 	}
-	control.127 {
+	control.111 {
 		iface MIXER
-		name Audio_Amp_L_Switch
-		value On
+		name 'ADDA_DL_CH1 GAIN1_OUT_CH1 Switch'
+		value false
 		comment {
 			access 'read write'
-			type ENUMERATED
+			type BOOLEAN
 			count 1
-			item.0 Off
-			item.1 On
 		}
 	}
-	control.128 {
+	control.112 {
 		iface MIXER
-		name Voice_Amp_Switch
-		value Off
+		name 'ADDA_DL_CH2 GAIN1_OUT_CH2 Switch'
+		value false
 		comment {
 			access 'read write'
-			type ENUMERATED
+			type BOOLEAN
 			count 1
-			item.0 Off
-			item.1 On
 		}
 	}
-	control.129 {
+	control.113 {
 		iface MIXER
-		name Speaker_Amp_Switch
-		value Off
+		name 'I2S O03_O04 Switch'
+		value false
 		comment {
 			access 'read write'
-			type ENUMERATED
+			type BOOLEAN
 			count 1
-			item.0 Off
-			item.1 On
 		}
 	}
-	control.130 {
+	control.114 {
 		iface MIXER
-		name Headset_Speaker_Amp_Switch
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.131 {
-		iface MIXER
-		name Headset_PGAL_GAIN
-		value '0Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '8Db'
-			item.1 '7Db'
-			item.2 '6Db'
-			item.3 '5Db'
-			item.4 '4Db'
-			item.5 '3Db'
-			item.6 '2Db'
-			item.7 '1Db'
-			item.8 '0Db'
-			item.9 '-1Db'
-			item.10 '-2Db'
-			item.11 '-3Db'
-			item.12 '-4Db'
-			item.13 '-5Db'
-			item.14 '-6Db'
-			item.15 '-7Db'
-			item.16 '-8Db'
-			item.17 '-9Db'
-			item.18 '-10Db'
-			item.19 '-11Db'
-			item.20 '-12Db'
-			item.21 '-13Db'
-			item.22 '-14Db'
-			item.23 '-15Db'
-			item.24 '-16Db'
-			item.25 '-17Db'
-			item.26 '-18Db'
-			item.27 '-19Db'
-			item.28 '-20Db'
-			item.29 '-21Db'
-			item.30 '-22Db'
-			item.31 '-40Db'
-		}
-	}
-	control.132 {
-		iface MIXER
-		name Headset_PGAR_GAIN
-		value '0Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '8Db'
-			item.1 '7Db'
-			item.2 '6Db'
-			item.3 '5Db'
-			item.4 '4Db'
-			item.5 '3Db'
-			item.6 '2Db'
-			item.7 '1Db'
-			item.8 '0Db'
-			item.9 '-1Db'
-			item.10 '-2Db'
-			item.11 '-3Db'
-			item.12 '-4Db'
-			item.13 '-5Db'
-			item.14 '-6Db'
-			item.15 '-7Db'
-			item.16 '-8Db'
-			item.17 '-9Db'
-			item.18 '-10Db'
-			item.19 '-11Db'
-			item.20 '-12Db'
-			item.21 '-13Db'
-			item.22 '-14Db'
-			item.23 '-15Db'
-			item.24 '-16Db'
-			item.25 '-17Db'
-			item.26 '-18Db'
-			item.27 '-19Db'
-			item.28 '-20Db'
-			item.29 '-21Db'
-			item.30 '-22Db'
-			item.31 '-40Db'
-		}
-	}
-	control.133 {
-		iface MIXER
-		name Handset_PGA_GAIN
-		value '0Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '8Db'
-			item.1 '7Db'
-			item.2 '6Db'
-			item.3 '5Db'
-			item.4 '4Db'
-			item.5 '3Db'
-			item.6 '2Db'
-			item.7 '1Db'
-			item.8 '0Db'
-			item.9 '-1Db'
-			item.10 '-2Db'
-			item.11 '-3Db'
-			item.12 '-4Db'
-			item.13 '-5Db'
-			item.14 '-6Db'
-			item.15 '-7Db'
-			item.16 '-8Db'
-			item.17 '-9Db'
-			item.18 '-10Db'
-			item.19 '-40Db'
-		}
-	}
-	control.134 {
-		iface MIXER
-		name Lineout_PGAR_GAIN
-		value '8Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '8Db'
-			item.1 '7Db'
-			item.2 '6Db'
-			item.3 '5Db'
-			item.4 '4Db'
-			item.5 '3Db'
-			item.6 '2Db'
-			item.7 '1Db'
-			item.8 '0Db'
-			item.9 '-1Db'
-			item.10 '-2Db'
-			item.11 '-3Db'
-			item.12 '-4Db'
-			item.13 '-5Db'
-			item.14 '-6Db'
-			item.15 '-7Db'
-			item.16 '-8Db'
-			item.17 '-9Db'
-			item.18 '-10Db'
-			item.19 '-40Db'
-		}
-	}
-	control.135 {
-		iface MIXER
-		name Lineout_PGAL_GAIN
-		value '8Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '8Db'
-			item.1 '7Db'
-			item.2 '6Db'
-			item.3 '5Db'
-			item.4 '4Db'
-			item.5 '3Db'
-			item.6 '2Db'
-			item.7 '1Db'
-			item.8 '0Db'
-			item.9 '-1Db'
-			item.10 '-2Db'
-			item.11 '-3Db'
-			item.12 '-4Db'
-			item.13 '-5Db'
-			item.14 '-6Db'
-			item.15 '-7Db'
-			item.16 '-8Db'
-			item.17 '-9Db'
-			item.18 '-10Db'
-			item.19 '-40Db'
-		}
-	}
-	control.136 {
-		iface MIXER
-		name AUD_CLK_BUF_Switch
-		value On
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.137 {
-		iface MIXER
-		name Ext_Speaker_Amp_Switch
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.138 {
-		iface MIXER
-		name Receiver_Speaker_Switch
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.139 {
-		iface MIXER
-		name PMIC_REG_CLEAR
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.140 {
-		iface MIXER
-		name Codec_ADC_SampleRate
-		value 48000
-		comment {
-			access 'read write'
-			type INTEGER
-			count 1
-			range '0 - 192000'
-		}
-	}
-	control.141 {
-		iface MIXER
-		name Codec_DAC_SampleRate
-		value 16000
-		comment {
-			access 'read write'
-			type INTEGER
-			count 1
-			range '0 - 192000'
-		}
-	}
-	control.142 {
-		iface MIXER
-		name DcTrim_DC_Offset
-		value.0 0
-		value.1 0
-		comment {
-			access 'read write'
-			type INTEGER
-			count 2
-			range '0 - 131072'
-		}
-	}
-	control.143 {
-		iface MIXER
-		name '[HP+SPK] DcTrim_DC_Offset'
-		value 0
-		comment {
-			access 'read write'
-			type INTEGER
-			count 1
-			range '0 - 65536'
-		}
-	}
-	control.144 {
-		iface MIXER
-		name Dctrim_Control_Switch
-		value Calibrated
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Not_Yet
-			item.1 Calibrating
-			item.2 Calibrated
-		}
-	}
-	control.145 {
-		iface MIXER
-		name 'Audio HP ImpeDance Setting'
-		value 0
-		comment {
-			access 'read write'
-			type INTEGER
-			count 1
-			range '0 - 65536'
-		}
-	}
-	control.146 {
-		iface MIXER
-		name 'Headphone Plugged In'
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.147 {
-		iface MIXER
-		name Apply_N12DB_Gain
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.148 {
-		iface MIXER
-		name Audio_ADC_1_Switch
-		value On
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.149 {
-		iface MIXER
-		name Audio_ADC_2_Switch
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.150 {
-		iface MIXER
-		name Audio_ADC_3_Switch
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.151 {
-		iface MIXER
-		name Audio_ADC_4_Switch
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.152 {
-		iface MIXER
-		name Audio_Preamp1_Switch
-		value IN_ADC1
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 OPEN
-			item.1 IN_ADC1
-			item.2 IN_ADC2
-			item.3 IN_ADC3
-		}
-	}
-	control.153 {
-		iface MIXER
-		name Audio_ADC_1_Sel
-		value Preamp
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 idle
-			item.1 AIN
-			item.2 Preamp
-		}
-	}
-	control.154 {
-		iface MIXER
-		name Audio_ADC_2_Sel
-		value Preamp
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 idle
-			item.1 AIN
-			item.2 Preamp
-		}
-	}
-	control.155 {
-		iface MIXER
-		name Audio_ADC_3_Sel
-		value idle
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 idle
-			item.1 AIN
-			item.2 Preamp
-		}
-	}
-	control.156 {
-		iface MIXER
-		name Audio_ADC_4_Sel
-		value idle
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 idle
-			item.1 AIN
-			item.2 Preamp
-		}
-	}
-	control.157 {
-		iface MIXER
-		name Audio_PGA1_Setting
-		value '18Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '0Db'
-			item.1 '6Db'
-			item.2 '12Db'
-			item.3 '18Db'
-			item.4 '24Db'
-			item.5 '30Db'
-		}
-	}
-	control.158 {
-		iface MIXER
-		name Audio_PGA2_Setting
-		value '18Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '0Db'
-			item.1 '6Db'
-			item.2 '12Db'
-			item.3 '18Db'
-			item.4 '24Db'
-			item.5 '30Db'
-		}
-	}
-	control.159 {
-		iface MIXER
-		name Audio_PGA3_Setting
-		value '0Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '0Db'
-			item.1 '6Db'
-			item.2 '12Db'
-			item.3 '18Db'
-			item.4 '24Db'
-			item.5 '30Db'
-		}
-	}
-	control.160 {
-		iface MIXER
-		name Audio_PGA4_Setting
-		value '0Db'
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 '0Db'
-			item.1 '6Db'
-			item.2 '12Db'
-			item.3 '18Db'
-			item.4 '24Db'
-			item.5 '30Db'
-		}
-	}
-	control.161 {
-		iface MIXER
-		name Audio_MicSource1_Setting
-		value ADC2
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ADC1
-			item.1 ADC2
-			item.2 ADC3
-			item.3 ADC4
-		}
-	}
-	control.162 {
-		iface MIXER
-		name Audio_MicSource2_Setting
-		value ADC1
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ADC1
-			item.1 ADC2
-			item.2 ADC3
-			item.3 ADC4
-		}
-	}
-	control.163 {
-		iface MIXER
-		name Audio_MicSource3_Setting
-		value ADC1
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ADC1
-			item.1 ADC2
-			item.2 ADC3
-			item.3 ADC4
-		}
-	}
-	control.164 {
-		iface MIXER
-		name Audio_MicSource4_Setting
-		value ADC1
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ADC1
-			item.1 ADC2
-			item.2 ADC3
-			item.3 ADC4
-		}
-	}
-	control.165 {
-		iface MIXER
-		name Audio_MIC1_Mode_Select
-		value ACCMODE
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ACCMODE
-			item.1 DCCMODE
-			item.2 DMIC
-			item.3 DCCECMDIFFMODE
-			item.4 DCCECMSINGLEMODE
-		}
-	}
-	control.166 {
-		iface MIXER
-		name Audio_MIC2_Mode_Select
-		value ACCMODE
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ACCMODE
-			item.1 DCCMODE
-			item.2 DMIC
-			item.3 DCCECMDIFFMODE
-			item.4 DCCECMSINGLEMODE
-		}
-	}
-	control.167 {
-		iface MIXER
-		name Audio_MIC3_Mode_Select
-		value ACCMODE
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ACCMODE
-			item.1 DCCMODE
-			item.2 DMIC
-			item.3 DCCECMDIFFMODE
-			item.4 DCCECMSINGLEMODE
-		}
-	}
-	control.168 {
-		iface MIXER
-		name Audio_MIC4_Mode_Select
-		value ACCMODE
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 ACCMODE
-			item.1 DCCMODE
-			item.2 DMIC
-			item.3 DCCECMDIFFMODE
-			item.4 DCCECMSINGLEMODE
-		}
-	}
-	control.169 {
-		iface MIXER
-		name Audio_Mic_Power_Mode
-		value normal
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 normal
-			item.1 lowpower
-		}
-	}
-	control.170 {
-		iface MIXER
-		name Audio_Preamp2_Switch
+		name 'FM 2ND I2S Mux'
 		value OPEN
 		comment {
 			access 'read write'
 			type ENUMERATED
 			count 1
 			item.0 OPEN
-			item.1 IN_ADC1
-			item.2 IN_ADC2
-			item.3 IN_ADC3
+			item.1 FM_2ND_I2S_IN
 		}
 	}
-	control.171 {
+	control.115 {
 		iface MIXER
-		name Audio_UL_LR_Swap
-		value Off
+		name 'Headphone Volume'
+		value.0 10
+		value.1 10
 		comment {
 			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
+			type INTEGER
+			count 2
+			range '0 - 18'
+			dbmin -1000
+			dbmax 800
+			dbvalue.0 0
+			dbvalue.1 0
 		}
 	}
-	control.172 {
+	control.116 {
 		iface MIXER
-		name Audio_AMIC_DCC_Setting
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.173 {
-		iface MIXER
-		name Audio_MICBIAS0_Switch
-		value On
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.174 {
-		iface MIXER
-		name SineTable_DAC_HP
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.175 {
-		iface MIXER
-		name DAC_LOOP_DAC_HS
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.176 {
-		iface MIXER
-		name DAC_LOOP_DAC_HP
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.177 {
-		iface MIXER
-		name Voice_Call_DAC_DAC_HS
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.178 {
-		iface MIXER
-		name SineTable_UL2
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 On
-		}
-	}
-	control.179 {
-		iface MIXER
-		name Pmic_Loopback
-		value Off
-		comment {
-			access 'read write'
-			type ENUMERATED
-			count 1
-			item.0 Off
-			item.1 LPBK3
-		}
-	}
-	control.180 {
-		iface MIXER
-		name Codec_Debug_Enable
-		value 0
+		name 'Headphone Vin Volume'
+		value 1
 		comment {
 			access 'read write'
 			type INTEGER
 			count 1
-			range '0 - -1'
+			range '0 - 1'
+			dbmin -1200
+			dbmax 0
+			dbvalue.0 0
 		}
 	}
-	control.181 {
+	control.117 {
 		iface MIXER
-		name 'Audio AUXADC Data'
-		value 0
+		name 'Lineout Volume'
+		value.0 10
+		value.1 10
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 18'
+			dbmin -1000
+			dbmax 800
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.118 {
+		iface MIXER
+		name 'Handset Volume'
+		value 10
 		comment {
 			access 'read write'
 			type INTEGER
 			count 1
-			range '0 - 524288'
+			range '0 - 18'
+			dbmin -1000
+			dbmax 800
+			dbvalue.0 0
+		}
+	}
+	control.119 {
+		iface MIXER
+		name 'Mic Volume'
+		value.0 0
+		value.1 0
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 4'
+			dbmin 0
+			dbmax 2400
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.120 {
+		iface PCM
+		device 4
+		name 'Playback Channel Map'
+		value.0 0
+		value.1 0
+		value.2 0
+		value.3 0
+		value.4 0
+		value.5 0
+		value.6 0
+		value.7 0
+		comment {
+			access read
+			type INTEGER
+			count 8
+			range '0 - 36'
+		}
+	}
+	control.124 {
+		iface MIXER
+		name 'PGA L Mux'
+		value AIN1
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 None
+			item.1 AIN0
+			item.2 AIN1
+			item.3 AIN2
+		}
+	}
+	control.125 {
+		iface MIXER
+		name 'PGA R Mux'
+		value AIN1
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 None
+			item.1 AIN0
+			item.2 AIN1
+			item.3 AIN2
+		}
+	}
+	control.126 {
+		iface MIXER
+		name 'Mic Type Mux'
+		value DCC
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Idle
+			item.1 ACC
+			item.2 DMIC
+			item.3 DCC
+			item.4 DCC_ECM_DIFF
+			item.5 DCC_ECM_SINGLE
+			item.6 Loopback
+			item.7 'Sine Generator'
+		}
+	}
+	control.127 {
+		iface MIXER
+		name 'DAC Mux'
+		value 'Normal Path'
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 'Normal Path'
+			item.1 'Sine Generator'
+		}
+	}
+	control.128 {
+		iface MIXER
+		name 'Line Out Source'
+		value Open
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 DACR
+			item.2 Playback
+			item.3 'Test mode'
+		}
+	}
+	control.129 {
+		iface MIXER
+		name 'Handset Source'
+		value Open
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 DACR
+			item.2 Playback
+			item.3 'Test mode'
+		}
+	}
+	control.130 {
+		iface MIXER
+		name 'Headphone Right Source'
+		value DAC
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 'Line Out'
+			item.2 DAC
+			item.3 Handset
+		}
+	}
+	control.131 {
+		iface MIXER
+		name 'Headphone Left Source'
+		value DAC
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 'Line Out'
+			item.2 DAC
+			item.3 Handset
+		}
+	}
+}
+state.sofmt8365evk {
+	control.1 {
+		iface MIXER
+		name 'DMIC IIR Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.2 {
+		iface MIXER
+		name 'DMIC IIR Mode'
+		value 'SW custom'
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 'SW custom'
+			item.1 '5Hz'
+			item.2 '10Hz'
+			item.3 '25Hz'
+			item.4 '50Hz'
+			item.5 '65Hz'
+		}
+	}
+	control.3 {
+		iface MIXER
+		name 'O00 I05 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.4 {
+		iface MIXER
+		name 'O00 I07 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.5 {
+		iface MIXER
+		name 'O01 I06 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.6 {
+		iface MIXER
+		name 'O01 I08 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.7 {
+		iface MIXER
+		name 'O03 I05 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.8 {
+		iface MIXER
+		name 'O03 I07 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.9 {
+		iface MIXER
+		name 'O03 I10 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.10 {
+		iface MIXER
+		name 'O04 I06 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.11 {
+		iface MIXER
+		name 'O04 I08 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.12 {
+		iface MIXER
+		name 'O04 I11 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.13 {
+		iface MIXER
+		name 'O05 I00 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.14 {
+		iface MIXER
+		name 'O05 I03 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.15 {
+		iface MIXER
+		name 'O05 I05 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.16 {
+		iface MIXER
+		name 'O05 I07 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.17 {
+		iface MIXER
+		name 'O05 I09 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.18 {
+		iface MIXER
+		name 'O05 I14 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.19 {
+		iface MIXER
+		name 'O05 I16 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.20 {
+		iface MIXER
+		name 'O05 I18 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.21 {
+		iface MIXER
+		name 'O05 I20 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.22 {
+		iface MIXER
+		name 'O05 I23 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.23 {
+		iface MIXER
+		name 'O06 I01 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.24 {
+		iface MIXER
+		name 'O06 I04 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.25 {
+		iface MIXER
+		name 'O06 I06 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.26 {
+		iface MIXER
+		name 'O06 I08 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.27 {
+		iface MIXER
+		name 'O06 I22 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.28 {
+		iface MIXER
+		name 'O06 I15 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.29 {
+		iface MIXER
+		name 'O06 I17 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.30 {
+		iface MIXER
+		name 'O06 I19 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.31 {
+		iface MIXER
+		name 'O06 I21 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.32 {
+		iface MIXER
+		name 'O06 I24 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.33 {
+		iface MIXER
+		name 'O07 I05 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.34 {
+		iface MIXER
+		name 'O07 I07 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.35 {
+		iface MIXER
+		name 'O08 I06 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.36 {
+		iface MIXER
+		name 'O08 I08 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.37 {
+		iface MIXER
+		name 'O09 I00 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.38 {
+		iface MIXER
+		name 'O09 I03 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.39 {
+		iface MIXER
+		name 'O09 I09 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.40 {
+		iface MIXER
+		name 'O09 I14 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.41 {
+		iface MIXER
+		name 'O09 I16 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.42 {
+		iface MIXER
+		name 'O09 I18 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.43 {
+		iface MIXER
+		name 'O09 I20 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.44 {
+		iface MIXER
+		name 'O10 I01 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.45 {
+		iface MIXER
+		name 'O10 I04 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.46 {
+		iface MIXER
+		name 'O10 I22 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.47 {
+		iface MIXER
+		name 'O10 I15 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.48 {
+		iface MIXER
+		name 'O10 I17 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.49 {
+		iface MIXER
+		name 'O10 I19 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.50 {
+		iface MIXER
+		name 'O10 I21 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.51 {
+		iface MIXER
+		name 'O11 I00 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.52 {
+		iface MIXER
+		name 'O11 I03 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.53 {
+		iface MIXER
+		name 'O11 I09 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.54 {
+		iface MIXER
+		name 'O11 I14 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.55 {
+		iface MIXER
+		name 'O11 I16 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.56 {
+		iface MIXER
+		name 'O11 I18 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.57 {
+		iface MIXER
+		name 'O11 I20 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.58 {
+		iface MIXER
+		name 'O12 I01 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.59 {
+		iface MIXER
+		name 'O12 I04 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.60 {
+		iface MIXER
+		name 'O12 I22 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.61 {
+		iface MIXER
+		name 'O12 I15 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.62 {
+		iface MIXER
+		name 'O12 I17 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.63 {
+		iface MIXER
+		name 'O12 I19 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.64 {
+		iface MIXER
+		name 'O12 I21 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.65 {
+		iface MIXER
+		name 'O13 I00 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.66 {
+		iface MIXER
+		name 'O14 I01 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.67 {
+		iface MIXER
+		name 'O17 I03 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.68 {
+		iface MIXER
+		name 'O17 I14 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.69 {
+		iface MIXER
+		name 'O18 I04 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.70 {
+		iface MIXER
+		name 'O18 I15 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.71 {
+		iface MIXER
+		name 'O18 I23 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.72 {
+		iface MIXER
+		name 'O18 I25 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.73 {
+		iface MIXER
+		name 'O19 I04 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.74 {
+		iface MIXER
+		name 'O19 I16 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.75 {
+		iface MIXER
+		name 'O19 I23 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.76 {
+		iface MIXER
+		name 'O19 I24 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.77 {
+		iface MIXER
+		name 'O19 I25 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.78 {
+		iface MIXER
+		name 'O19 I26 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.79 {
+		iface MIXER
+		name 'O20 I17 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.80 {
+		iface MIXER
+		name 'O20 I24 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.81 {
+		iface MIXER
+		name 'O20 I26 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.82 {
+		iface MIXER
+		name 'O21 I18 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.83 {
+		iface MIXER
+		name 'O21 I23 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.84 {
+		iface MIXER
+		name 'O21 I25 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.85 {
+		iface MIXER
+		name 'O22 I19 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.86 {
+		iface MIXER
+		name 'O22 I24 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.87 {
+		iface MIXER
+		name 'O22 I26 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.88 {
+		iface MIXER
+		name 'O23 I20 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.89 {
+		iface MIXER
+		name 'O23 I23 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.90 {
+		iface MIXER
+		name 'O23 I25 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.91 {
+		iface MIXER
+		name 'O24 I21 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.92 {
+		iface MIXER
+		name 'O24 I24 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.93 {
+		iface MIXER
+		name 'O24 I26 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.94 {
+		iface MIXER
+		name 'O24 I23 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.95 {
+		iface MIXER
+		name 'O24 I25 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.96 {
+		iface MIXER
+		name 'O25 I23 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.97 {
+		iface MIXER
+		name 'O25 I25 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.98 {
+		iface MIXER
+		name 'O26 I24 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.99 {
+		iface MIXER
+		name 'O26 I26 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.100 {
+		iface MIXER
+		name 'O27 I05 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.101 {
+		iface MIXER
+		name 'O28 I06 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.102 {
+		iface MIXER
+		name 'O29 I05 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.103 {
+		iface MIXER
+		name 'O30 I06 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.104 {
+		iface MIXER
+		name 'AIN Mux'
+		value 'INT ADC'
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 'INT ADC'
+			item.1 'EXT ADC'
+		}
+	}
+	control.105 {
+		iface MIXER
+		name 'VUL2 Input Mux'
+		value VUL2_IN_FROM_O17O18
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 VUL2_IN_FROM_O17O18
+			item.1 VUL2_IN_FROM_CM1
+		}
+	}
+	control.106 {
+		iface MIXER
+		name 'FM HW Gain Mux'
+		value OPEN
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 OPEN
+			item.1 FM_HW_GAIN_IO
+		}
+	}
+	control.107 {
+		iface MIXER
+		name 'INT ADDA O03_O04 Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.108 {
+		iface MIXER
+		name 'I2S O03_O04 Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.109 {
+		iface MIXER
+		name 'FM 2ND I2S Mux'
+		value OPEN
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 OPEN
+			item.1 FM_2ND_I2S_IN
+		}
+	}
+	control.110 {
+		iface MIXER
+		name 'Headphone Volume'
+		value.0 10
+		value.1 10
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 18'
+			dbmin -1000
+			dbmax 800
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.111 {
+		iface MIXER
+		name 'Headphone Vin Volume'
+		value 1
+		comment {
+			access 'read write'
+			type INTEGER
+			count 1
+			range '0 - 1'
+			dbmin -1200
+			dbmax 0
+			dbvalue.0 0
+		}
+	}
+	control.112 {
+		iface MIXER
+		name 'Lineout Volume'
+		value.0 10
+		value.1 10
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 18'
+			dbmin -1000
+			dbmax 800
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.113 {
+		iface MIXER
+		name 'Handset Volume'
+		value 10
+		comment {
+			access 'read write'
+			type INTEGER
+			count 1
+			range '0 - 18'
+			dbmin -1000
+			dbmax 800
+			dbvalue.0 0
+		}
+	}
+	control.114 {
+		iface MIXER
+		name 'Mic Volume'
+		value.0 0
+		value.1 0
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 4'
+			dbmin 0
+			dbmax 2400
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.115 {
+		iface MIXER
+		name 'PGA L Mux'
+		value AIN1
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 None
+			item.1 AIN0
+			item.2 AIN1
+			item.3 AIN2
+		}
+	}
+	control.116 {
+		iface MIXER
+		name 'PGA R Mux'
+		value AIN1
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 None
+			item.1 AIN0
+			item.2 AIN1
+			item.3 AIN2
+		}
+	}
+	control.117 {
+		iface MIXER
+		name 'Mic Type Mux'
+		value DCC
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Idle
+			item.1 ACC
+			item.2 DMIC
+			item.3 DCC
+			item.4 DCC_ECM_DIFF
+			item.5 DCC_ECM_SINGLE
+			item.6 Loopback
+			item.7 'Sine Generator'
+		}
+	}
+	control.118 {
+		iface MIXER
+		name 'DAC Mux'
+		value 'Normal Path'
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 'Normal Path'
+			item.1 'Sine Generator'
+		}
+	}
+	control.119 {
+		iface MIXER
+		name 'Line Out Source'
+		value Open
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 DACR
+			item.2 Playback
+			item.3 'Test mode'
+		}
+	}
+	control.120 {
+		iface MIXER
+		name 'Handset Source'
+		value Open
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 DACR
+			item.2 Playback
+			item.3 'Test mode'
+		}
+	}
+	control.121 {
+		iface MIXER
+		name 'Headphone Right Source'
+		value DAC
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 'Line Out'
+			item.2 DAC
+			item.3 Handset
+		}
+	}
+	control.122 {
+		iface MIXER
+		name 'Headphone Left Source'
+		value DAC
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Open
+			item.1 'Line Out'
+			item.2 DAC
+			item.3 Handset
 		}
 	}
 }
