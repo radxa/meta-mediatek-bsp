@@ -38,7 +38,10 @@ SRC_URI:append:mt8195 = " \
 	file://mt8195.cfg \
 	${@bb.utils.contains('MACHINE_FEATURES', 'tsn', 'file://tsn.cfg', '', d)} \
 "
-SRC_URI:append:mt8365 = " file://mt8365.cfg "
+SRC_URI:append:mt8365 = " \
+	file://sof_mt8365.cfg \
+	file://mt8365.cfg \
+"
 SRC_URI:append:mt8188 = " \
 	file://sof.cfg \
 	file://mt8188.cfg \
