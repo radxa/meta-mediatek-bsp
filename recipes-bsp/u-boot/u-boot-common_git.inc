@@ -9,7 +9,7 @@ DEPENDS += "flex-native bison-native"
 LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=2ca5f2c35c8cc335f0a19756634782f1"
 
-SRCREV = "2d23a2418205d2250cde43486fa2884ef72b5f09"
+SRCREV = "a366e0cd1364a0e0aff3615b2f7b7f7f197a3892"
 SRC_URI = "${AIOT_BSP_URI}/u-boot.git;branch=mtk-v2022.10;protocol=https"
 
 PKGV = "2022.10+git"
