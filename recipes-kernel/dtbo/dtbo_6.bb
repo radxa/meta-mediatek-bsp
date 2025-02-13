@@ -85,6 +85,7 @@ SRC_URI:append:genio-510-evk = " \
 	file://display-dsi.dts \
 	file://display-hdmi.dts \
 	file://audio-sof.dts \
+	file://spi-test.dts \
 "
 
 SRC_URI:append:genio-700-evk = " \
