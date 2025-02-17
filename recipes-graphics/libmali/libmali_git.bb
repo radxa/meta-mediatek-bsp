@@ -56,7 +56,7 @@ S = "${WORKDIR}/git"
 
 BRANCH = "${DISTRO_CODENAME}"
 SRC_URI = "${AIOT_RITY_URI}/libmali.git;protocol=https;branch=${BRANCH}"
-SRCREV = "509c33e5f7bcc349c3eb4f395932efc12489538c"
+SRCREV = "a15a30f681c1e56b7e12b721a917dc5015a96526"
 
 PKGV = "0.${MALI_VERSION}+git${SRCPV}"
 
