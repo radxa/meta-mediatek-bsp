@@ -12,7 +12,7 @@ SUMMARY = "Mediatek OP-TEE eFuse Writer"
 LICENSE = "CLOSED"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=71cd0d8e7551828e714ab8e9c99ed74b"
 
-SRC_URI = "${AIOT_NDA_URI}/optee-ewriter.git;protocol=ssh;branch=main"
+SRC_URI = "${AIOT_NDA_URI}/optee-ewriter.git;protocol=https;branch=main"
 SRCREV = "34be7d722cddc449aa87e308e4af058e8a73afa3"
 COMPATIBLE_MACHINE = "mt*"
 DEPENDS:append = " optee-client"

@@ -11,7 +11,7 @@ COMPATIBLE_MACHINE = "mt8395|mt8390|mt8370"
 SRCREV = "c2464e4485b766ce8f0ac120e39de85e01389e9b"
 BRANCH = "kirkstone"
 
-SRC_URI += "${AIOT_NDA_URI}/mtk-camisp-prebuilts.git;protocol=ssh;branch=${BRANCH} \
+SRC_URI += "${AIOT_NDA_URI}/mtk-camisp-prebuilts.git;protocol=https;branch=${BRANCH} \
 "
 
 S = "${WORKDIR}/git"
