@@ -602,7 +602,8 @@
 					 <&gce1 6 CMDQ_THR_PRIO_1>,
 					 <&gce1 7 CMDQ_THR_PRIO_1>,
 					 <&gce1 8 CMDQ_THR_PRIO_1>,
-					 <&gce1 9 CMDQ_THR_PRIO_1>;
+					 <&gce1 9 CMDQ_THR_PRIO_1>,
+					 <&gce1 11 CMDQ_THR_PRIO_1>;
 				traw_cq_thread0_frame_done =
 					/bits/ 16 <CMDQ_EVENT_CQ_THR_DONE_TRAW0_0>;
 				traw_cq_thread1_frame_done =
