@@ -5,9 +5,9 @@ require linux-mtk-common.inc
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
-LINUX_VERSION ?= "6.6.22"
+LINUX_VERSION ?= "6.6.27"
 SRCBRANCH ?= "mtk-v6.6"
-SRCREV = "46974057b2318602e7fb4653cce33a38c90f8749"
+SRCREV = "584b1bc636a5f87c96d23c16cba74cc873062429"
 
 SRC_URI:append = " \
 	file://0001-GENIO-drivers-lib-Strip-path-components.patch \
