@@ -1,0 +1,113 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/pinctrl/mt8195-pinfunc.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&edp_tx>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&edp_pin>;
+			status = "okay";
+
+			aux-bus {
+				edp_panel: panel {
+					compatible = "innolux,hk173vb-01b";
+					power-supply = <&edp_panel_fixed_3v3>;
+					backlight = <&backlight_lcd1>;
+					width-mm = <279>;
+					height-mm = <174>;
+					status = "okay";
+
+					port {
+						panel_in: endpoint {
+							remote-endpoint = <&edp_out>;
+						};
+					};
+				};
+			};
+
+			ports {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				port@0 {
+					reg = <0>;
+					edp_in: endpoint {
+						remote-endpoint = <&dp_intf0_out>;
+					};
+				};
+
+				port@1 {
+					reg = <1>;
+					edp_out: endpoint {
+						remote-endpoint = <&panel_in>;
+						data-lanes = <0 1 2 3>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&dp_intf0>;
+		__overlay__ {
+			status = "okay";
+			ports {
+				port {
+					dp_intf0_out: endpoint {
+						remote-endpoint = <&edp_in>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&edp_panel_fixed_3v3>;
+		__overlay__ {
+			regulator-state-mem {
+				regulator-on-in-suspend;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&backlight_lcd1>;
+		__overlay__ {
+			default-on;
+			power-supply = <&edp_panel_fixed_12v>;
+			enable-gpios = <&pio 95 GPIO_ACTIVE_HIGH>;
+			status = "okay";
+		};
+	};
+
+	fragment@5 {
+		target = <&disp_pwm1>;
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&disp_pwm1_pin_default>;
+		};
+	};
+
+	fragment@6 {
+		target = <&pio>;
+		__overlay__ {
+			edp_pin: edp-pin-default {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO7__FUNC_EDP_TX_HPD>;
+					bias-pull-up;
+				};
+			};
+
+			disp_pwm1_pin_default: disp-pwm1-pin-default {
+				pins1 {
+					pinmux = <PINMUX_GPIO104__FUNC_DISP_PWM1>;
+				};
+			};
+		};
+	};
+};
