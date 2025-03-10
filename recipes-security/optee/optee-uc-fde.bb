@@ -11,7 +11,7 @@ DEPENDS = "optee-client optee-os-tadevkit python3-cryptography-native libgcc"
 
 # Since this SRC_URI is temporary, we will update it later with a permanent SRC_URI.
 SRC_URI = "git://git.launchpad.net/~ondrak/+git/optee-uc-fde;branch=master;protocol=https"
-SRCREV = "691cfeaa0558880b0d296ac353a44f0f9b940ccd"
+SRCREV = "7dbf8170632ed92b090c1eb3b4044c11cfd6ddba"
 
 # Imports machine specific configs
 PACKAGE_ARCH = "${MACHINE_ARCH}"
