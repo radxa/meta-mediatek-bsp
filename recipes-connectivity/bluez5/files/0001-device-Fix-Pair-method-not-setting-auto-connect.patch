@@ -1,0 +1,38 @@
+From 39467578207889fd015775cbe81a3db9dd26abea Mon Sep 17 00:00:00 2001
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Date: Thu, 29 Aug 2024 16:12:25 -0400
+Subject: device: Fix Pair method not setting auto_connect
+
+Due to commit 507ba12483c3 ("profile: Remove probe_on_discover")
+disable_auto_connect may be set when a service is probed but the device
+is still temporary which is normally the result of service being
+discovered over advertisement rather than connection.
+
+To fix this the Device.Pair method needs to check if the
+disable_auto_connect flag has been set and then reset it set auto_connect
+which is similar to how Device.Connect works.
+
+Upstream-Status: Backport [39467578207889fd015775cbe81a3db9dd26abea]
+---
+ src/device.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/device.c b/src/device.c
+index 17bcfbc..3c4249a 100644
+--- a/src/device.c
++++ b/src/device.c
+@@ -3067,6 +3067,11 @@ static DBusMessage *pair_device(DBusConnection *conn, DBusMessage *msg,
+ 	 * this in the ATT connect callback)
+ 	 */
+ 	if (bdaddr_type != BDADDR_BREDR) {
++		if (device->disable_auto_connect) {
++			device->disable_auto_connect = FALSE;
++			device_set_auto_connect(device, TRUE);
++		}
++
+ 		if (!state->connected && btd_le_connect_before_pairing())
+ 			err = device_connect_le(device);
+ 		else
+-- 
+2.45.2
+
