@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
 LINUX_VERSION ?= "6.6.27"
 SRCBRANCH ?= "mtk-v6.6"
-SRCREV = "c29537c4bf5319181bc37522bc3be9280525f748"
+SRCREV = "1d07e6f76040b8aae1e048c6d04aea30c965717c"
 
 SRC_URI:append = " \
 	file://0001-GENIO-drivers-lib-Strip-path-components.patch \
