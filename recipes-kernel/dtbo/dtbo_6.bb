@@ -121,6 +121,7 @@ SRC_URI:append:genio-700-evk = " \
 	file://display-dsi.dts \
 	file://display-edp.dts \
 	file://display-hdmi.dts \
+	file://display-dp.dts \
 	file://audio-sof.dts \
 "
 
