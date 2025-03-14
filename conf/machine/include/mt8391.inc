@@ -42,4 +42,4 @@ PREFERRED_PROVIDER_virtual/libgles3 ?= "libmali"
 PREFERRED_PROVIDER_virtual/mesa ?= "libmali"
 PREFERRED_PROVIDER_virtual/opencl ?= "libmali"
 
-MACHINEOVERRIDES =. "mt8188:mt8390:genio-700:mt8391:genio-720:"
+MACHINEOVERRIDES =. "mt8391:genio-720:"
