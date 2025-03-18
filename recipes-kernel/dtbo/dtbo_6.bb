@@ -160,6 +160,7 @@ SRC_URI:append:genio-1200-evk = " \
 	file://display-dsi.dts \
 	file://display-edp.dts \
 	file://display-hdmi.dts \
+	file://display-dp.dts \
 	file://spi-test.dts \
 "
 
