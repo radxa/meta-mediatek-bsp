@@ -8,6 +8,7 @@ COMPATIBLE_MACHINE = "mt*"
 
 SRC_URI += " \
     file://0001-libteeacl-condition-libteeacl-with-WITH_TEEACL.patch \
+    file://70-tee-udev.rules \
 "
 
 OPTEE_WITH_TEEACL ??= "0"
@@ -23,3 +24,8 @@ PACKAGECONFIG[rpmb] = "-DRPMB_EMU=0, -DRPMB_EMU=1"
 EXTRA_OECMAKE += " \
     -DWITH_TEEACL=${OPTEE_WITH_TEEACL} \
 "
+
+do_install:append () {
+    install -d ${D}${sysconfdir}/udev/rules.d/
+    install -m 644 ${WORKDIR}/70-tee-udev.rules ${D}${sysconfdir}/udev/rules.d/
+}

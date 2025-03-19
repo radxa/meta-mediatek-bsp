@@ -1,0 +1,2 @@
+KERNEL=="tee[0-9]*", TAG+="systemd", MODE="0660", GROUP="teeclnt"
+KERNEL=="teepriv[0-9]*", MODE="0660", OWNER="root", GROUP="tee", TAG+="systemd", ENV{SYSTEMD_WANTS}+="tee-supplicant@%k.service"
