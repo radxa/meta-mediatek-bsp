@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=16de935ebcebe2420535844d4f6faefc"
 
 inherit module
 
-SRCREV = "75c0a17bf2924612a9f3f2537349b03b8b2ae37b"
+SRCREV = "fcc25db764dcdaae2d0073f92a64735c987979b7"
 BRANCH = "mtk-v6.6-mt8167"
 
 DEPENDS += "kernel-module-mtk-vcu-driver-mt8365"
