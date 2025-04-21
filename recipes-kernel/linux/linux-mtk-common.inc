@@ -56,6 +56,7 @@ SRC_URI:append:mt8370 = " \
 
 SRC_URI:append:mt8391 = " \
 	file://mt8391.cfg \
+	${@bb.utils.contains('MACHINE_FEATURES', 'tsn', 'file://tsn.cfg', '', d)} \
 "
 
 # Connectivity config fragments
