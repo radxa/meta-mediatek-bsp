@@ -2,6 +2,7 @@
 /plugin/;
 
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/clock/mediatek,mt8365-clk.h>
 
 / {
 	fragment@0 {
@@ -30,6 +31,12 @@
 		__overlay__ {
 			mediatek,output-to-lvds;
 			status = "okay";
+			clocks = <&mmsys CLK_MM_DPI0_DPI0>,
+				 <&mmsys CLK_MM_MM_DPI0>,
+				 <&apmixedsys CLK_APMIXED_LVDSPLL>,
+				 <&topckgen CLK_TOP_DPI0_SEL>,
+				 <&topckgen CLK_TOP_VPLL_DPIX_EN>;
+			clock-names = "pixel", "engine", "pll", "dpi_sel", "dpix";
 			port {
 				dpi_out: endpoint {
 					remote-endpoint = <&lvds_in>;
