@@ -172,6 +172,7 @@ SRC_URI:append:genio-1200-evk = " \
 
 SRC_URI:append:genio-720-evk = " \
 	file://emmc.dts \
+	file://ufs.dts \
 "
 
 DT_FILES_PATH = "${WORKDIR}"
