@@ -14,7 +14,8 @@
 		__overlay__ {
 			mediatek,adsp = <&adsp>;
 			mediatek,dai-link = "DL_SRC_BE", "UL_SRC1_BE", "UL_SRC2_BE", "DMIC_BE",
-				"AFE_SOF_DL2", "AFE_SOF_DL3", "AFE_SOF_UL4", "AFE_SOF_UL5";
+					    "ETDM3_OUT_BE", "DPTX_BE", "AFE_SOF_DL2", "AFE_SOF_DL3",
+					    "AFE_SOF_UL4", "AFE_SOF_UL5";
 		};
 	};
 };
