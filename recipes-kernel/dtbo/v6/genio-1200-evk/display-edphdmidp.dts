@@ -81,6 +81,7 @@
 			default-on;
 			power-supply = <&edp_panel_fixed_12v>;
 			enable-gpios = <&pio 95 GPIO_ACTIVE_HIGH>;
+			post-pwm-on-delay-ms = <1>;
 			status = "okay";
 		};
 	};
