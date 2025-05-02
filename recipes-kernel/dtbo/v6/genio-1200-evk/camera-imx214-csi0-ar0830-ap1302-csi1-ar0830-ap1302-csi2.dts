@@ -58,14 +58,14 @@
 		};
 	};
 
-	fragment@13 {
+	fragment@16 {
 		target = <&mtkcam0>;
 		__overlay__ {
 			status = "okay";
 		};
 	};
 
-	fragment@14 {
+	fragment@17 {
 		target = <&mtkcam1>;
 		__overlay__ {
 			status = "okay";
@@ -73,7 +73,7 @@
 		};
 	};
 
-	fragment@15 {
+	fragment@18 {
 		target = <&mtkcam2>;
 		__overlay__ {
 			status = "okay";
