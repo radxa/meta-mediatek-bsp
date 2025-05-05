@@ -8,7 +8,7 @@ inherit systemd
 REQUIRED_DISTRO_FEATURES = "nda-mtk"
 COMPATIBLE_MACHINE = "mt8395|mt8390|mt8370"
 
-SRCREV = "c2464e4485b766ce8f0ac120e39de85e01389e9b"
+SRCREV = "9a9f846c237a89d061d4ff832b3e0658a0c6ba6d"
 BRANCH = "kirkstone"
 
 SRC_URI += "${AIOT_NDA_URI}/mtk-camisp-prebuilts.git;protocol=https;branch=${BRANCH} \
