@@ -1,5 +1,7 @@
 require recipes-bsp/mtk-secure-boot-tools/mtk-secure-boot-tools.inc
 
+inherit python3native
+
 FILESEXTRAPATHS:prepend := "${THISDIR}/test-keys:"
 
 SRC_URI:append = " \
