@@ -89,8 +89,6 @@ AB_FWUPDATE_ENABLE ?= "${@bb.utils.contains("DISTRO_FEATURES", "fwupdate", "1", 
 BL2_SIGN_ENABLE ??= "0"
 DA_SIGN_ENABLE ??= "0"
 
-# Set this to generate the secure package required to enable secure boot
-SECURE_ZIP_ENABLE ?= "${@bb.utils.contains("DISTRO_FEATURES", "secure-boot", "1", "0", d)}"
 FIT_SIGN_INDIVIDUAL ?= "${@bb.utils.contains("DISTRO_FEATURES", "secure-boot", "1", "0", d)}"
 FIT_GENERATE_KEYS ?= "${@bb.utils.contains("DISTRO_FEATURES", "secure-boot", "1", "0", d)}"
 UBOOT_SIGN_KEYDIR ?= "${@bb.utils.contains("DISTRO_FEATURES", "secure-boot", "${DEPLOY_DIR_IMAGE}/secure", "", d)}"
