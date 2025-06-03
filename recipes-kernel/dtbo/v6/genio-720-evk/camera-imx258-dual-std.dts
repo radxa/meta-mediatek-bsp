@@ -1,0 +1,125 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/mediatek,mt8189-clk.h>
+#include "camera-common-std.dtsi"
+
+/ {
+	fragment@3 {
+		target = <&i2c7>;
+		__overlay__ {
+			clock-frequency = <400000>;
+
+			imx258@1a {
+				compatible = "sony,imx258";
+
+				reg = <0x1a>;
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam0_default_pins_pwr_en &cam0_default_pins_mclk>;
+
+				clocks = <&vlp_cksys_clk CLK_VLP_CK_CAMTG0_SEL>;
+				assigned-clocks = <&vlp_cksys_clk CLK_VLP_CK_CAMTG0_SEL>;
+				assigned-clock-parents = <&topckgen_clk CLK_TOP_UNIVPLL_192M_D8>;
+
+				vana-supply = <&cam_vcam_3v3_en>;
+				vdig-supply = <&cam_vcam_3v3_en>;
+				vif-supply = <&cam0_pdn>;
+
+				port {
+					sensor0_out: endpoint {
+						remote-endpoint = <&seninf_csi_port_0_in>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&seninf_csi_port_0>;
+		__overlay__ {
+			settle_delay_ck = <0x20>;
+			dphy_settle_delay_dt = <0x20>;
+			status = "okay";
+			ports {
+				port@0 {
+					seninf_csi_port_0_in: endpoint {
+						data-lanes = <1 2 3 4>;
+						remote-endpoint = <&sensor0_out>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <&mipi_csi0>;
+		__overlay__ {
+			status = "okay";
+			num-lanes = <4>;
+		};
+	};
+
+	fragment@6 {
+		target = <&i2c8>;
+		__overlay__ {
+			clock-frequency = <400000>;
+
+			imx258@1a {
+				compatible = "sony,imx258";
+
+				reg = <0x1a>;
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam1_default_pins_pwr_en &cam1_default_pins_mclk>;
+
+				clocks = <&vlp_cksys_clk CLK_VLP_CK_CAMTG1_SEL>;
+				assigned-clocks = <&vlp_cksys_clk CLK_VLP_CK_CAMTG1_SEL>;
+				assigned-clock-parents = <&topckgen_clk CLK_TOP_UNIVPLL_192M_D8>;
+
+				vana-supply = <&cam_vcam_3v3_en>;
+				vdig-supply = <&cam_vcam_3v3_en>;
+				vif-supply = <&cam1_pdn>;
+
+				port {
+					sensor1_out: endpoint {
+						remote-endpoint = <&seninf_csi_port_1_in>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <&seninf_csi_port_1>;
+		__overlay__ {
+			settle_delay_ck = <0x20>;
+			dphy_settle_delay_dt = <0x20>;
+			status = "okay";
+			ports {
+				port@0 {
+					seninf_csi_port_1_in: endpoint {
+						data-lanes = <1 2 3 4>;
+						remote-endpoint = <&sensor1_out>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@8 {
+		target = <&mipi_csi1>;
+		__overlay__ {
+			status = "okay";
+			num-lanes = <4>;
+		};
+	};
+};

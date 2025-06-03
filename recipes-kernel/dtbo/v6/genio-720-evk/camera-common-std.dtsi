@@ -1,0 +1,78 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mt8189-pinfunc.h>
+
+/ {
+	fragment@1 {
+		target-path = "/";
+		__overlay__ {
+			cam_vcam_3v3_en: cam-vcam-3v3-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam_vcam_3v3_en";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				enable-active-high;
+				vin-supply = <&mt6359_vcamio_ldo_reg>;
+			};
+
+			cam0_pdn: cam0-pdn-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam0_pdn";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 74 0>;
+				enable-active-high;
+				startup-delay-us = <6000>;
+			};
+
+			cam1_pdn: cam1-pdn-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam1_pdn";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				gpio = <&pio 73 0>;
+				enable-active-high;
+				startup-delay-us = <6000>;
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&pio>;
+		__overlay__ {
+			cam0_default_pins_pwr_en: cam0@0 {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+					output-low;
+				};
+			};
+
+			cam0_default_pins_mclk: cam0@1 {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO22__FUNC_CMMCLK0>;
+					drive-strength = <MTK_DRIVE_4mA>;
+				};
+			};
+
+			cam1_default_pins_pwr_en: cam1@0 {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO73__FUNC_GPIO73>;
+					output-low;
+				};
+			};
+
+			cam1_default_pins_mclk: cam1@1 {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO23__FUNC_CMMCLK1>;
+					drive-strength = <MTK_DRIVE_4mA>;
+				};
+			};
+
+		};
+	};
+};

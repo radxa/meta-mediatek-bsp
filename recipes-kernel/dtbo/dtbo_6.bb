@@ -173,6 +173,14 @@ SRC_URI:append:genio-1200-evk = " \
 SRC_URI:append:genio-720-evk = " \
 	file://emmc.dts \
 	file://ufs.dts \
+	file://camera-common-std.dtsi \
+	file://camera-imx258-csi0-std.dts \
+	file://camera-imx258-csi1-std.dts \
+	file://camera-imx258-dual-std.dts \
+	file://camera-ov5640-csi0-std.dts \
+	file://camera-ov5640-csi1-std.dts \
+	file://camera-ov5640-dual-std.dts \
+	file://camera-imx258-csi0-ov5640-csi1-std.dts \
 "
 
 DT_FILES_PATH = "${WORKDIR}"

@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+
+#include "camera-imx258-dual-std.dts"
+
+/ {
+	fragment@11 {
+		target = <&i2c7>;
+		__overlay__ {
+			imx258@1a {
+				status = "disabled";
+			};
+		};
+	};
+
+	fragment@12 {
+		target = <&seninf_csi_port_0>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@13 {
+		target = <&mipi_csi0>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
