@@ -10,5 +10,5 @@ SRCBRANCH ?= "mtk-v6.6"
 SRCREV = "c8201a2744fc3a57b3a516e6ef52853b3f628430"
 
 SRC_URI:append = " \
-	file://0001-GENIO-drivers-lib-Strip-path-components.patch \
+	file://0001-GENIO-drivers-Strip-path-components.patch \
 "
