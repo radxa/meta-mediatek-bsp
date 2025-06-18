@@ -1,0 +1,84 @@
+From 36e45a3878372f8d7cb94539a9b1d48ffde8569e Mon Sep 17 00:00:00 2001
+From: Qian Hu <Qian.Hu@mediatek.com>
+Date: Fri, 21 Jun 2024 18:49:08 +0800
+Subject: [PATCH] v4l2object: Add force nonblock poll
+
+add force nonblock poll for format change event.
+port from CL: 9259417
+
+Upstream-Status: Pending
+
+Signed-off-by: Qian Hu <Qian.Hu@mediatek.com>
+CR-Id: AUTO00153134
+Change-Id: If6997a850b0f39db2f0e79ca4c336175b49c857b
+---
+ sys/v4l2/gstv4l2object.c   | 4 +++-
+ sys/v4l2/gstv4l2object.h   | 2 ++
+ sys/v4l2/gstv4l2videodec.c | 2 ++
+ 3 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/sys/v4l2/gstv4l2object.c b/sys/v4l2/gstv4l2object.c
+index 9736cd5..a20ac8f 100644
+--- a/sys/v4l2/gstv4l2object.c
++++ b/sys/v4l2/gstv4l2object.c
+@@ -5538,7 +5538,7 @@ gst_v4l2_object_poll (GstV4l2Object * v4l2object, GstClockTime timeout)
+   GST_LOG_OBJECT (v4l2object->dbg_obj, "polling device");
+ 
+ again:
+-  ret = gst_poll_wait (v4l2object->poll, timeout);
++  ret = gst_poll_wait (v4l2object->poll, v4l2object->force_nonblock_poll == FALSE ? timeout : 0);
+   if (G_UNLIKELY (ret < 0)) {
+     switch (errno) {
+       case EBUSY:
+@@ -5589,6 +5589,7 @@ again:
+     goto no_buffers;
+ 
+ done:
++  GST_DEBUG_OBJECT (v4l2object->dbg_obj, "flow_ok");
+   return GST_FLOW_OK;
+ 
+   /* ERRORS */
+@@ -5605,6 +5606,7 @@ select_error:
+   }
+ no_buffers:
+   {
++    GST_DEBUG_OBJECT (v4l2object->dbg_obj, "no_buffers");
+     return GST_V4L2_FLOW_LAST_BUFFER;
+   }
+ dqevent_failed:
+diff --git a/sys/v4l2/gstv4l2object.h b/sys/v4l2/gstv4l2object.h
+index 5223cbb..5f5b780 100644
+--- a/sys/v4l2/gstv4l2object.h
++++ b/sys/v4l2/gstv4l2object.h
+@@ -128,6 +128,8 @@ struct _GstV4l2Object {
+   GstElement * element;
+   GstObject * dbg_obj;
+ 
++  gboolean force_nonblock_poll;
++
+   enum v4l2_buf_type type;   /* V4L2_BUF_TYPE_VIDEO_CAPTURE, V4L2_BUF_TYPE_VIDEO_OUTPUT */
+ 
+   /* the video device */
+diff --git a/sys/v4l2/gstv4l2videodec.c b/sys/v4l2/gstv4l2videodec.c
+index c7f39dd..693a159 100644
+--- a/sys/v4l2/gstv4l2videodec.c
++++ b/sys/v4l2/gstv4l2videodec.c
+@@ -861,6 +861,7 @@ beach:
+   if (ret == GST_V4L2_FLOW_RESOLUTION_CHANGE) {
+     GST_VIDEO_DECODER_STREAM_LOCK (decoder);
+     self->draining = TRUE;
++    self->v4l2capture->force_nonblock_poll = TRUE;
+     GST_VIDEO_DECODER_STREAM_UNLOCK (decoder);
+     GST_INFO_OBJECT (decoder, "Received resolution change");
+     return;
+@@ -870,6 +871,7 @@ beach:
+     GST_VIDEO_DECODER_STREAM_LOCK (decoder);
+     if (self->draining) {
+       self->draining = FALSE;
++      self->v4l2capture->force_nonblock_poll = FALSE;
+       gst_v4l2_object_stop (self->v4l2capture);
+       GST_VIDEO_DECODER_STREAM_UNLOCK (decoder);
+       return;
+-- 
+2.45.2
+
