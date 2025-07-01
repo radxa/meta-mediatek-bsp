@@ -27,7 +27,8 @@ SRC_URI:append:mt8395 = " \
 "
 
 SRC_URI:append:mt8391 = " \
-        file://apusys.dts \
+	file://apusys.dts \
+	file://video.dts \
 "
 
 SRC_URI:append:mt8390 = " \
