@@ -1,7 +1,7 @@
 require trusted-firmware-a-mtk.inc
 
 SRC_URI = "${AIOT_BSP_URI}/trusted-firmware-a.git;name=tfa;branch=mtk-v2.6;protocol=https"
-SRCREV_tfa = "0018f12f4d6fe7b0f73afff31dbbd0a88e4adbc4"
+SRCREV_tfa = "712c30f73b1f07f2f0c02c545b1826b860c24650"
 
 SRC_URI:append:mt8370 = " file://0001-tf-a-auth-add-support-for-HW-crypto.patch "
 SRC_URI:append:mt8390 = " file://0001-tf-a-auth-add-support-for-HW-crypto.patch "
