@@ -56,7 +56,7 @@ S = "${WORKDIR}/git"
 
 BRANCH = "${DISTRO_CODENAME}"
 SRC_URI = "${AIOT_RITY_URI}/libmali.git;protocol=https;branch=${BRANCH}"
-SRCREV = "a15a30f681c1e56b7e12b721a917dc5015a96526"
+SRCREV = "ecd5f89e74cabba05840f79719e013f1aec66af7"
 
 PKGV = "0.${MALI_VERSION}+git${SRCPV}"
 
@@ -64,6 +64,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # Additional install firmware: not all GPU have firmware, only install firmware in specific GPU
 REQUIRE_FIRMWARE:mt8188 = "1"
+REQUIRE_FIRMWARE:mt8189 = "1"
 REQUIRE_FIRMWARE:mt8370 = "1"
 REQUIRE_FIRMWARE:mt8195 = "0"
 REQUIRE_FIRMWARE:mt8365 = "0"

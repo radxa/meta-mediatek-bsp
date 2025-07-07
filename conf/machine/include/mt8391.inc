@@ -21,7 +21,7 @@ MACHINE_FEATURES:append = " ${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "
 DISTRO_FEATURES:remove = " x11 "
 
 # Mali
-MALI_SOC = "mt8188"
+MALI_SOC = "mt8189"
 MALI_VERSION ??= "48"
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
