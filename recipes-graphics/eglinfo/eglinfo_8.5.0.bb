@@ -12,7 +12,7 @@ SRC_URI[sha256sum] = "cea2df0a80f09a30f635c4eb1a672bf90c5ddee0b8e77f4d70041668ef
 
 S = "${WORKDIR}/mesa-demos-${PV}"
 
-DEPENDS += "virtual/libegl virtual/egl"
+DEPENDS += "${@bb.utils.contains_any('GPU_LIB', 'libmali', 'virtual/libegl', '', d)} virtual/egl"
 RDEPENDS:${PN} += "libegl"
 
 # Append to CFLAGS if "x11" is not in DISTRO_FEATURES

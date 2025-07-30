@@ -18,28 +18,14 @@ LK_PROJECT = "mt8365-pumpkin"
 MACHINE_FEATURES:append = " optee"
 MACHINE_FEATURES:append = " ${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "optee-efuse", "", d)}"
 
-DISTRO_FEATURES:remove = " x11 "
-
 # Mali
+require gpu-provider.inc
 MALI_SOC = "mt8365"
-MALI_VERSION ??= "48"
 
 MACHINE_EXTRA_RRECOMMENDS:append = " \
-	${@bb.utils.contains_any('DISTRO_FEATURES', 'opengl vulkan', 'libmali', '', d)} \
-	mali-gpu-driver \
 	linux-firmware-mt8365-sof \
 	${@bb.utils.contains("MACHINE_FEATURES", "optee-efuse", "optee-ewriter", "", d)} \
 "
-
-PREFERRED_PROVIDER_virtual/egl ?= "libmali"
-PREFERRED_PROVIDER_virtual/libegl ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgbm ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgl ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgles1 ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgles2 ?= "libmali"
-PREFERRED_PROVIDER_virtual/libgles3 ?= "libmali"
-PREFERRED_PROVIDER_virtual/mesa ?= "libmali"
-PREFERRED_PROVIDER_virtual/opencl ?= "libmali"
 
 VIRTUAL-RUNTIME_mdpd ?= "${@bb.utils.contains("DISTRO_FEATURES", "nda-mtk", "mtk-mdpd", "mdpd-prebuilt", d)}"
 
