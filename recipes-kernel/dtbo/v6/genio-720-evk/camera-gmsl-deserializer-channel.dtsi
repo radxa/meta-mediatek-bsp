@@ -1,0 +1,73 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+#include "camera-gmsl-macro-def.dtsi"
+
+#if !defined(GMSL_PHY)
+#error "No defined: GMSL_PHY"
+#endif
+
+#if !defined(GMSL_DES_PIPE_STREAM_ID)
+#error "No defined: GMSL_DES_PIPE_STREAM_ID"
+#endif
+
+#if !defined(DESER_CH_REG)
+#error "No defined: DESER_CH_REG"
+#endif
+
+#if !defined(DESER_CH_OUT_LABEL)
+#error "No defined: DESER_CH_OUT_LABEL"
+#endif
+
+#if !defined(DESER_CH_IN_LABEL)
+#error "No defined: DESER_CH_IN_LABEL"
+#endif
+
+#if !defined(DESER_CH_OUT_REMOTE_LABEL)
+#error "No defined: DESER_CH_OUT_REMOTE_LABEL"
+#endif
+
+#if !defined(DESER_CH_IN_REMOTE_LABEL)
+#error "No defined: DESER_CH_IN_REMOTE_LABEL"
+#endif
+
+channel@DESER_CH_REG {
+	reg = <DESER_CH_REG>;
+
+
+	maxim,phy-id = <GMSL_PHY>;
+	maxim,src-vc-id = <0>;
+	maxim,dst-vc-id = <DESER_CH_REG>;
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+
+			DESER_CH_OUT_LABEL: endpoint {
+				remote-endpoint = <&DESER_CH_OUT_REMOTE_LABEL>;
+				clock-lanes = <0>;
+				data-lanes = <1 2 3 4>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+
+			DESER_CH_IN_LABEL: endpoint {
+				remote-endpoint = <&DESER_CH_IN_REMOTE_LABEL>;
+			};
+		};
+	};
+};
+
+pipe@DESER_CH_REG {
+		reg = <DESER_CH_REG>;
+
+		maxim,stream-id = <GMSL_DES_PIPE_STREAM_ID>;
+		maxim,link-id = <DESER_CH_REG>;
+};

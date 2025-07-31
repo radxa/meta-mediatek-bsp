@@ -1,0 +1,302 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+
+#include <dt-bindings/clock/mediatek,mt8189-clk.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mt8189-pinfunc.h>
+#include "camera-gmsl-macro-def.dtsi"
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@1 {
+		target = <&mt6359_vcamio_ldo_reg>;
+		__overlay__ {
+			regulator-always-on;
+		};
+	};
+
+	/* CSI Port #0: 4 GMSL cameras */
+	#define CSI_IN_ID 0
+	fragment@2 {
+		target = <&i2c7>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			clock-frequency = <400000>;
+			status = "okay";
+
+			csi_in_0_deserializer: gmsl-deserializer@27 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				compatible = "maxim,max96724";
+				reg = <0x27>;
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&seninf_csi_port_0>;
+		__overlay__ {
+			status = "okay";
+			ports {
+				port@0 {
+					csi_in_0: endpoint {
+						clock-lanes = <0>;
+						data-lanes = <1 2 3 4>;
+						remote-endpoint = <&csi_in_0_deser_out_0>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&mipi_csi0>;
+		__overlay__ {
+			status = "okay";
+			num-lanes = <4>;
+		};
+	};
+
+	fragment@5 {
+		target = <&csi_in_0_deserializer>;
+		__overlay__ {
+			phy@GMSL_PHY {
+				reg = <GMSL_PHY>;
+				max,alt-mem-map12;
+			};
+
+			#define DESER_CH_INDEX 0
+			#include "camera-gmsl-deserializer-channel.dtsi"
+
+			#define DESER_CH_INDEX 1
+			#include "camera-gmsl-deserializer-channel.dtsi"
+
+			#define DESER_CH_INDEX 2
+			#include "camera-gmsl-deserializer-channel.dtsi"
+
+			#define DESER_CH_INDEX 3
+			#include "camera-gmsl-deserializer-channel.dtsi"
+		};
+	};
+
+	fragment@6 {
+		target = <&csi_in_0_deserializer>;
+		__overlay__ {
+			i2c-alias-pool = <
+				GMSL_SER_0_HEX_ADDR
+				GMSL_SER_1_HEX_ADDR
+				GMSL_SER_2_HEX_ADDR
+				GMSL_SER_3_HEX_ADDR
+			>;
+
+			i2c-atr {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				csi_in_0_deserializer_i2c_0: i2c@0 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <0>;
+				};
+
+				csi_in_0_deserializer_i2c_1: i2c@1 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <1>;
+				};
+
+				csi_in_0_deserializer_i2c_2: i2c@2 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <2>;
+				};
+
+				csi_in_0_deserializer_i2c_3: i2c@3 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <3>;
+				};
+			};
+		};
+	};
+
+	/* CSI Port #1: 2 GMSL cameras */
+	#define CSI_IN_ID 1
+	fragment@7 {
+		target = <&i2c8>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			clock-frequency = <400000>;
+			status = "okay";
+
+			csi_in_1_deserializer: gmsl-deserializer@27 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				compatible = "maxim,max96724";
+				reg = <0x27>;
+			};
+		};
+	};
+
+	fragment@8 {
+		target = <&seninf_csi_port_1>;
+		__overlay__ {
+			status = "okay";
+			ports {
+				port@0 {
+					csi_in_1: endpoint {
+						clock-lanes = <0>;
+						data-lanes = <1 2 3 4>;
+						remote-endpoint = <&csi_in_1_deser_out_0>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@9 {
+		target = <&mipi_csi1>;
+		__overlay__ {
+			status = "okay";
+			num-lanes = <4>;
+		};
+	};
+
+	fragment@10 {
+		target = <&csi_in_1_deserializer>;
+		__overlay__ {
+			phy@GMSL_PHY {
+				reg = <GMSL_PHY>;
+				max,alt-mem-map12;
+			};
+
+			#define DESER_CH_INDEX 0
+			#include "camera-gmsl-deserializer-channel.dtsi"
+
+			#define DESER_CH_INDEX 1
+			#include "camera-gmsl-deserializer-channel.dtsi"
+		};
+	};
+
+	fragment@11 {
+		target = <&csi_in_1_deserializer>;
+		__overlay__ {
+			i2c-alias-pool = <
+				GMSL_SER_0_HEX_ADDR
+				GMSL_SER_1_HEX_ADDR
+			>;
+
+			i2c-atr {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				csi_in_1_deserializer_i2c_0: i2c@0 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <0>;
+				};
+
+				csi_in_1_deserializer_i2c_1: i2c@1 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <1>;
+				};
+			};
+		};
+	};
+};
+
+/* CSI Port #0: 4 GMSL cameras */
+#define CSI_IN_ID 0
+
+csi_in_0_serializer_0_i2c_bus: &csi_in_0_deserializer_i2c_0 {};
+csi_in_0_serializer_1_i2c_bus: &csi_in_0_deserializer_i2c_1 {};
+csi_in_0_serializer_2_i2c_bus: &csi_in_0_deserializer_i2c_2 {};
+csi_in_0_serializer_3_i2c_bus: &csi_in_0_deserializer_i2c_3 {};
+
+&csi_in_0_serializer_0_i2c_bus {
+	#define SER_INDEX 0
+	#define SER_I2C_ALIAS_POLL GMSL_CAM_0_HEX_ADDR
+	#include "camera-gmsl-serializer.dtsi"
+};
+
+&csi_in_0_serializer_1_i2c_bus {
+	#define SER_INDEX 1
+	#define SER_I2C_ALIAS_POLL GMSL_CAM_1_HEX_ADDR
+	#include "camera-gmsl-serializer.dtsi"
+};
+
+&csi_in_0_serializer_2_i2c_bus {
+	#define SER_INDEX 2
+	#define SER_I2C_ALIAS_POLL GMSL_CAM_2_HEX_ADDR
+	#include "camera-gmsl-serializer.dtsi"
+};
+
+&csi_in_0_serializer_3_i2c_bus {
+	#define SER_INDEX 3
+	#define SER_I2C_ALIAS_POLL GMSL_CAM_3_HEX_ADDR
+	#include "camera-gmsl-serializer.dtsi"
+};
+
+csi_in_0_camera_0_i2c_bus: &csi_in_0_serializer_0_i2c_0 {};
+csi_in_0_camera_1_i2c_bus: &csi_in_0_serializer_1_i2c_0 {};
+csi_in_0_camera_2_i2c_bus: &csi_in_0_serializer_2_i2c_0 {};
+csi_in_0_camera_3_i2c_bus: &csi_in_0_serializer_3_i2c_0 {};
+
+&csi_in_0_camera_0_i2c_bus {
+	#define SER_INDEX 0
+	#include "camera-gmsl-ag190h.dtsi"
+};
+
+&csi_in_0_camera_1_i2c_bus {
+	#define SER_INDEX 1
+	#include "camera-gmsl-ag190h.dtsi"
+};
+
+&csi_in_0_camera_2_i2c_bus {
+	#define SER_INDEX 2
+	#include "camera-gmsl-ag190h.dtsi"
+};
+
+&csi_in_0_camera_3_i2c_bus {
+	#define SER_INDEX 3
+	#include "camera-gmsl-ag190h.dtsi"
+};
+
+/* CSI Port #1: 2 GMSL cameras */
+#define CSI_IN_ID 1
+
+csi_in_1_serializer_0_i2c_bus: &csi_in_1_deserializer_i2c_0 {};
+csi_in_1_serializer_1_i2c_bus: &csi_in_1_deserializer_i2c_1 {};
+
+&csi_in_1_serializer_0_i2c_bus {
+	#define SER_INDEX 0
+	#define SER_I2C_ALIAS_POLL GMSL_CAM_0_HEX_ADDR
+	#include "camera-gmsl-serializer.dtsi"
+};
+
+&csi_in_1_serializer_1_i2c_bus {
+	#define SER_INDEX 1
+	#define SER_I2C_ALIAS_POLL GMSL_CAM_1_HEX_ADDR
+	#include "camera-gmsl-serializer.dtsi"
+};
+
+csi_in_1_camera_0_i2c_bus: &csi_in_1_serializer_0_i2c_0 {};
+csi_in_1_camera_1_i2c_bus: &csi_in_1_serializer_1_i2c_0 {};
+
+&csi_in_1_camera_0_i2c_bus {
+	#define SER_INDEX 0
+	#include "camera-gmsl-ag190h.dtsi"
+};
+
+&csi_in_1_camera_1_i2c_bus {
+	#define SER_INDEX 1
+	#include "camera-gmsl-ag190h.dtsi"
+};

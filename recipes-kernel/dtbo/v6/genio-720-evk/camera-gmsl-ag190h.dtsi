@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+
+#include "camera-gmsl-macro-def.dtsi"
+
+#if !defined(AG190H_LABEL)
+#error "No defined: AG190H_LABEL"
+#endif
+
+#if !defined(AG190H_HEX_REG)
+#error "No defined: AG190H_HEX_REG"
+#endif
+
+#if !defined(AG190H_OUT_LABEL)
+#error "No defined: AG190H_OUT_LABEL"
+#endif
+
+#if !defined(AG190H_OUT_REMOTE_LABEL)
+#error "No defined: AG190H_OUT_REMOTE_LABEL"
+#endif
+
+AG190H_LABEL: ag190h@AG190H_HEX_REG {
+	compatible = "abeo,ag190h-oax4000-ox03c10";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	reg = <AG190H_HEX_REG>;
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		port@0 {
+			reg = <0>;
+
+			AG190H_OUT_LABEL: endpoint {
+				clock-lanes = <0>;
+				data-lanes = <1 2 3 4>;
+				remote-endpoint = <&AG190H_OUT_REMOTE_LABEL>;
+			};
+		};
+	};
+};

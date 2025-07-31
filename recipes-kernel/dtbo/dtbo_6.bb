@@ -188,6 +188,13 @@ SRC_URI:append:genio-720-evk = " \
 	file://camera-ov5640-csi1-std.dts \
 	file://camera-ov5640-dual-std.dts \
 	file://camera-imx258-csi0-ov5640-csi1-std.dts \
+	file://camera-gmsl-macro-def.dtsi \
+	file://camera-gmsl-deserializer-channel.dtsi \
+	file://camera-gmsl-serializer.dtsi \
+	file://camera-gmsl-ag190h.dtsi \
+	file://camera-ag190h-max96724-csi0-std.dts \
+	file://camera-ag190h-max96724-csi1-std.dts \
+	file://camera-ag190h-max96724-dual-std.dts \
 	file://spi-test.dts \
 	file://display-edp-4k.dts \
 	file://display-edp-fhd.dts \

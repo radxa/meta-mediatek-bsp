@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+
+// GMSL defines
+#define GMSL_PHY 0x2
+#define GMSL_DES_PIPE_STREAM_ID 2
+
+#define GMSL_SER_0_HEX_ADDR	0x41
+#define GMSL_SER_1_HEX_ADDR	0x42
+#define GMSL_SER_2_HEX_ADDR	0x43
+#define GMSL_SER_3_HEX_ADDR	0x44
+
+#define GMSL_CAM_0_HEX_ADDR	0x31
+#define GMSL_CAM_1_HEX_ADDR	0x32
+#define GMSL_CAM_2_HEX_ADDR	0x33
+#define GMSL_CAM_3_HEX_ADDR	0x34
+
+#define _CONCAT(a, b) a ## b
+#define CONCAT(a, b) _CONCAT(a, b)
+#define CONCAT_UDL(a, b) CONCAT(a, CONCAT(_, b))
+
+#define _STRINGIFY(a) # a
+#define STRINGIFY(a) _STRINGIFY(a)
+
+// Common
+#ifndef CSI_IN_ID
+#define CSI_IN_ID 0
+#endif
+#ifndef DESER_CH_INDEX
+#define DESER_CH_INDEX 0
+#endif
+#ifndef SER_INDEX
+#define SER_INDEX 0
+#endif
+#define CSI_IN_LABEL CONCAT_UDL(csi_in, CSI_IN_ID)
+
+// Deserializer
+#define DESER_CH_REG DESER_CH_INDEX
+#define DESER_CH_OUT_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(deser_out, DESER_CH_INDEX))
+#define DESER_CH_OUT_REMOTE_LABEL CSI_IN_LABEL
+#define DESER_CH_IN_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(deser_in, DESER_CH_INDEX))
+#define DESER_CH_IN_REMOTE_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(ser_out, DESER_CH_INDEX))
+
+// Serializer
+#ifndef SER_HEX_REG
+#define SER_HEX_REG 0x40
+#endif
+#define SER_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(serializer, SER_INDEX))
+#define SER_I2C_LABEL CONCAT_UDL(SER_LABEL, i2c_0)
+#define SER_OUT_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(ser_out, SER_INDEX))
+#define SER_OUT_REMOTE_LABEL DESER_CH_IN_LABEL
+#define SER_IN_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(ser_in, SER_INDEX))
+#define SER_IN_REMOTE_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(cam_out, SER_INDEX))
+
+// Camera
+#ifndef AG190H_HEX_REG
+#define AG190H_HEX_REG 0x24
+#endif
+#define AG190H_LABEL CONCAT_UDL(CSI_IN_LABEL, CONCAT_UDL(camera, SER_INDEX))
+#define AG190H_OUT_LABEL SER_IN_REMOTE_LABEL
+#define AG190H_OUT_REMOTE_LABEL SER_IN_LABEL

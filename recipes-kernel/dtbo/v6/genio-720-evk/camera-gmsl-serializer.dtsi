@@ -1,0 +1,87 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+#include "camera-gmsl-macro-def.dtsi"
+
+#ifndef SER_COMPAT
+#define SER_COMPAT "abeo,ag190h-max9295a"
+#endif
+
+#if !defined(SER_LABEL)
+#error "No defined: SER_LABEL"
+#endif
+
+#if !defined(SER_HEX_REG)
+#error "No defined: SER_HEX_REG"
+#endif
+
+#if !defined(SER_OUT_LABEL)
+#error "No defined: SER_OUT_LABEL"
+#endif
+
+#if !defined(SER_IN_LABEL)
+#error "No defined: SER_IN_LABEL"
+#endif
+
+#if !defined(SER_OUT_REMOTE_LABEL)
+#error "No defined: SER_OUT_REMOTE_LABEL"
+#endif
+
+#if !defined(SER_IN_REMOTE_LABEL)
+#error "No defined: SER_IN_REMOTE_LABEL"
+#endif
+
+SER_LABEL: gmsl-serializer@SER_HEX_REG {
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	compatible = SER_COMPAT;
+	reg = <SER_HEX_REG>;
+
+	gpio-controller;
+	#gpio-cells = <2>;
+	gpio-ranges = <&SER_LABEL 0 0 11>;
+
+#if defined(SER_I2C_ALIAS_POLL)
+	i2c-alias-pool = <SER_I2C_ALIAS_POLL>;
+#endif
+
+	i2c-atr {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		SER_I2C_LABEL: i2c@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			reg = <0>;
+		};
+	};
+
+	channel@0 {
+		reg = <0>;
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				SER_OUT_LABEL: endpoint {
+					remote-endpoint = <&SER_OUT_REMOTE_LABEL>;
+				};
+			};
+
+			port@1 {
+				reg = <1>;
+
+				SER_IN_LABEL: endpoint {
+					remote-endpoint = <&SER_IN_REMOTE_LABEL>;
+				};
+			};
+		};
+	};
+};
