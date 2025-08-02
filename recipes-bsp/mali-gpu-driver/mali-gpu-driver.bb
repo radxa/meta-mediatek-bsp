@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=16de935ebcebe2420535844d4f6faefc"
 
 inherit module
 
-SRCREV = "9cf015778fd6e326e267cd4fa91d27ae6f6ac9ae"
+SRCREV = "a9f28dbfd00636c0f8117251107313eef8352444"
 
 BRANCH = "mtk-v6.6"
 
