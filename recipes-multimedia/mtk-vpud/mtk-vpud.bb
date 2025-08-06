@@ -13,7 +13,7 @@ inherit systemd
 inherit update-rc.d
 
 SRC_URI = "${AIOT_RITY_URI}/vpud.git;protocol=https;branch=main"
-SRCREV = "b67fe2b4e4a0801cb7c2f02f391163e38587cc3d"
+SRCREV = "843ca1a7212396ca1b42820955ffd93f763836b8"
 
 SRC_URI += " \
 	file://vpud.service \
@@ -53,6 +53,10 @@ EXTRA_OEMAKE:append:mt8188 = ' \
 
 EXTRA_OEMAKE:append:mt8370 = ' \
 	VPUD_SOC=mt8188 \
+'
+
+EXTRA_OEMAKE:append:mt8391 = ' \
+	VPUD_SOC=mt8391 \
 '
 
 do_install() {
