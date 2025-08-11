@@ -1,0 +1,30 @@
+From fe05b2887efc01bbe261a80278211d9c4be19ab3 Mon Sep 17 00:00:00 2001
+From: "ht.lin" <ht.lin@mediatek.com>
+Date: Fri, 9 May 2025 14:21:06 +0800
+Subject: [PATCH 3/3] GENIO: mmc: host: workaround before spm is ready
+
+It is the workaround to enable sd/sdio before spm is ready.
+
+Change-Id: Id0786c81ad678db7aff2ef6a57e40c5e542387f3
+Signed-off-by: ht.lin <ht.lin@mediatek.com>
+---
+ drivers/mmc/host/mtk-sd.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/mmc/host/mtk-sd.c b/drivers/mmc/host/mtk-sd.c
+index c7099d0469d7..4fe1c94575a1 100644
+--- a/drivers/mmc/host/mtk-sd.c
++++ b/drivers/mmc/host/mtk-sd.c
+@@ -1973,6 +1973,9 @@ static void msdc_init_hw(struct msdc_host *host)
+ 		sdr_set_bits(host->base + SDC_ADV_CFG0, SDC_DAT1_IRQ_TRIGGER);
+ 	}
+ 
++	/* workaround before spm is ready */
++	sdr_set_bits(host->base + SDC_STS, 0x1 << 30);
++
+ 	/* Configure to default data timeout */
+ 	sdr_set_field(host->base + SDC_CFG, SDC_CFG_DTOC, 3);
+ 
+-- 
+2.45.2
+

@@ -1,0 +1,52 @@
+From 0386be109fbf2af029c14f7253926ec2e784b465 Mon Sep 17 00:00:00 2001
+From: "ht.lin" <ht.lin@mediatek.com>
+Date: Fri, 9 May 2025 14:01:36 +0800
+Subject: [PATCH 1/3] GENIO: arm64: dts: mt8189: add mmc1 node
+
+Add mmc1 node for sd.
+
+Change-Id: Iee43a3481f2484b90e619f078d03ca360d4ff0d3
+Signed-off-by: ht.lin <ht.lin@mediatek.com>
+---
+ arch/arm64/boot/dts/mediatek/mt8189.dtsi | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/mediatek/mt8189.dtsi b/arch/arm64/boot/dts/mediatek/mt8189.dtsi
+index 5910070e1332..21202e94ea2c 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8189.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8189.dtsi
+@@ -34,6 +34,8 @@ aliases {
+ 		i2c8 = &i2c8;
+ 		gce0 = &gce0;
+ 		gce1 = &gce1;
++		mmc0 = &mmc0;
++		mmc1 = &mmc1;
+ 		ovl0 = &disp_ovl0_4l;
+ 		ovl1 = &disp_ovl1_4l;
+ 		rdma0 = &disp_rdma0;
+@@ -698,6 +700,22 @@ mmc0: mmc@11230000 {
+ 			status = "disabled";
+ 		};
+ 
++		mmc1: mmc@11240000 {
++			compatible = "mediatek,mt8196-mmc";
++			reg = <0 0x11240000 0 0x1000>,
++			      <0 0x11d80000 0 0x1000>;
++			interrupts = <GIC_SPI 388 IRQ_TYPE_LEVEL_HIGH 0>;
++			clocks = <&topckgen_clk CLK_TOP_MSDC30_1_SEL>,
++				<&topckgen_clk CLK_TOP_MSDC30_1_HCLK_SEL>,
++				<&pericfg_ao_clk CLK_PERAO_MSDC1>,
++				<&pericfg_ao_clk CLK_PERAO_MSDC1_H>,
++				<&pericfg_ao_clk CLK_PERAO_MSDC1_SLV_H>,
++				<&pericfg_ao_clk CLK_PERAO_MSDC1_MST_F>;
++			clock-names = "source", "bus_clk", "source_cg", "hclk",
++					"pclk_cg", "axi_cg";
++			status = "disabled";
++		};
++
+ 		nor_flash: spi@11018000 {
+ 			compatible = "mediatek,mt8186-nor",
+ 						"mediatek,mt8189-nor";
+-- 
+2.45.2
+

@@ -12,3 +12,9 @@ SRCREV = "4cc1bc80d8ac3128ec03b2a18086a90465e933fd"
 SRC_URI:append = " \
 	file://0001-GENIO-drivers-Strip-path-components.patch \
 "
+
+SRC_URI:append:mt8391 = " \
+	file://0002-G720-GENIO-arm64-dts-mt8189-add-mmc1-node.patch \
+	file://0003-G720-GENIO-arm64-dts-mt8391-genio-720-evk-add-mmc1-node.patch \
+	file://0004-G720-GENIO-mmc-host-workaround-before-spm-is-ready.patch \
+"
