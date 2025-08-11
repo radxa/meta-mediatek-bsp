@@ -1,10 +1,26 @@
 ## Warning
-The keys stored in this directory are intended for development and testing
-purposes only and must not be used in production environments. Using these
-keys for mass production can introduce significant security vulnerabilities.
+These Example Keys provided in this directory are intended solely for the
+Recipient's internal reference only. These Example Keys must NOT be used in
+production environments or for any other commercial purpose. Using these
+keys for mass production or commercial deployments may compromise application
+security or even introduce significant security vulnerabilities and risks.
 
 ## Test Keys Replacement Required
-Please be aware that all keys within this directory serve as templates or
-examples only. It is imperative that you replace them with your own secure
-keys before deploying any application to a production environment. Failure
-to do so may compromise the security of your application.
+All provided Example Keys within this directory merely serve as illustrative
+examples only for the Recipient's internal reference. The Recipient shall
+generate its own secure keys before deploying any application to a production
+environment or any commercial context. Recipient's failure to replace these
+keys with secure, production-grade keys may compromise the security of its
+application and shall be at its own risk.
+
+### Provider's Disclaimer
+THE MATERIAL (INLCUDING BUT NOT LIMITED TO THESE EXMAPLE KEYS) IS PROVIDED
+"AS IS" WITHOUT ANY WARRANTY, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+OR NON-INFRINGEMENT. In no event shall the Provider be liable for any direct,
+indirect, incidental, special, or consequential damages arising out of the
+use or inability to use these Example Keys, even if the Provider has been
+advised of the possibility of such damages. By using these materials, the
+Recipient acknowledges and accepts these restrictions and assumes all risk
+for any unauthorized use. All rights not expressly granted herein remain
+with the Provider.
