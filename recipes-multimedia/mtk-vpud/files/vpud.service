@@ -1,5 +1,7 @@
 [Unit]
 Description=MediaTek VPUD daemon
+After=dev-vcu.device
+BindsTo=dev-vcu.device
 
 [Service]
 ExecStart=/usr/bin/vpud
