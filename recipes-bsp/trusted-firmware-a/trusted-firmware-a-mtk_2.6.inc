@@ -5,6 +5,7 @@ SRCREV_tfa = "b0941378379170d8957f358fdeb7adea846a769a"
 
 SRC_URI:append:mt8370 = " file://0001-tf-a-auth-add-support-for-HW-crypto.patch "
 SRC_URI:append:mt8390 = " file://0001-tf-a-auth-add-support-for-HW-crypto.patch "
+SRC_URI:append:mt8391 = " file://0001-tf-a-auth-add-support-for-HW-crypto.patch "
 SRC_URI:append:mt8395 = " file://0001-tf-a-auth-add-support-for-HW-crypto.patch "
 SRC_URI += "file://0002-feat-build-add-support-for-new-binutils-versions.patch"
 SRC_URI += "file://rot_key.pem"
