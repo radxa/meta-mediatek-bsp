@@ -6,6 +6,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=16de935ebcebe2420535844d4f6faefc"
 
 inherit module
 
+RDEPENDS:${PN} = "mtk-vcu-udev-rules"
+
 SRC_URI = "${AIOT_BSP_URI}/mtk-vcu-driver.git;protocol=https;branch=${BRANCH} \
 "
 
