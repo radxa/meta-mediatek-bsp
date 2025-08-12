@@ -195,6 +195,7 @@ SRC_URI:append:genio-720-evk = " \
 	file://camera-ag190h-max96724-csi0-std.dts \
 	file://camera-ag190h-max96724-csi1-std.dts \
 	file://camera-ag190h-max96724-dual-std.dts \
+	file://camera-it6625-csi1-std.dts \
 	file://spi-test.dts \
 	file://display-edp-4k.dts \
 	file://display-edp-fhd.dts \

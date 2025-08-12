@@ -1,0 +1,93 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ *
+ */
+
+#include <dt-bindings/clock/mediatek,mt8189-clk.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/mt8189-pinfunc.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/phy/phy.h>
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@1 {
+		target-path = "/";
+		__overlay__ {
+			cam_vcam_3v3_en: cam-vcam-3v3-en-regulator {
+				compatible = "regulator-fixed";
+				regulator-name = "cam_vcam_3v3_en";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				enable-active-high;
+				vin-supply = <&mt6359_vcamio_ldo_reg>;
+				regulator-always-on;
+				regulator-boot-on;
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&pio>;
+		__overlay__ {
+			cam1_default_pins_int: cam1@2 {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO103__FUNC_GPIO103>;
+				};
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&i2c8>;
+		__overlay__ {
+			clock-frequency = <400000>;
+
+			it6625@59 {
+				compatible = "ite,it6625";
+				reg = <0x59>;
+				interrupts = <&pio 103 IRQ_TYPE_LEVEL_LOW>; /* GPIO 103, low active */
+				ite,dsi-lanes = <2>;
+				ite,dsi-channel = <1>;
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&cam1_default_pins_int>;
+
+				port {
+					sensor1_out: endpoint {
+						remote-endpoint = <&seninf_csi_port_1_in>;
+						data-lanes = <1 2 3 4>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&seninf_csi_port_1>;
+		__overlay__ {
+			status = "okay";
+			ports {
+				port@0 {
+					seninf_csi_port_1_in: endpoint {
+						data-lanes = <1 2 3 4>;
+						remote-endpoint = <&sensor1_out>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <&mipi_csi1>;
+		__overlay__ {
+			status = "okay";
+			phy-type = <PHY_TYPE_CPHY>;
+			num-lanes = <3>;
+			csi-port = "1";
+		};
+	};
+};
