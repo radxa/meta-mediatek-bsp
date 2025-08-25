@@ -5,7 +5,7 @@ require recipes-security/optee/optee-os.inc
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRCREV = "35bcddd3d61f27b786e569846195286298f28d92"
+SRCREV = "ab5d0acf9447cb6b8ffc49917867c61265589ac1"
 SRC_URI = "${AIOT_BSP_URI}/optee-os.git;protocol=https;branch=mtk-v3.19"
 
 SRC_URI += " \
