@@ -1,0 +1,292 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/*
+ * Copyright (c) 2025 MediaTek Inc.
+ * Author: Chungying Lu <chungying.lu@mediatek.com>
+ */
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/mediatek,mt8189-clk.h>
+#include <dt-bindings/power/mediatek,mt8189-power.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/memory/mediatek,mt8189-memory-port.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/phy/phy.h>
+#include <dt-bindings/reset/ti-syscon.h>
+#include <dt-bindings/thermal/thermal.h>
+
+/ {
+	compatible = "mediatek,mt8189";
+
+	fragment@0 {
+		target-path = "/soc";
+		__overlay__ {
+			apusys-apummu {
+				#address-cells = <2>;
+				#size-cells = <2>;
+				compatible = "mediatek,rv-apummu-mt8189";
+				iommus = <&apu_iommu M4U_L0_APU_CODE>;
+			};
+
+			mdla {
+				#address-cells = <2>;
+				#size-cells = <2>;
+				compatible = "mediatek, mdla-rv";
+				core-num = <1>;
+				version = <0x81890505>;
+				iommus = <&apu_iommu M4U_L0_APU_CODE>;
+			};
+
+			mtk_apu_mem_code: mtk-apu-mem-code {
+				#address-cells = <2>;
+				#size-cells = <2>;
+				compatible = "mediatek, apu_mem_code";
+				status = "okay";
+				type = <1>;
+				mask = /bits/ 64 <0x00000003ffffffff>;
+				iommus = <&apu_iommu M4U_L0_APU_CODE>;
+			};
+
+			mtk_apu_mem_data: mtk-apu-mem-data {
+				#address-cells = <2>;
+				#size-cells = <2>;
+				compatible = "mediatek, apu_mem_data";
+				status = "okay";
+				type = <2>;
+				mask = /bits/ 64 <0x00000003ffffffff>;
+				iommus = <&apu_iommu M4U_L0_APU_DATA>;
+			};
+
+			apusys_rv: apusys-rv@190e1000 {
+				#address-cells = <2>;
+				#size-cells = <2>;
+
+				compatible = "mediatek,mt8189-apusys_rv";
+				memory-region = <&apu_mem>;
+				status = "okay";
+
+				reg = <0 0x190e1000 0 0x1000>,
+					  <0 0x19001000 0 0x1000>,
+					  <0 0x19002000 0 0x10>,
+					  <0 0x1903c000 0 0x8000>,
+					  <0 0x19050000 0 0x10000>,
+					  <0 0x190f2000 0 0x1000>,
+					  <0 0x1d000000 0 0x20000>,
+					  <0 0x0d2a0000 0 0x10000>;
+
+				reg-names = "apu_mbox",
+							"md32_sysctrl",
+							"apu_wdt",
+							"apu_sctrl_reviser",
+							"md32_cache_dump",
+							"apu_ao_ctl",
+							"md32_tcm",
+							"md32_debug_apb";
+
+				mediatek,apusys-power = <&apu_top_3>;
+                                firmware-name = "mediatek/mt8391/apusys.sig.img";
+
+				apu-iommu0 = <&apu_iommu>;
+				iommus = <&apu_iommu M4U_L0_APU_CODE>;
+
+				interrupts = <GIC_SPI 566 IRQ_TYPE_LEVEL_HIGH 0>,
+					<GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH 0>,
+					<GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH 0>,
+					<GIC_SPI 596 IRQ_TYPE_LEVEL_HIGH 0>;
+
+				interrupt-names = "apu_wdt",
+								  "mbox0_irq",
+								  "mbox1_irq",
+								  "ce_exp_irq";
+
+				up-code-buf-sz = <0x100000>;
+				up-coredump-buf-sz = <0x160000>;
+				ce-coredump-buf-sz = <0x010000>;
+				regdump-buf-sz = <0x10000>;
+				mdla-coredump-buf-sz = <0x0>;
+				mvpu-coredump-buf-sz = <0x0>;
+				mvpu-sec-coredump-buf-sz = <0x0>;
+
+				apu-ctrl {
+					compatible = "mediatek,apu-ctrl-rpmsg";
+					mtk,rpmsg-name = "apu-ctrl-rpmsg";
+				};
+				apu-top-rpmsg {
+					compatible = "mediatek,aputop-rpmsg";
+					mtk,rpmsg-name = "apu_top_3_rpmsg";
+				};
+				apu-mdw-rpmsg {
+					compatible = "mediatek,apu-mdw-rpmsg-v5";
+					mtk,rpmsg-name = "apu-mdw-rpmsg";
+					version = <5>;
+				};
+				apu-apummu {
+					compatible = "mediatek,apu-apummu-rpmsg";
+					mtk,rpmsg-name = "apu-apummu-rpmsg";
+				};
+				apu-apummu-rx {
+					compatible = "mediatek,apu-apummu-rx";
+					mtk,rpmsg-name = "apu-apummu-rx";
+				};
+				apu-edma {
+					compatible = "mediatek,apu-edma-rpmsg";
+					mtk,rpmsg-name = "apu-edma-rpmsg";
+				};
+				edma-rx {
+					compatible = "mediatek,edma-rx-rpmsg";
+					mtk,rpmsg-name = "edma-rx-rpmsg";
+				};
+				apu-mnoc {
+					compatible = "mediatek,apu-mnoc-rpmsg";
+					mtk,rpmsg-name = "apu-mnoc-rpmsg";
+				};
+				mdla-tx-rpmsg {
+					compatible = "mediatek,mdla-tx-rpmsg";
+					mtk,rpmsg-name = "mdla-tx-rpmsg";
+				};
+				mdla-rx-rpmsg {
+					compatible = "mediatek,mdla-rx-rpmsg";
+					mtk,rpmsg-name = "mdla-rx-rpmsg";
+				};
+				aps-tx-rpmsg {
+					compatible = "mediatek,aps-tx-rpmsg";
+					mtk,rpmsg-name = "aps-tx-rpmsg";
+				};
+				aps-rx-rpmsg {
+					compatible = "mediatek,aps-rx-rpmsg";
+					mtk,rpmsg-name = "aps-rx-rpmsg";
+				};
+				sapu-lock-rpmsg {
+					compatible = "mediatek,apu-lock-rv-rpmsg";
+					mtk,rpmsg-name = "apu-lock-rv-rpmsg";
+				};
+				apu-ipi-ut-rpmsg {
+					compatible = "mediatek,apu-ipi-ut-rpmsg";
+					mtk,rpmsg-name = "apu-ipi-ut-rpmsg";
+				};
+			};
+
+			apusys_hw_logger: apusys-hw-logger@19024000 {
+				#address-cells = <2>;
+				#size-cells = <2>;
+
+				compatible = "mediatek,apusys_hw_logger";
+
+				status = "okay";
+
+				reg = <0 0x19024000 0 0x1000>,
+					  <0 0x190e1000 0 0x1000>;
+
+				reg-names = "apu_logtop",
+							"apu_mbox";
+
+				interrupts = <GIC_SPI 575 IRQ_TYPE_LEVEL_HIGH 0>;
+				interrupt-names = "apu_logtop";
+				iommus = <&apu_iommu M4U_L0_APU_CODE>;
+
+				enable-interrupt = <0x1>;
+				access-rcx-in-atf = <0x0>;
+				interrupt-lbc-sz = <0x80000>;
+			};
+
+			apu_opp_table: apu-opp-table {
+				compatible = "operating-points-v2";
+				opp-0 {
+					opp-hz = /bits/ 64 <1200000000>;
+					opp-microvolt = <900000>;
+				};
+				opp-1 {
+					opp-hz = /bits/ 64 <1100000000>;
+					opp-microvolt = <850000>;
+				};
+				opp-2 {
+					opp-hz = /bits/ 64 <1000000000>;
+					opp-microvolt = <800000>;
+				};
+				opp-3 {
+					opp-hz = /bits/ 64 <900000000>;
+					opp-microvolt = <750000>;
+				};
+				opp-4 {
+					opp-hz = /bits/ 64 <755000000>;
+					opp-microvolt = <700000>;
+				};
+				opp-5 {
+					opp-hz = /bits/ 64 <615000000>;
+					opp-microvolt = <650000>;
+				};
+				opp-6 {
+					opp-hz = /bits/ 64 <500000000>;
+					opp-microvolt = <600000>;
+				};
+				opp-7 {
+					opp-hz = /bits/ 64 <300000000>;
+					opp-microvolt = <550000>;
+				};
+			};
+
+			mdla_devfreq: mdla-devfreq {
+				compatible = "mediatek,mt8189-mdla-devfreq";
+				#cooling-cells = <2>;
+				dynamic-power-coefficient = <1855>;
+				status = "okay";
+			};
+
+			apu_top_3: apu-top-3@1c000000 {
+				compatible = "mt8189,apu_top_3";
+				operating-points-v2 = <&apu_opp_table>;
+				apusys,thermal-zones = "apu";
+
+				clocks = <&apmixedsys_clk CLK_APMIXED_APUPLL>,
+					 <&apmixedsys_clk CLK_APMIXED_APUPLL2>;
+				clock-names = "clk_apupll_apupll",
+					      "clk_apupll_apupll2";
+				reg = <0 0x1c000000 0 0x1000>,		// sys_vlp
+					<0 0x1c001000 0 0x1000>,	// sys_spm
+					<0 0x1000c000 0 0x1000>,	// sys_apmixedsys
+					<0 0x19020000 0 0x1000>,	// apu_rcx
+					<0 0x19040000 0 0x1000>,	// dummy acx for rcx_dal
+					<0 0x190a0000 0 0x11000>,	// apu_are
+					<0 0x190e0000 0 0x4000>,	// apu_vcore
+					<0 0x190e1000 0 0x2000>,	// apu_md32_mbox
+					<0 0x190f0000 0 0x1000>,	// apu_rpc
+					<0 0x190f1000 0 0x1000>,	// apu_pcu
+					<0 0x190f2000 0 0x1000>,	// apu_ao_ctl
+					<0 0x190f3000 0 0x3000>,	// apu_acc
+					<0 0x190f7400 0 0x500>,		// rpc for rcx_dla
+					<0 0x190f7c00 0 0x100>;		// apu_toppmu
+				reg-names =
+					"sys_vlp",
+					"sys_spm",
+					"sys_apmixedsys",
+					"apu_rcx",
+					"apu_rcx_dla",
+					"apu_are",
+					"apu_vcore",
+					"apu_md32_mbox",
+					"apu_rpc",
+					"apu_pcu",
+					"apu_ao_ctl",
+					"apu_acc",
+					"apu_rpctop_mdla",
+					"apu_toppmu";
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&apu_iommu>;
+		__overlay__ {
+			mediatek,apu_power = <&apusys_rv>;
+		};
+	};
+
+	fragment@3 {
+		target = <&apu_mem>;
+		__overlay__ {
+			no-map;
+		};
+	};
+
+};
