@@ -13,7 +13,10 @@ do_image_aiotflash[depends] += "rity-tools:do_deploy \
                                 virtual/bootloader:do_deploy \
                                 trusted-firmware-a:do_deploy \
                                 virtual/lk:do_deploy \
-                                jq-native:do_populate_sysroot"
+                                jq-native:do_populate_sysroot \
+                                ${@bb.utils.contains('MACHINE_FEATURES', 'nor-boot', 'firmware-part:do_deploy', '', d)} \
+"
+
 DEPENDS += "dtc-native"
 
 check_bl31_size () {
