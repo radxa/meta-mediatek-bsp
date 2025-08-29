@@ -12,3 +12,9 @@ SRCREV = "687da79bf4452906e92b12a068135665e7738d10"
 SRC_URI:append = " \
 	file://0001-GENIO-drivers-Strip-path-components.patch \
 "
+
+SRC_URI:append:mt8391 = " \
+	file://0001-GENIO-drm-mediatek-Add-DVO-and-eDP-driver-for-MT8391.patch \
+	file://0002-GENIO-phy-mediatek-Add-eDP-phy-driver-for-MT8391.patch \
+	file://0003-GENIO-arm64-dts-mt8391-Add-DVO-and-eDP-nodes.patch \
+"
