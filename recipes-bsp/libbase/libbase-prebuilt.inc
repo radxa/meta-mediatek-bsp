@@ -11,3 +11,10 @@ S = "${WORKDIR}/git"
 
 SRC_URI = "${AIOT_BSP_URI}/libbase-prebuilt.git;protocol=https;branch=main"
 SRCREV = "52a3aab16d0f7c0c9ec817acf87b1e973965b7de"
+
+python() {
+    plat = d.getVar('SOC_FAMILY', True)
+    if plat == 'mt8367':
+        plat = 'mt8391'
+    d.setVar('SOC_FAMILY', plat)
+}
