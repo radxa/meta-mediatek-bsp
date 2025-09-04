@@ -14,6 +14,8 @@ FILESEXTRAPATHS:prepend:genio-1200-evk:= "${THISDIR}/v6/genio-1200-evk:"
 FILESEXTRAPATHS:prepend:mt8395:= "${THISDIR}/v6/mt8395:"
 FILESEXTRAPATHS:prepend:genio-720-evk := "${THISDIR}/v6/genio-720-evk:"
 FILESEXTRAPATHS:prepend:mt8391 := "${THISDIR}/v6/mt8391:"
+FILESEXTRAPATHS:prepend:genio-460-evk := "${THISDIR}/v6/genio-460-evk:"
+FILESEXTRAPATHS:prepend:mt8367 := "${THISDIR}/v6/mt8367:"
 
 do_compile[depends] += "virtual/kernel:do_shared_workdir"
 KERNEL_INCLUDE:append = " \
@@ -189,6 +191,9 @@ SRC_URI:append:genio-720-evk = " \
 	file://spi-test.dts \
 	file://display-edp-4k.dts \
 	file://display-edp-fhd.dts \
+"
+
+SRC_URI:append:genio-460-evk = " \
 "
 
 DT_FILES_PATH = "${WORKDIR}"
