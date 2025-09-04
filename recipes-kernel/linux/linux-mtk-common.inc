@@ -76,12 +76,6 @@ SRC_URI = "${AIOT_BSP_URI}/linux.git;protocol=https;branch=${SRCBRANCH}"
 PKGV = "${LINUX_VERSION}+git"
 PV = "${LINUX_VERSION}"
 
-uboot_prep_kimage() {
-	linux_comp="gzip"
-	cp arch/arm64/boot/Image.gz linux.bin
-	echo ${linux_com}
-}
-
 do_bundle_initramfs:prepend() {
 	if [ x"${@bb.utils.contains("DISTRO_FEATURES", "security", "1", "0", d)}" = x1 -a x"${INITRAMFS_IMAGE_BUNDLE}" = x1 ]; then
 		echo "CONFIG_INITRAMFS_SOURCE=\"${B}/usr/${INITRAMFS_IMAGE_NAME}.cpio\" CONFIG_INITRAMFS_COMPRESSION_GZIP=y" >> ${B}/.config
