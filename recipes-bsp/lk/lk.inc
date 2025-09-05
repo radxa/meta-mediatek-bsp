@@ -4,6 +4,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 DEPENDS:append = "${@oe.utils.conditional('DA_SIGN_ENABLE', '1', ' openssl-native mtk-secure-boot-config', '', d)}"
 SIGN_ARGS ?= "sha256"
+SIGN_ARGS:mt8391 = "sha384"
 SIGN_ARGS:mt8390 = "sha384"
 SIGN_ARGS:mt8370 = "sha384"
 
