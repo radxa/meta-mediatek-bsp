@@ -14,6 +14,7 @@ FWUPDATE_TFA_ARGS = " \
 "
 
 SIGN_EN_ARGS:mt8395 = "-s 0"
+SIGN_EN_ARGS:mt8391 = "-s 1"
 SIGN_EN_ARGS:mt8390 = "-s 1"
 SIGN_EN_ARGS:mt8370 = "-s 1"
 SIGN_EN_ARGS:mt8365 = "-s 0"
