@@ -21,7 +21,7 @@
 		target-path = "/soc";
 		__overlay__ {
 			vcu: vcu@18000000 {
-				compatible = "mediatek-vcu";
+				compatible = "mediatek,mt8395-vcu";
 				mediatek,vcuid = <0>;
 				mediatek,vcuname = "vcu";
 				mediatek,vcu-off  = <0>;
