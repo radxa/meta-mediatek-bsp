@@ -1,0 +1,152 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/pinctrl/mt8189-pinfunc.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&edp_tx>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&edp_pin>;
+			status = "okay";
+
+			aux-bus {
+				edp_panel: panel {
+					compatible = "auo,g156han03";
+					power-supply = <&edp_panel_fixed_3v3>;
+					backlight = <&backlight_lcd1>;
+					width-mm = <350>;
+					height-mm = <216>;
+					status = "okay";
+
+					port {
+						panel_in: endpoint {
+							remote-endpoint = <&edp_out>;
+						};
+					};
+				};
+			};
+
+			ports {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				port@0 {
+					reg = <0>;
+					edp_in: endpoint {
+						remote-endpoint = <&disp_dvo0_out>;
+					};
+				};
+
+				port@1 {
+					reg = <1>;
+					edp_out: endpoint {
+						remote-endpoint = <&panel_in>;
+						data-lanes = <0 1 2 3>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&disp_dvo0>;
+		__overlay__ {
+			status = "okay";
+			ports {
+				port {
+					disp_dvo0_out: endpoint {
+						remote-endpoint = <&edp_in>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&backlight_lcd1>;
+		__overlay__ {
+			default-on;
+			power-supply = <&edp_panel_fixed_12v>;
+			enable-gpios = <&pio 108 GPIO_ACTIVE_HIGH>;
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&disp_pwm1>;
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&disp_pwm1_pin_default>;
+		};
+	};
+
+	fragment@4 {
+		target = <&pio>;
+		__overlay__ {
+			edp_pin: edp-pin-default {
+				pins-cmd-dat {
+					pinmux = <PINMUX_GPIO28__FUNC_EDP_TX_HPD>;
+					bias-pull-up;
+				};
+			};
+
+			disp_pwm1_pin_default: disp-pwm1-pin-default {
+				pins1 {
+					pinmux = <PINMUX_GPIO30__FUNC_DISP_PWM1>;
+				};
+			};
+
+			edp_panel_12v_en_pins: edp-panel-12v-en-pins {
+				pins1 {
+					pinmux = <PINMUX_GPIO110__FUNC_GPIO110>;
+					output-high;
+				};
+			};
+
+			edp_panel_3v3_en_pins: edp-panel-3v3-en-pins {
+				pins1 {
+					pinmux = <PINMUX_GPIO109__FUNC_GPIO109>;
+					output-high;
+				};
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <&edp_panel_fixed_3v3>;
+		__overlay__ {
+			status = "okay";
+			gpio = <&pio 109 GPIO_ACTIVE_HIGH>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&edp_panel_3v3_en_pins>;
+		};
+	};
+
+	fragment@6 {
+		target = <&edp_panel_fixed_12v>;
+		__overlay__ {
+			status = "okay";
+			gpio = <&pio 110 GPIO_ACTIVE_HIGH>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&edp_panel_12v_en_pins>;
+		};
+	};
+
+	fragment@7 {
+		target = <&aud_gpio_i2sout0_off>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@8 {
+		target = <&aud_gpio_i2sout0_on>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};

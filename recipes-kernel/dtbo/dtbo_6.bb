@@ -187,6 +187,8 @@ SRC_URI:append:genio-720-evk = " \
 	file://camera-ov5640-dual-std.dts \
 	file://camera-imx258-csi0-ov5640-csi1-std.dts \
 	file://spi-test.dts \
+	file://display-edp-4k.dts \
+	file://display-edp-fhd.dts \
 "
 
 DT_FILES_PATH = "${WORKDIR}"
