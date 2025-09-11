@@ -1,0 +1,38 @@
+From dfde037d7dd5bda3863c9e8a72830a861257ea92 Mon Sep 17 00:00:00 2001
+From: Tommy Chen <tommyyl.chen@mediatek.com>
+Date: Fri, 19 May 2023 14:43:00 +0800
+Subject: [PATCH] GENIO: drm/mediatek: enable renderD for mediatek-drm
+
+enable renderD for mediatek-drm by adding DRIVER_RENDER flag to
+mtk_drm_driver .driver_features
+
+CR-Id: AUTO00212560
+Signed-off-by: Tommy Chen <tommyyl.chen@mediatek.com>
+(cherry picked from commit 34e49b130460d5b11a498940f65a2526cf5b1cf0)
+
+Port to mtk-v6.6 to fix `Failed to open drm render node
+/dev/dri/renderD128` error when running `weston-simple-dmabuf-egl`.
+
+CR-Id: AUTO00359396
+Change-Id: Id67b93e20e19b0c608384fbf7f867ff1cedd02ff
+Signed-off-by: Pablo Sun <pablo.sun@mediatek.com>
+---
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index a10c8ff3c876..37144114607a 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -672,7 +672,7 @@ static struct drm_gem_object *mtk_drm_gem_prime_import(struct drm_device *dev,
+ }
+ 
+ static const struct drm_driver mtk_drm_driver = {
+-	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
++	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC | DRIVER_RENDER,
+ 
+ 	.dumb_create = mtk_drm_gem_dumb_create,
+ 
+-- 
+2.45.2
+
