@@ -1,7 +1,8 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += " \
-	file://0001-kmssink-Add-mediatek-auto-detection.patch \
+    file://0001-kmssink-Add-mediatek-auto-detection.patch \
+    file://0002-gst-launch-accept-option-to-set-program-name.patch \
 "
 
 PACKAGECONFIG:append = " kms gtk3"

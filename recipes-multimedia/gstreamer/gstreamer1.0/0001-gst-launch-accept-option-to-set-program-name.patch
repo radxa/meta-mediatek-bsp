@@ -1,0 +1,50 @@
+From 45b65238daf468686949abc42721cb11d8da4672 Mon Sep 17 00:00:00 2001
+From: Scott Moreau <oreaus@gmail.com>
+Date: Wed, 10 Sep 2025 18:18:38 +0800
+Subject: [PATCH] gst-launch: accept option to set program name
+
+The option --prog-name="PROGRAM-NAME" can be passed to set the program name.
+The program name is used by gtk and gstreamer to set the class or app-id.
+
+Part-of: <https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5263>
+Upstream-Status: Backport
+Signed-off-by: Pablo Sun <pablo.sun@mediatek.com>
+---
+ tools/gst-launch.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/tools/gst-launch.c b/tools/gst-launch.c
+index fafde8528577..c27d5da5390b 100644
+--- a/tools/gst-launch.c
++++ b/tools/gst-launch.c
+@@ -80,6 +80,7 @@ static gboolean toc = FALSE;
+ static gboolean messages = FALSE;
+ static gboolean eos_on_shutdown = FALSE;
+ static gchar **exclude_args = NULL;
++static gchar *prog_name = NULL;
+ 
+ /* pipeline status */
+ static gboolean is_live = FALSE;
+@@ -1102,6 +1103,9 @@ real_main (int argc, char *argv[])
+           N_("Do not output status information for the specified property "
+               "if verbose output is enabled (can be used multiple times)"),
+         N_("PROPERTY-NAME")},
++    {"prog-name", 'p', 0, G_OPTION_ARG_STRING, &prog_name,
++          N_("Set the name of the program"),
++        N_("PROGRAM-NAME")},
+     {"no-fault", 'f', 0, G_OPTION_ARG_NONE, &no_fault,
+         N_("Do not install a fault handler"), NULL},
+     {"eos-on-shutdown", 'e', 0, G_OPTION_ARG_NONE, &eos_on_shutdown,
+@@ -1178,6 +1182,12 @@ real_main (int argc, char *argv[])
+   gst_init (&argc, &argv);
+ #endif
+ 
++  if (prog_name) {
++    g_set_prgname (prog_name);
++  } else if (!g_get_prgname ()) {
++    g_set_prgname ((const gchar *) argv[0]);
++  }
++
+ #ifdef G_OS_WIN32
+   argc = g_strv_length (argv);
+ #endif

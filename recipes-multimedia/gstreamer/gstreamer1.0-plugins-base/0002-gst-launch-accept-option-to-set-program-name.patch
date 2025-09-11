@@ -1,0 +1,31 @@
+From b27a97345b732cd2f48c9b42e14e9159a3770e12 Mon Sep 17 00:00:00 2001
+From: Scott Moreau <oreaus@gmail.com>
+Date: Wed, 10 Sep 2025 18:19:14 +0800
+Subject: [PATCH] gst-launch: accept option to set program name
+
+The option --prog-name="PROGRAM-NAME" can be passed to set the program name.
+The program name is used by gtk and gstreamer to set the class or app-id.
+
+Part-of: <https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5263>
+Upstream-Status: Backport
+Signed-off-by: Pablo Sun <pablo.sun@mediatek.com>
+---
+ gst-libs/gst/gl/wayland/gstglwindow_wayland_egl.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/gst-libs/gst/gl/wayland/gstglwindow_wayland_egl.c b/gst-libs/gst/gl/wayland/gstglwindow_wayland_egl.c
+index 440b6354b360..d7af2e74379f 100644
+--- a/gst-libs/gst/gl/wayland/gstglwindow_wayland_egl.c
++++ b/gst-libs/gst/gl/wayland/gstglwindow_wayland_egl.c
+@@ -305,6 +305,11 @@ create_xdg_surface_and_toplevel (GstGLWindowWaylandEGL * window_egl)
+ 
+   /* Then the XDG top-level */
+   xdg_toplevel = xdg_surface_get_toplevel (xdg_surface);
++  if (g_get_prgname ()) {
++    xdg_toplevel_set_app_id (xdg_toplevel, g_get_prgname ());
++  } else {
++    xdg_toplevel_set_app_id (xdg_toplevel, "org.gstreamer.wayland");
++  }
+   xdg_toplevel_set_title (xdg_toplevel, "OpenGL Renderer");
+   xdg_toplevel_add_listener (xdg_toplevel, &xdg_toplevel_listener, window_egl);
+ 
