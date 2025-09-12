@@ -21,7 +21,7 @@
 		target-path = "/soc";
 		__overlay__ {
 			cam_vcu: vcu@2 {
-				compatible = "mediatek-vcu";
+				compatible = "mediatek,mt8395-vcu";
 				mediatek,vcuid = <2>;
 				mediatek,vcuname = "vcu2";
 				iommus = <&iommu_vdo M4U_PORT_L19_VENC_RD_COMV>;
