@@ -1,0 +1,24 @@
+DESCRIPTION = "Maxim Serializer & Deserializer out-of-tree kernel driver"
+LICENSE = "GPL-2.0-only"
+LIC_FILES_CHKSUM = "file://COPYING;md5=16de935ebcebe2420535844d4f6faefc"
+
+inherit module
+
+SRCREV = "37a4676c130c793dd24e5e5c177e533cf9991017"
+
+BRANCH = "mtk-v6.6"
+
+SRC_URI += "${AIOT_3RDPARTY_URI}/linux-drivers.git;protocol=https;branch=${BRANCH} \
+"
+
+S = "${WORKDIR}/git"
+
+MODULE_SUBDIR = "drivers/media/i2c/maxim-serdes"
+
+MODULES_MODULE_SYMVERS_LOCATION = "${MODULE_SUBDIR}"
+EXTRA_OEMAKE += "KERNEL_MODULE_SUBDIR=${S}/${MODULE_SUBDIR}"
+
+# The inherit of module.bbclass will automatically name module packages with
+# "kernel-module-" prefix as required by the oe-core build environment.
+
+RPROVIDES:${PN} += "kernel-module-maxim-serdes-driver"
