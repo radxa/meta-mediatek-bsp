@@ -65,6 +65,18 @@ do_deploy() {
 			FWUPDATE_TFA_ID="d5b2cad8-7517-4146-b6ed-aacd73841eab"
 		fi
 
+		if [ "${@oe.utils.conditional("MACHINE", "genio-720-evk", "1", "", d)}" = "1" ]; then
+			FWUPDATE_TFA_ID="9ec54f9f-077a-4688-bdbb-b0c9d6594778"
+		fi
+
+		if [ "${@oe.utils.conditional("MACHINE", "genio-720-evk-ufs", "1", "", d)}" = "1" ]; then
+			FWUPDATE_TFA_ID="b89f1a70-400d-4b49-829f-9083a147c1fd"
+		fi
+
+		if [ "${@oe.utils.conditional("MACHINE", "genio-720-evk-norboot-ufs", "1", "", d)}" = "1" ]; then
+			FWUPDATE_TFA_ID="e6a5f66c-4bec-41d1-be27-350da2d1ae6b"
+		fi
+
 		if [ "${@oe.utils.conditional("MACHINE", "genio-700-evk", "1", "", d)}" = "1" ]; then
 			FWUPDATE_TFA_ID="a2c34f52-9452-4f6b-83db-fde21853e2a5"
 		fi

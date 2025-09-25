@@ -131,6 +131,18 @@ do_deploy:append:bl31() {
 			FWUPDATE_FIP_ID="7d037ec6-31a0-47e5-9877-c53312e8aec5"
 		fi
 
+		if [ "${@oe.utils.conditional("MACHINE", "genio-720-evk", "1", "", d)}" = "1" ]; then
+			FWUPDATE_FIP_ID="3dcbf27f-9e63-49fc-9374-5a624721ad88"
+		fi
+
+		if [ "${@oe.utils.conditional("MACHINE", "genio-720-evk-ufs", "1", "", d)}" = "1" ]; then
+			FWUPDATE_FIP_ID="b873ea46-345f-46ec-ac13-ef442cca1ffe"
+		fi
+
+		if [ "${@oe.utils.conditional("MACHINE", "genio-720-evk-norboot-ufs", "1", "", d)}" = "1" ]; then
+			FWUPDATE_FIP_ID="a6f74c75-d3ad-40a6-b295-ec8dda8fdc51"
+		fi
+
 		if [ "${@oe.utils.conditional("MACHINE", "genio-700-evk", "1", "", d)}" = "1" ]; then
 			FWUPDATE_FIP_ID="551cc92d-9a22-4dc8-8872-db1bb8dcafa0"
 		fi
