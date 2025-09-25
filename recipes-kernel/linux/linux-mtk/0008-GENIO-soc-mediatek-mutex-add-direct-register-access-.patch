@@ -1,0 +1,40 @@
+From e7f5d551aa3455fe9a6740f1c170ea86fa631b76 Mon Sep 17 00:00:00 2001
+From: Moudy Ho <moudy.ho@mediatek.com>
+Date: Fri, 12 Sep 2025 09:53:33 +0800
+Subject: [PATCH 8/9] GENIO: soc: mediatek: mutex: add direct register access
+ for CMDQ enable MUTEX
+
+Since MT8189 does not support CMDQ subsys, implement direct register write
+when enabling MUTEX via CMDQ.
+
+Change-Id: Ib9897a17fb125651f21eaa84288fc08d619efa8f
+Signed-off-by: Moudy Ho <moudy.ho@mediatek.com>
+---
+ drivers/soc/mediatek/mtk-mutex.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/soc/mediatek/mtk-mutex.c b/drivers/soc/mediatek/mtk-mutex.c
+index adc018e7adf2..b4dbf7dd7bc8 100644
+--- a/drivers/soc/mediatek/mtk-mutex.c
++++ b/drivers/soc/mediatek/mtk-mutex.c
+@@ -1337,8 +1337,16 @@ int mtk_mutex_enable_by_cmdq(struct mtk_mutex *mutex, void *pkt)
+ 
+ 	WARN_ON(&mtx->mutex[mutex->id] != mutex);
+ 
++	if (mtx->cmdq_reg.subsys == CMDQ_SUBSYS_INVALID) {
++		cmdq_pkt_write_value_addr(cmdq_pkt,
++					  mtx->cmdq_reg.pa_base +
++					  DISP_REG_MUTEX_EN(mutex->id),
++					  1, U32_MAX);
++		return 0;
++	}
++
+ 	if (!mtx->cmdq_reg.size) {
+-		dev_err(mtx->dev, "mediatek,gce-client-reg hasn't been set");
++		dev_dbg(mtx->dev, "mediatek,gce-client-reg hasn't been set");
+ 		return -ENODEV;
+ 	}
+ 
+-- 
+2.45.2
+

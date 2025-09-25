@@ -1,0 +1,28 @@
+From 8704d2a89123e85584f1c56632426fe2f5430059 Mon Sep 17 00:00:00 2001
+From: Moudy Ho <moudy.ho@mediatek.com>
+Date: Fri, 12 Sep 2025 10:31:01 +0800
+Subject: [PATCH 3/9] GENIO: dt-bindings: soc: mediatek: mt8189: add MDP MUTEX
+
+Add compatible for MT8189 MDP MUTEX.
+
+Change-Id: Ib83a4b8ad0f6604beb60a3dd40555061c6787fcd
+Signed-off-by: Moudy Ho <moudy.ho@mediatek.com>
+---
+ .../devicetree/bindings/soc/mediatek/mediatek,mutex.yaml         | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+index 0d871de7c91d..5a0b97618454 100644
+--- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
++++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+@@ -35,6 +35,7 @@ properties:
+       - mediatek,mt8188-disp-mutex
+       - mediatek,mt8188-vpp-mutex
+       - mediatek,mt8189-disp-mutex
++      - mediatek,mt8189-mdp-mutex
+       - mediatek,mt8192-disp-mutex
+       - mediatek,mt8195-disp-mutex
+       - mediatek,mt8195-vpp-mutex
+-- 
+2.45.2
+
