@@ -198,6 +198,7 @@ SRC_URI:append:genio-720-evk = " \
 	file://spi-test.dts \
 	file://display-edp-4k.dts \
 	file://display-edp-fhd.dts \
+	file://display-dp.dts \
 "
 
 SRC_URI:append:genio-460-evk = " \
