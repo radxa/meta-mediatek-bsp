@@ -37,10 +37,6 @@ IMAGE_BOOT_FILES = " \
 	${@bb.utils.contains('KERNEL_IMAGETYPE', 'fitImage', '', get_devicetree_basename("${KERNEL_DEVICETREE}"), d)} \
 "
 
-IMAGE_FSTYPES ?= "wic.img aiotflash.tar"
-IMAGE_ROOTFS_ALIGNMENT = "4"
-IMAGE_CLASSES += "image_type_img image_type_aiotflash"
-
 SERIAL_CONSOLES = "921600;ttyS0"
 
 WKS_FILE ?= "mediatek-bootimg.wks"
@@ -97,9 +93,6 @@ FIT_SIGN_NUMBITS ?= "3072"
 FIT_SIGN_ALG ?= "rsa3072"
 UBOOT_FIT_SIGN_NUMBITS ?= "3072"
 UBOOT_FIT_SIGN_ALG ?= "rsa3072"
-
-IMAGE_CLASSES:append = "${@oe.utils.conditional('SECURE_ZIP_ENABLE', '1', ' image_type_secure_package', '', d)}"
-IMAGE_FSTYPES:append = "${@oe.utils.conditional('SECURE_ZIP_ENABLE', '1', ' secure.zip', '', d)}"
 
 # Set this to enable rootfs security for verity image
 DM_VERITY_IMAGE ?= "${IMAGE_BASENAME}"
