@@ -1,0 +1,51 @@
+From 606046875f4460d6b875462668a2b6e5a8a90776 Mon Sep 17 00:00:00 2001
+From: Moudy Ho <moudy.ho@mediatek.com>
+Date: Thu, 2 Oct 2025 10:07:50 +0800
+Subject: [PATCH] GENIO: media: platform: mtk-mdp3: fix race condition on CMDQ
+ send
+
+This patch adds proper protection to ensure that resources are not
+prematurely freed and prevents potential NULL pointer access in
+dual pipe scenarios.
+
+Change-Id: Ie3cda10ad694998de2ccf6c8c28fbf0a88da0f4b
+Signed-off-by: Moudy Ho <moudy.ho@mediatek.com>
+---
+ .../media/platform/mediatek/mdp3/mdp_alg_core.c    | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/platform/mediatek/mdp3/mdp_alg_core.c b/drivers/media/platform/mediatek/mdp3/mdp_alg_core.c
+index 13fa5cfe3d0c..8997b2d97547 100644
+--- a/drivers/media/platform/mediatek/mdp3/mdp_alg_core.c
++++ b/drivers/media/platform/mediatek/mdp3/mdp_alg_core.c
+@@ -285,11 +285,6 @@ static void cmdq_release_work(struct mdp_alg_cmdq *cmd)
+ 	config_mutex_mod_ctrl(task, cmd->pipe_idx, true);
+ 	config_path_clk_ctrl(task, cmd->pipe_idx, true);
+ 
+-	c = atomic_read(&mdp->job_count[MDP_CMDQ_USER_ALG]);
+-	if (!((c - 1) % cmd->pipe_num))
+-		mdp_m2m_process_done(cmd->ctx, vb_state);
+-	atomic_dec(&mdp->job_count[MDP_CMDQ_USER_ALG]);
+-
+ 	kfree(cmd->comps);
+ 	cmd->comps = NULL;
+ 
+@@ -302,8 +297,13 @@ static void cmdq_release_work(struct mdp_alg_cmdq *cmd)
+ 	kfree(task->cfg.tile[path->path_id]);
+ 	task->cfg.tile[path->path_id] = NULL;
+ 
+-	kfree(task);
+-	task = NULL;
++	c = atomic_read(&mdp->job_count[MDP_CMDQ_USER_ALG]);
++	if (!((c - 1) % cmd->pipe_num)) {
++		mdp_m2m_process_done(cmd->ctx, vb_state);
++		kfree(task);
++		task = NULL;
++	}
++	atomic_dec(&mdp->job_count[MDP_CMDQ_USER_ALG]);
+ 
+ 	kfree(cmd);
+ 	cmd = NULL;
+-- 
+2.45.2
+

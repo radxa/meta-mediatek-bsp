@@ -19,4 +19,5 @@ SRC_URI:append = " \
 	file://0007-GENIO-soc-mediatek-mutex-add-support-for-MT8189-MDP.patch \
 	file://0008-GENIO-soc-mediatek-mutex-add-direct-register-access-.patch \
 	file://0009-GENIO-media-platform-mtk-mdp3-migrate-MDP3-algorithm.patch \
+	file://0010-GENIO-media-platform-mtk-mdp3-fix-race-condition-on-.patch \
 "
