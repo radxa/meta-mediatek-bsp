@@ -19,6 +19,7 @@ SRC_URI += " \
     file://0001-Revert-cmd-pxe_utils-Check-fdtcontroladdr-in-label_b.patch \
     file://fw_env-mmc-system.config.in \
     file://fw_env-ufs-system.config.in \
+    file://fw_env-nor-boot.config.in \
 "
 
 python do_parse_env_size () {
@@ -42,10 +43,16 @@ python do_parse_env_size () {
 
     # Different boot devices template require separate fw_env.config settings
     features = d.getVar('MACHINE_FEATURES', True)
-    if features and 'ufs-system' in features:
-        fw_env_template = 'fw_env-ufs-system.config.in'
-    else:
+    if not features:
         fw_env_template = 'fw_env-mmc-system.config.in'
+    else:
+        if 'nor-boot' in features:
+            fw_env_template = 'fw_env-nor-boot.config.in'
+        elif 'ufs-boot' in features:
+            fw_env_template = 'fw_env-ufs-system.config.in'
+        else:
+            fw_env_template = 'fw_env-mmc-system.config.in'
+
     bb.note(f"fw_env.cfg template: {fw_env_template}")
 
     # Now open template file and update {%UBOOT_ENV_SIZE%}
