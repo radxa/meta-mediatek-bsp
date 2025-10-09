@@ -3,7 +3,7 @@
 require mtk-vcu-driver-common.inc
 
 # MT8189: co-branch with mt8391
-SRCREV = "c0610329d3317207e67c2cb0b1e6b6dd693618fd"
+SRCREV = "95292e0f7455b48a8c4d184ad20afc1acd640bf3"
 BRANCH = "mtk-v6.6-mt8391"
 
 DEPENDS += "kernel-module-mtk-vcodec-driver-mt8391"
