@@ -1,0 +1,35 @@
+From 6e38e6095c284154474dbb15e0d12459e3bf8e90 Mon Sep 17 00:00:00 2001
+From: "Andy.Hsieh" <andy.hsieh@mediatek.com>
+Date: Wed, 8 Oct 2025 13:57:41 +0800
+Subject: [PATCH 6/6] =?UTF-8?q?pipeline:=20simple:=20Add=20=E2=80=9Cmtk-md?=
+ =?UTF-8?q?p3=E2=80=9D=20converter=20to=20mtk-seninf=20camera=20device?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Add the pipeline "mtk-seninf => mtk-mdp3" to the supported devices list
+for the platforms that have mtk-seninf camera device and mtk-mdp3
+convertor.
+
+Change-Id: Iee72134d864f9bd1ebed2775eb29f6e0e4e79c64
+Signed-off-by: Andy.Hsieh <andy.hsieh@mediatek.com>
+---
+ src/libcamera/pipeline/simple/simple.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/libcamera/pipeline/simple/simple.cpp b/src/libcamera/pipeline/simple/simple.cpp
+index e63c0554..2e9fd41a 100644
+--- a/src/libcamera/pipeline/simple/simple.cpp
++++ b/src/libcamera/pipeline/simple/simple.cpp
+@@ -200,7 +200,7 @@ static const SimplePipelineInfo supportedDevices[] = {
+ 	{ "dcmipp", {}, false },
+ 	{ "imx7-csi", { { "pxp", 1 } }, false },
+ 	{ "j721e-csi2rx", {}, false },
+-	{ "mtk-seninf", { { "mtk-mdp", 3 } }, false },
++	{ "mtk-seninf", { { "mtk-mdp", 3 }, { "mtk-mdp3", 3 } }, false },
+ 	{ "mtk-cam", { { "mtk-mdp3", 3} }, false },
+ 	{ "mxc-isi", {}, false },
+ 	{ "qcom-camss", {}, true },
+-- 
+2.45.2
+
