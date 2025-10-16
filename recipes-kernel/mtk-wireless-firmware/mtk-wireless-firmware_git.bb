@@ -39,10 +39,6 @@ PROVIDES = "mt7663-tk-wifi-fw mt7668-tk-wifi-fw"
 PACKAGES =+ "mt76xx-tk-wifi-fw mt7663-tk-wifi-fw mt7668-tk-wifi-fw"
 ALLOW_EMPTY:${PN} = "1"
 
-FILES:mt76xx-tk-wifi-fw = " \
-	${nonarch_base_libdir}/firmware/wifi.cfg \
-"
-
 RDEPENDS:mt7663-tk-wifi-fw += "mt76xx-tk-wifi-fw"
 RDEPENDS:mt7668-tk-wifi-fw += "mt76xx-tk-wifi-fw"
 
