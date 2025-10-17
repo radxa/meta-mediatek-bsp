@@ -116,6 +116,9 @@
 					<&vdec_core_clk CLK_VDEC_CORE_VDEC_CKEN>;
 				clock-names =
 					"CORE_MT_CG_VDEC0";
+				assigned-clocks = <&topckgen_clk CLK_TOP_VDEC_SEL>;
+				assigned-clock-parents = <&topckgen_clk CLK_TOP_UNIVPLL_D4>;
+				assigned-clock-rates = <624000000>;
 			};
 
 			venc@17020000 {
@@ -146,6 +149,9 @@
 				clocks = <&venc_gcon_clk CLK_VEN1_CKE1_VENC>;
 				clock-names =
 					"MT_CG_VENC0";
+				assigned-clocks = <&topckgen_clk CLK_TOP_VENC_SEL>;
+				assigned-clock-parents = <&topckgen_clk CLK_TOP_UNIVPLL_D4>;
+				assigned-clock-rates = <624000000>;
 				port-arg-num = <3>;
 				port-def =<0 M4U_L7_P0_VENC_RCPU 0>,
 					<0 M4U_L7_P1_VENC_REC 0>,
@@ -163,6 +169,15 @@
 					<0 M4U_L7_P13_VENC_REF_CHROMA 0>,
 					<0 M4U_L7_P14_VENC_SUB_R_LUMA 0>;
 			};
+		};
+	};
+
+	fragment@1 {
+		target = <&mt6359_vcore_buck_reg>;
+		__overlay__ {
+			regulator-min-microvolt = <800000>;
+			regulator-max-microvolt = <800000>;
+			regulator-always-on;
 		};
 	};
 };
