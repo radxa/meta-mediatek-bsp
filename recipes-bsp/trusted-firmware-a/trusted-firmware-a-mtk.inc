@@ -26,9 +26,17 @@ EXTRA_OEMAKE += "NEED_BL33=yes"
 EXTRA_OEMAKE += "LIBDRAM=${STAGING_DIR_TARGET}/${libdir}/libdram.a"
 EXTRA_OEMAKE += "LIBBASE=${STAGING_DIR_TARGET}/${libdir}/libbase.a"
 
+TFA_NOR_SETTINGS = ""
+TFA_NOR_SETTINGS:nor-boot = " \
+	BL2_STORAGE_NOR_START_ADDR=${TFA_NOR_FIP_ADDR} \
+	BL2_STORAGE_NOR_LENGTH=${TFA_NOR_FIP_LENGTH} \
+	BL2_STORAGE_NOR_BOOTCTRL=${TFA_NOR_MISC_ADDR} \
+	BL2_STORAGE_NOR_DRAMK=${TFA_NOR_DRAMK_ADDR} \
+"
+
 EXTRA_OEMAKE:append = " \
 	${@bb.utils.contains("MACHINE_FEATURES", "ufs-boot", "STORAGE_UFS=1", "", d)} \
-	${@bb.utils.contains("MACHINE_FEATURES", "nor-boot", "STORAGE_NOR=1", "", d)} \
+	${@bb.utils.contains("MACHINE_FEATURES", "nor-boot", "STORAGE_NOR=1 ${TFA_NOR_SETTINGS}", "", d)} \
 	${@bb.utils.contains("AB_FWUPDATE_ENABLE", "1", "PLAT_AB_BOOT_ENABLE=1", "", d)} \
 "
 EXTRA_OEMAKE:append:mt8370 = " PLAT_HW_CRYPTO=1"
