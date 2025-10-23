@@ -8,3 +8,5 @@ S = "${WORKDIR}/git"
 BUILD = "${S}/${LK_BOARD_NAME}"
 
 require lk.inc
+
+do_buildclean[noexec] = "1"
