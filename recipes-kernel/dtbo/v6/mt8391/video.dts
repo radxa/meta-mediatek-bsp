@@ -171,13 +171,4 @@
 			};
 		};
 	};
-
-	fragment@1 {
-		target = <&mt6359_vcore_buck_reg>;
-		__overlay__ {
-			regulator-min-microvolt = <800000>;
-			regulator-max-microvolt = <800000>;
-			regulator-always-on;
-		};
-	};
 };
