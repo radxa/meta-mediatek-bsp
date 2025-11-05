@@ -10,7 +10,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 S = "${WORKDIR}/git"
 
 SRC_URI = "${AIOT_BSP_URI}/libbase-prebuilt.git;protocol=https;branch=main"
-SRCREV = "52a3aab16d0f7c0c9ec817acf87b1e973965b7de"
+SRCREV = "73ee4c1e69d171fb2cd77cd727a09c6ce5138c13"
 
 python() {
     plat = d.getVar('SOC_FAMILY', True)
