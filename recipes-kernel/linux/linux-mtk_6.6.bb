@@ -11,5 +11,4 @@ SRCREV = "d03a085df57480afea9506d3c6e8ffdfa1a33eb8"
 
 SRC_URI:append = " \
 	file://0001-GENIO-drivers-Strip-path-components.patch \
-	${@bb.utils.contains_any('GPU_DRIVER', 'mali-gpu-driver', 'file://0002-GENIO-drm-mediatek-enable-renderD-for-mediatek-drm.patch', '', d)} \
 "
