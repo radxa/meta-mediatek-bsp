@@ -67,6 +67,12 @@ FILES:${PN}-mt8365-sof = " \
 	${nonarch_base_libdir}/firmware/mediatek/sof-tplg/sof-mt8365.tplg \
 "
 
+FILES:${PN}-mt7925 = " \
+	${nonarch_base_libdir}/firmware/mediatek/mt7925/BT_RAM_CODE_MT7925_1_1_hdr.bin \
+	${nonarch_base_libdir}/firmware/mediatek/mt7925/WIFI_MT7925_PATCH_MCU_1_1_hdr.bin \
+	${nonarch_base_libdir}/firmware/mediatek/mt7925/WIFI_RAM_CODE_MT7925_1_1.bin \
+"
+
 PACKAGES =+ "${PN}-mt8183-scp"
 PACKAGES =+ "${PN}-mt8195-scp"
 PACKAGES =+ "${PN}-mt8188-scp"
@@ -76,3 +82,4 @@ PACKAGES =+ "${PN}-mt7961"
 PACKAGES =+ "${PN}-mt8188-sof"
 PACKAGES =+ "${PN}-mt8195-sof"
 PACKAGES =+ "${PN}-mt8365-sof"
+PACKAGES =+ "${PN}-mt7925"
