@@ -9,7 +9,7 @@ COMPATIBLE_MACHINE = "mt8395|mt8390|mt8370|mt8391"
 BRANCH = "android13"
 BRANCH:mt8391 = "android15"
 
-SRCREV = "ac60502e20f07b5f6b4b2e4f9d6f8aa5f932766e"
+SRCREV = "57ccb1aead8331d5807bcbdc951b544edba4e7d8"
 SRCREV:mt8391 = "d2ebafae76d20f7b51f36e1ceab008a5a559b0e3"
 
 SRC_URI += "git://gitlab.com/mediatek/aiot/bsp/mtk-apusys-driver.git;protocol=https;branch=${BRANCH} \
