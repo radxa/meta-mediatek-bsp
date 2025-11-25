@@ -45,8 +45,6 @@
 	fragment@4 {
 		target = <&seninf_csi_port_0>;
 		__overlay__ {
-			settle_delay_ck = <0x20>;
-			dphy_settle_delay_dt = <0x20>;
 			status = "okay";
 			ports {
 				port@0 {
@@ -64,6 +62,8 @@
 		__overlay__ {
 			status = "okay";
 			num-lanes = <4>;
+			settle_delay_ck = <0x20>;
+			dphy_settle_delay_dt = <0x20>;
 		};
 	};
 
