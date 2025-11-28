@@ -1,0 +1,82 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/pwm/pwm.h>
+
+/ {
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			panel@0 {
+				compatible = "koe,tx18d204vm0baa";
+				reg = <0>;
+				blen-gpios = <&pio 13 0>;
+				pp3300-supply = <&dsi0_pp3300>;
+				pinctrl-names = "default";
+				status = "okay";
+				backlight = <&backlight_lcd0>;
+				port {
+					lvds_panel_in: endpoint {
+						remote-endpoint = <&lvds_out>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&disp_dvo2>;
+		__overlay__ {
+			status = "okay";
+			ports {
+				port {
+					lvds_dvo_out: endpoint {
+						remote-endpoint = <&lvds_in>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&lvds_tx>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&lvds>;
+		__overlay__ {
+			status = "okay";
+			ports {
+				port@0 {
+					reg = <0>;
+					lvds_in: endpoint {
+						remote-endpoint = <&lvds_dvo_out>;
+					};
+				};
+				port@1 {
+					reg = <1>;
+					lvds_out: endpoint {
+						remote-endpoint = <&lvds_panel_in>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&backlight_lcd0>;
+		__overlay__ {
+			pwms = <&disp_pwm0 0 500000 PWM_POLARITY_INVERTED>;
+		};
+	};
+
+	fragment@5 {
+		target = <&disp_pwm0>;
+		__overlay__ {
+			#pwm-cells = <3>;
+		};
+	};
+};
