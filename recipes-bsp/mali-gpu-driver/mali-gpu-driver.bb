@@ -7,7 +7,7 @@ inherit module
 
 RDEPENDS:${PN} = "mali-gpu-udev-rules"
 
-SRCREV = "a9f28dbfd00636c0f8117251107313eef8352444"
+SRCREV = "1b33ed8e4c01968e08720be145a21b41b3309c01"
 
 BRANCH = "mtk-v6.6"
 
