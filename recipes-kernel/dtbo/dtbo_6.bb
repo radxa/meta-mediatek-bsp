@@ -36,7 +36,6 @@ SRC_URI:append:mt8391 = " \
 SRC_URI:append:mt8390 = " \
 	file://video.dts \
 	file://apusys.dts \
-	file://spi-test.dts \
 "
 
 SRC_URI:append:mt8370 = " \
@@ -134,6 +133,7 @@ SRC_URI:append:genio-700-evk = " \
 	file://display-hdmi.dts \
 	file://display-dp.dts \
 	file://audio-sof.dts \
+	file://spi-test.dts \
 "
 
 SRC_URI:append:genio-1200-evk = " \
