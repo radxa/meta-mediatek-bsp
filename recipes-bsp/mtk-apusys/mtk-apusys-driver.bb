@@ -10,7 +10,7 @@ BRANCH = "android13"
 BRANCH:mt8391 = "android15"
 
 SRCREV = "57ccb1aead8331d5807bcbdc951b544edba4e7d8"
-SRCREV:mt8391 = "d2ebafae76d20f7b51f36e1ceab008a5a559b0e3"
+SRCREV:mt8391 = "945deed32d52cca7903c25e864ac0c703c968028"
 
 SRC_URI += "git://gitlab.com/mediatek/aiot/bsp/mtk-apusys-driver.git;protocol=https;branch=${BRANCH} \
 "
