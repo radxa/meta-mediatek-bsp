@@ -208,7 +208,7 @@ state.mt8391evk {
 	control.19 {
 		iface MIXER
 		name 'UL0_CH1 AP_DMIC_UL_CH1'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -308,7 +308,7 @@ state.mt8391evk {
 	control.29 {
 		iface MIXER
 		name 'UL0_CH2 AP_DMIC_UL_CH2'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -378,7 +378,7 @@ state.mt8391evk {
 	control.36 {
 		iface MIXER
 		name 'UL1_CH1 I2SIN0_CH1'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -448,7 +448,7 @@ state.mt8391evk {
 	control.43 {
 		iface MIXER
 		name 'UL1_CH2 I2SIN0_CH2'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -498,7 +498,7 @@ state.mt8391evk {
 	control.48 {
 		iface MIXER
 		name 'UL2_CH1 ADDA_UL_CH1'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -568,7 +568,7 @@ state.mt8391evk {
 	control.55 {
 		iface MIXER
 		name 'UL2_CH2 ADDA_UL_CH2'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -668,7 +668,7 @@ state.mt8391evk {
 	control.65 {
 		iface MIXER
 		name 'UL4_CH1 PCM_0_CAP_CH1'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -688,7 +688,7 @@ state.mt8391evk {
 	control.67 {
 		iface MIXER
 		name 'UL4_CH2 PCM_0_CAP_CH2'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -2252,7 +2252,7 @@ state.mt8391evk {
 	control.216 {
 		iface MIXER
 		name 'PCM_0_PB_CH1 DL2_CH1'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -2272,7 +2272,7 @@ state.mt8391evk {
 	control.218 {
 		iface MIXER
 		name 'PCM_0_PB_CH2 DL2_CH2'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -2322,7 +2322,7 @@ state.mt8391evk {
 	control.223 {
 		iface MIXER
 		name 'I2SOUT0_CH1 DL1_CH1'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -2422,7 +2422,7 @@ state.mt8391evk {
 	control.233 {
 		iface MIXER
 		name 'I2SOUT0_CH2 DL1_CH2'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -2992,7 +2992,7 @@ state.mt8391evk {
 	control.290 {
 		iface MIXER
 		name I2S_OUT0_Mux
-		value Normal
+		value Dummy_Widget
 		comment {
 			access 'read write'
 			type ENUMERATED
@@ -3028,7 +3028,7 @@ state.mt8391evk {
 	control.293 {
 		iface MIXER
 		name I2S_IN0_Mux
-		value Normal
+		value Dummy_Widget
 		comment {
 			access 'read write'
 			type ENUMERATED
@@ -3052,7 +3052,7 @@ state.mt8391evk {
 	control.295 {
 		iface MIXER
 		name 'ADDA_DL_CH1 DL0_CH1'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -3162,7 +3162,7 @@ state.mt8391evk {
 	control.306 {
 		iface MIXER
 		name 'ADDA_DL_CH2 DL0_CH2'
-		value false
+		value true
 		comment {
 			access 'read write'
 			type BOOLEAN
