@@ -15,6 +15,13 @@ SRC_URI += " \
 	file://sof-tplg/sof-mt8365.tplg \
 "
 
+# tmp：add tmp mt7921 daily linux firmware
+SRC_URI += " \
+	file://mt7921/WIFI_MT7961_patch_mcu_1_2_hdr.bin \
+	file://mt7921/WIFI_RAM_CODE_MT7961_1.bin \
+	file://mt7921/BT_RAM_CODE_MT7961_1_2_hdr.bin \
+"
+
 do_install:append() {
 	install -d ${D}/${nonarch_base_libdir}/firmware/mediatek/mt8195
 	install -d ${D}/${nonarch_base_libdir}/firmware/mediatek/mt8188
@@ -31,6 +38,11 @@ do_install:append() {
 	install -m 0644 ${WORKDIR}/sof/sof-mt8365.ri ${D}/${nonarch_base_libdir}/firmware/mediatek/sof
 	install -m 0644 ${WORKDIR}/sof/sof-mt8365.ldc ${D}/${nonarch_base_libdir}/firmware/mediatek/sof
 	install -m 0644 ${WORKDIR}/sof-tplg/sof-mt8365.tplg ${D}/${nonarch_base_libdir}/firmware/mediatek/sof-tplg
+	# tmp: Replace with files from the temporary directory MT7921
+	install -d ${D}/${nonarch_base_libdir}/firmware/mediatek/
+	install -m 0644 ${WORKDIR}/mt7921/WIFI_MT7961_patch_mcu_1_2_hdr.bin ${D}/${nonarch_base_libdir}/firmware/mediatek
+	install -m 0644 ${WORKDIR}/mt7921/WIFI_RAM_CODE_MT7961_1.bin ${D}/${nonarch_base_libdir}/firmware/mediatek
+	install -m 0644 ${WORKDIR}/mt7921/BT_RAM_CODE_MT7961_1_2_hdr.bin ${D}/${nonarch_base_libdir}/firmware/mediatek
 }
 
 # packages for image installation
