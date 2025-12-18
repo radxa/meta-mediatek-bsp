@@ -139,14 +139,30 @@
 	fragment@7 {
 		target = <&aud_gpio_i2sout0_off>;
 		__overlay__ {
-			status = "disabled";
+			pins-cmd2-dat {
+				pinmux = <>;
+			};
+			pins-cmd3-dat {
+				pinmux = <>;
+			};
+			pins-cmd4-dat {
+				pinmux = <>;
+			};
 		};
 	};
 
 	fragment@8 {
 		target = <&aud_gpio_i2sout0_on>;
 		__overlay__ {
-			status = "disabled";
+			pins-cmd2-dat {
+				pinmux = <>;
+			};
+			pins-cmd3-dat {
+				pinmux = <>;
+			};
+			pins-cmd4-dat {
+				pinmux = <>;
+			};
 		};
 	};
 };
